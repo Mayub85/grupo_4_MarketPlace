@@ -1,13 +1,13 @@
-## grupo_4_MarketPlace
+# grupo_4_MarketPlace
 Ecommerce for DH Venture Capitals 
 
 
-##Objetivos sprint 1:
+## Objetivos sprint 1:
 Durante este sprint, estaremos trabajando en definir la temática del sitio y luego produciendo un boceto gráfico que nos guiará durante todas las etapas del desarrollo.
 
 
 
-##Tareas pendientes:
+## Tareas pendientes:
 - Definir la temática del Market Place: 
 -- ¿Qué productos o servicios brindará nuestro sitio?  
 -- ¿Quién será nuestra audiencia objetivo?  

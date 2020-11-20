@@ -32,9 +32,9 @@ A modo de hobbie, he aprendido a hacer uso (no avanzado) de herramientas como Ph
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis velit egestas, egestas odio ac, viverra turpis. Donec sagittis odio iaculis commodo maximus. Etiam vitae nisi ligula. Duis nisi ante, interdum eget ante vitae, lacinia malesuada dui. Praesent mollis ex vel nisl cursus, nec viverra lectus cursus. Donec sit amet vulputate magna. Mauris interdum euismod egestas. Vestibulum sollicitudin euismod nibh at aliquam. Fusce ut mauris tincidunt enim dictum mollis sed in tellus.
 
 ## Sitios de referencia:
-https://www.donkeyclub.com.ar/
-https://www.hadriatica.com/
-https://www.electronicthings.com.ar/
-https://www.cdmarket.com.ar/
-https://www.mercadolibre.com.ar/
+- https://www.donkeyclub.com.ar/
+- https://www.hadriatica.com/
+- https://www.electronicthings.com.ar/
+- https://www.cdmarket.com.ar/
+- https://www.mercadolibre.com.ar/
 

@@ -1,0 +1,23 @@
+{
+  "name": "grupo_4_marketplace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mayub85/grupo_4_MarketPlace.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mayub85/grupo_4_MarketPlace/issues"
+  },
+  "homepage": "https://github.com/Mayub85/grupo_4_MarketPlace#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  }
+}

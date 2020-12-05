@@ -38,3 +38,5 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis velit egest
 - https://www.cdmarket.com.ar/
 - https://www.mercadolibre.com.ar/
 
+## Link del Trello del equipo
+- https://trello.com/b/eHx27SHr/grupo4

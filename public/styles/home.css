@@ -1,0 +1,269 @@
+main{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    position: relative;
+    top: 85px;
+}
+
+/*SLIDER*/
+.slider{
+    display: block; 
+    flex-wrap: wrap;
+    justify-items: center;
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+    border-bottom-style: solid;
+    border-bottom-color: #37aa37;
+}
+
+.slider .flexslider{
+    border-width: 0px;
+    margin: 0px auto;
+}
+
+.slider .flexslider .slides img{
+    height: 300px;
+}
+
+.flex-control-nav {
+    bottom: 0px;
+}
+
+/*Métodos de pago*/
+.paymentMethods{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    top: 2em;
+}
+
+.paymentMethods ul{
+    list-style-type: none;
+    background-color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    width: 76%;
+    justify-content: space-around;
+    padding: 0px;
+    margin: 0px;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
+.paymentMethods li{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1em 1em;
+    align-items: center;
+    font-size: 1em;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.paymentMethods i{
+    padding-right: 1em;
+    color: rgba(0,0,0,0.5);
+    font-size: 1.4em;
+}
+
+.paymentMethods li div{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction:column;
+}
+
+.payTitle {
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.payDesc {
+    font-size: 0.7em;
+    text-decoration: none;
+    color: inherit;
+}
+
+.payDesc:hover {
+    color: rgba(31, 30, 30, 0.4);
+}
+
+/*PRODUCTOS*/
+
+.products{
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: center;
+    position: relative;
+    margin: 0px auto;
+    width: 76%;
+    top: 3em;
+    font-family: 'Roboto', sans-serif;
+    height: 270px;
+}
+
+.productsSliderFWrapper{
+    display: flex;
+    flex: 1 0;
+    justify-content: center;
+}
+
+.productsSliderWrapper{
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+.productsSliderWrapper li{
+    /* margin: 2px; */
+}
+
+.productTitle{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.productTitle hr{
+    display: flex;
+    flex: 1.5;
+    margin: 0px;
+    padding: 0px;
+    height: 1px;
+    border: none;
+    border-top: solid;
+    border-width: 1px;
+}
+
+.productTitle h3{
+    display: flex;
+    flex: 1;
+    margin: 0px;
+    justify-content: center;
+}
+
+.productContainer{
+    height: 218px;
+    position: relative;
+    background-color: #fff;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    border-radius: 10px;
+}
+
+.productContainer:hover{
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+}
+
+.productFav{
+    position: absolute;
+}
+
+.productFav{
+    color:#53ff50;
+    top:8px;
+    left:8px;
+}
+
+.productFav i {
+    color:#53ff50;
+}
+
+.productFav i:hover {
+    color:red;
+}
+
+.productFav i:hover {
+    text-shadow: 0px 0px 4px rgba(150, 255, 150, 1);
+}
+
+.productLink{
+    text-decoration: none;
+    color: #000;
+}
+
+.productContainer .imgContainer{
+    text-align: center;
+}
+
+.productContainer img{
+    width: 62%;
+    height: 130px;
+    padding-top: 5px;
+}
+
+.productContainer .productDescription{
+    display:block;
+    text-align: center;
+    padding-left:5px;
+    font-size: 0.8em;
+}
+
+.productContainer .productPrice{
+    display:block;
+    text-align: left;
+    padding-top: 6px;
+    padding-left:5px;
+    font-weight: bolder;
+}
+
+.products .flex-direction-nav a {
+    opacity: 0.9;
+}
+
+.products .flex-direction-nav a:hover {
+    opacity: 0.3;
+}
+
+.whatsappChat {
+    position: fixed;
+    bottom: 100px;
+    right: 125px;
+    background-color: limegreen;
+    color: #fff;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    font-size: 40px;
+    z-index: 10;
+    box-shadow: 1px 1px 7px 0px rgba(0,0,0,0.5);
+    transition:  0.2s ease-in-out;
+}
+
+.whatsappChat:hover{
+    cursor: pointer;
+    width: 86px;
+    height: 86px;
+    bottom: 97px;
+    right: 122px;
+}
+
+/* breakpoint_1 */
+body:after { display: none; content: 'breakpoint_1'; }
+.productsflexslider { margin : 0 auto; }
+
+/* breakpoint_2 */
+@media all and (min-width: 525px) {
+    body:after { display: none; content: 'breakpoint_2'; }
+}
+
+/* breakpoint_3 */
+@media all and (min-width: 785px) {
+    body:after { display: none; content: 'breakpoint_3'; }
+  }
+
+/* breakpoint_4 */
+@media all and (min-width: 1225px) {
+  body:after { display: none; content: 'breakpoint_4'; }
+}
+/* breakpoint_5 */
+@media all and (min-width: 1600px) {
+  body:after { display: none; content: 'breakpoint_5'; }
+}

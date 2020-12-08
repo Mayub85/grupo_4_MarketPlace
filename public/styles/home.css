@@ -31,7 +31,7 @@ main{
     bottom: 0px;
 }
 
-/*Métodos de pago*/
+/*MÉTODOS DE PAGO*/
 .paymentMethods{
     display: flex;
     flex-wrap: wrap;
@@ -39,6 +39,7 @@ main{
     position: relative;
     width: 100%;
     top: 2em;
+    margin-bottom: 30px;
 }
 
 .paymentMethods ul{
@@ -100,7 +101,7 @@ main{
     position: relative;
     margin: 0px auto;
     width: 76%;
-    top: 3em;
+    margin-top: 30px;
     font-family: 'Roboto', sans-serif;
     height: 270px;
 }
@@ -117,15 +118,11 @@ main{
     position: relative;
 }
 
-.productsSliderWrapper li{
-    /* margin: 2px; */
-}
-
 .productTitle{
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .productTitle hr{
@@ -141,7 +138,6 @@ main{
 
 .productTitle h3{
     display: flex;
-    flex: 1;
     margin: 0px;
     justify-content: center;
 }
@@ -245,23 +241,48 @@ main{
     right: 122px;
 }
 
+
+
+/*MEDIA QUERYS*/
+@media(max-width: 769px){
+    main {
+        top: 69px; 
+    }
+    .whatsappChat {
+        right: 80px;
+    }
+    .whatsappChat:hover{
+        right: 77px;
+    }
+}
+
 /* breakpoint_1 */
-body:after { display: none; content: 'breakpoint_1'; }
-.productsflexslider { margin : 0 auto; }
+@media all and (max-width: 524px){
+    body:after { display: none; content: 'breakpoint_1'; }
+    .productsSliderWrapper { width: 70%; }
+    .productsflexslider { margin : 0 auto; }
+    .whatsappChat {
+        display: none;
+    }
+    .paymentMethods ul { width: 53%; }
+    .paymentMethods li { padding: 0.5em 0.5em; }
+    .paymentMethods i { padding-right: 5px; }
+}
 
 /* breakpoint_2 */
 @media all and (min-width: 525px) {
     body:after { display: none; content: 'breakpoint_2'; }
+    
 }
 
 /* breakpoint_3 */
 @media all and (min-width: 785px) {
     body:after { display: none; content: 'breakpoint_3'; }
-  }
+}
 
 /* breakpoint_4 */
 @media all and (min-width: 1225px) {
-  body:after { display: none; content: 'breakpoint_4'; }
+    body:after { display: none; content: 'breakpoint_4'; }
 }
 /* breakpoint_5 */
 @media all and (min-width: 1600px) {

@@ -30,6 +30,9 @@ header{
     background-color: #e0f3f3;
     color: darkolivegreen;
     font-size: small;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 600ms, visibility 600ms;
 }
 
 .dirTel{
@@ -106,7 +109,7 @@ header{
 /*MainHeader*/
 .mainHeader{
     display: flex;
-    flex: 1 0 100%;/*flex-grow flex-shrink flex-basis*/
+    flex: 1 0 100%;
     justify-content:space-around;
     height: 65px;
     background-color: #101F37;
@@ -116,7 +119,6 @@ header{
 
 .mainLeft{
     display: flex;
-    /*flex: 0.1 0;*/
     align-items:center;
     width: 140px;
 }
@@ -135,7 +137,7 @@ header{
 .sandwich{
     display: flex;
     flex: 0 1 20px;
-    font-size: 2.8em; /*40px;*/
+    font-size: 2.8em; 
     color: #e0f3f3;
 }
 
@@ -184,19 +186,18 @@ header{
     flex: 0.9;
 }
 
+.buscadorInput:focus { background-color:#fff; }
+
 .separador{
     display: flex;
     position: relative;
-    /* left: 1%; */
     align-self: center;
-    /* flex: 0.02; */
+    bottom: 1px;
 }
 
 .lupa{
     display: flex;
     position: relative;
-    /* flex: 0.08;
-    max-width: 20px; */
     border-radius: 15px;
     padding: 5px;
     align-self: center;
@@ -213,15 +214,8 @@ header{
     color: darkolivegreen;
 }
 
-/* .account{
-    flex: 0.12 0;
-    align-self: center;
-} */
-
-/* .account ul{ */
 .account {
     display: flex;
-    /* flex: 0.12 0; */
     align-self: center;
     flex-wrap: wrap;
     list-style-type: none;
@@ -255,7 +249,7 @@ header{
     width: 100%;
     left: 0;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 11;
 }
 
 .show {
@@ -297,6 +291,8 @@ header{
     font-weight: bold;
     padding-left: 20px;
 }
+
+.seeAllProducts{ display:none; }
 
 .rMenu {
     display: flex;
@@ -392,10 +388,11 @@ footer nav ul li a:hover{
     margin-top: 30px;
     border-radius: 15px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    margin-bottom: 20px;
 }
 
 .footerRight>div{
-    padding: 0px 8px;
+    padding: 10px 10px;
 }
 
 .footerRight h3{
@@ -422,10 +419,7 @@ footer nav ul li a:hover{
     font-size: xx-large;
 }
 
-.footerRight ul li a:hover{
-    color:gray;
-}
-
+.footerRight ul li a:hover{ color:gray; }
 
 .footerRight .newsletterContainer{
     background-color: #fff;
@@ -448,11 +442,10 @@ footer nav ul li a:hover{
     background-color: #fff;
     border: none;
     outline: none;
+    border-radius: 5px;
 }
 
-.footerRight .newsletterContainer button:hover{
-    color: #53ff50;
-}
+.footerRight .newsletterContainer button:hover{ color: #53ff50; }
 
 .footerRight span{
     display: block;
@@ -460,16 +453,38 @@ footer nav ul li a:hover{
     font-size: small;
 }
 
-
 @media(max-width: 750px){
-    .paymentMethods li{
-        flex: 1 1 100%;
-    }
+    .paymentMethods li{ flex: 1 1 100%; }
 }
 
 
 @media(max-width: 769px){
-    .socialHeader{
-        display: none;
+    .socialHeader { 
+        opacity: 0;
+        visibility: hidden;
+        height: 0px;
     }
+
+    .buscador{ display: none; }
+
+    .dropdown-content { top: 69px; }       
+    .mContainer{ padding-bottom: 20px; }
+    .lMenu{ display: none; }
+    .seeAllProducts{ 
+        display:flex; 
+        flex:1 0 100%; 
+        width: 100%;
+        text-decoration: none;
+        font-family: 'Roboto', sans-serif;
+        color:#101F37;
+        padding: 10px 20px;
+        font-weight: 500;
+    }
+    .seeAllProducts:hover{ 
+        color:darkolivegreen;
+    }
+
+    .footerRight{ height: 180px; }
+    .footerRight .newsletterContainer input { padding: 6px 0px 6px 8px; }
+
 }

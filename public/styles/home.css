@@ -123,6 +123,8 @@ main{
     flex-wrap: nowrap;
     align-items: center;
     margin-bottom: 20px;
+    color: #53ff50;
+    text-shadow: 1px 1px 1px rgba(0,0,0,1);
 }
 
 .productTitle hr{
@@ -134,6 +136,8 @@ main{
     border: none;
     border-top: solid;
     border-width: 1px;
+    color: #53ff50;
+    box-shadow: 1px 0.5px 1px rgba(0,0,0,1);
 }
 
 .productTitle h3{

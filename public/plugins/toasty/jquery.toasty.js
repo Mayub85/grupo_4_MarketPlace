@@ -12,7 +12,7 @@
  		//initialize including neccesary elements in DOM
  		init: function(){
  			//Add to dom needed elements
- 			$("body").append('<div id="toasty-guy-dan"><img src="'+ this.options.image +'" alt="toasty"></div>');
+ 			$("body").append('<div id="toasty-guy-dan" class="hidden"><img src="'+ this.options.image +'" alt="toasty"></div>');
 			$('#toasty-guy-dan').css('position', 'fixed');
 			$('#toasty-guy-dan').css('right', '-280px');
 			$('#toasty-guy-dan').css('bottom', '0px');
@@ -24,8 +24,11 @@
  		pop: function(){
  			var audio = document.getElementById('toasty-audio');
 			audio.play();
-			$("#toasty-guy-dan").addClass("show-dan");
-			setTimeout( function(){ $("#toasty-guy-dan").removeClass("show-dan"); }, 1000);
+			let dan = $("#toasty-guy-dan");
+			dan.removeClass("hidden");
+			dan.addClass("show-dan");
+			setTimeout( function(){ dan.removeClass("show-dan"); 
+			dan.addClass("hidden");}, 1000);
  		}
 
  	}

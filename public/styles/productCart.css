@@ -343,6 +343,8 @@ main{
     display: flex;
     margin: 0px;
     justify-content: center;
+    letter-spacing: 3px;
+    padding: 0 5px;
 }
 
 .productContainer{
@@ -422,7 +424,7 @@ main{
 /* breakpoint_1 */
 @media all and (max-width: 524px){
     body:after { display: none; content: 'breakpoint_1'; }
-    .productsSliderWrapper { width: 70%; }
+    .productsSliderWrapper { width: 100%; }
     .productsflexslider { margin : 0 auto; }
     .whatsappChat {
         display: none;

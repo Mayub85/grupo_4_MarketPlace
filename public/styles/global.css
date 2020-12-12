@@ -31,8 +31,9 @@ header{
     color: darkolivegreen;
     font-size: small;
     opacity: 1;
-    visibility: visible;
-    transition: opacity 600ms, visibility 600ms;
+    /* visibility: visible;
+    transition: opacity 600ms, visibility 600ms; */
+    height: 25px;
 }
 
 .dirTel{
@@ -334,7 +335,7 @@ footer{
     bottom: 0px;
     width: 100%;
     min-height: 250px;
-    background-color: dimgrey;
+    background-color: #333;
     margin-top: 170px;
     border-top: 2px #37aa37 solid;
 }
@@ -372,7 +373,8 @@ footer nav ul li a{
     text-decoration: none;
     font-family: 'Open Sans', sans-serif;
     font-size: 0.9em;
-    color: #000;
+    color: #fff;
+    text-shadow: 2px 2px 1px #002c52;
     font-weight: 600;
 }
 
@@ -398,6 +400,7 @@ footer nav ul li a:hover{
 
 .footerRight h3{
     color: #101F37;
+    font-weight: 900;
     font-size: medium;
     font-family: Arial, Helvetica, sans-serif;
     margin: 10px 0;
@@ -444,6 +447,7 @@ footer nav ul li a:hover{
     border: none;
     outline: none;
     border-radius: 5px;
+    padding: 0px;
 }
 
 .footerRight .newsletterContainer button:hover{ color: #53ff50; }
@@ -452,6 +456,8 @@ footer nav ul li a:hover{
     display: block;
     font-family: Arial, Helvetica, sans-serif;
     font-size: small;
+    color: #fff;
+    text-shadow: 1.2px 1.2px 1px #002c52;
 }
 
 @media(max-width: 750px){
@@ -460,10 +466,13 @@ footer nav ul li a:hover{
 
 
 @media(max-width: 769px){
-    .socialHeader { 
+    /* .socialHeader { 
         opacity: 0;
         visibility: hidden;
         height: 0px;
+    } */
+    .socialHeader .social {
+        display: none;
     }
 
     .buscador{ display: none; }
@@ -488,4 +497,8 @@ footer nav ul li a:hover{
     .footerRight{ height: 180px; }
     .footerRight .newsletterContainer input { padding: 6px 0px 6px 8px; }
 
+}
+
+@media(max-width: 381px){
+    .footerRight{ height: 195px; }
 }

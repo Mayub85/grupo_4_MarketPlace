@@ -6,6 +6,10 @@
 	z-index: 999;
 }
 
+.hidden{
+	display: none;
+}
+
 @-webkit-keyframes showToastyGuy 
 {
 	0% {right: -280px;}

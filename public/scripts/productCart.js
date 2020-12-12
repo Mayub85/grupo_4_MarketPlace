@@ -10,8 +10,16 @@ $(document).ready(()=>{
       });
       productsResize();
       
+    let img = $('.product img');
+    console.log(img);      
+    for (let i = 0; i < img.length; i++) {
+      const im = img[i].parent();
+      im.zoom({url: im.currentSrc});
+    }
+    // img.zoom({url: 'photo-big.jpg'});
+
     //FIX ancho del slider principal
-    setTimeout(()=>{fslider.resize();}, 200);
+    //setTimeout(()=>{fslider.resize();}, 200);
 });
 
 

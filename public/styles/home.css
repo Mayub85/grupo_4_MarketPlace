@@ -24,7 +24,7 @@ main{
 }
 
 .slider .flexslider .slides img{
-    height: 300px;
+    height: 500px;
 }
 
 .flex-control-nav {
@@ -144,6 +144,8 @@ main{
     display: flex;
     margin: 0px;
     justify-content: center;
+    letter-spacing: 3px;
+    padding: 0 5px;
 }
 
 .productContainer{
@@ -200,14 +202,18 @@ main{
     text-align: center;
     padding-left:5px;
     font-size: 0.8em;
+    max-height: 44px;
+    text-overflow: ellipsis;
+    overflow-y: hidden;
 }
 
 .productContainer .productPrice{
     display:block;
+    position: absolute;
     text-align: left;
-    padding-top: 6px;
     padding-left:5px;
     font-weight: bolder;
+    bottom: 5px;
 }
 
 .products .flex-direction-nav a {
@@ -220,13 +226,13 @@ main{
 
 .whatsappChat {
     position: fixed;
-    bottom: 100px;
-    right: 125px;
+    bottom: 20px;/*100px;*/
+    right: 30px;/*125px;*/
     background-color: limegreen;
     color: #fff;
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
+    width: 40px;
+    height: 40px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -241,8 +247,8 @@ main{
     cursor: pointer;
     width: 86px;
     height: 86px;
-    bottom: 97px;
-    right: 122px;
+    bottom: 17px;
+    right: 37px;
 }
 
 
@@ -252,23 +258,23 @@ main{
     main {
         top: 69px; 
     }
-    .whatsappChat {
+    /* .whatsappChat {
         right: 80px;
     }
     .whatsappChat:hover{
         right: 77px;
-    }
+    } */
 }
 
 /* breakpoint_1 */
 @media all and (max-width: 524px){
     body:after { display: none; content: 'breakpoint_1'; }
-    .productsSliderWrapper { width: 70%; }
+    .productsSliderWrapper { width: 100%; }/*{ width: 70%; } */
     .productsflexslider { margin : 0 auto; }
-    .whatsappChat {
-        display: none;
+    .slider .flexslider .slides img{
+        height: 300px;
     }
-    .paymentMethods ul { width: 53%; }
+    .paymentMethods ul { width: 76%; }
     .paymentMethods li { padding: 0.5em 0.5em; }
     .paymentMethods i { padding-right: 5px; }
 }
@@ -276,19 +282,31 @@ main{
 /* breakpoint_2 */
 @media all and (min-width: 525px) {
     body:after { display: none; content: 'breakpoint_2'; }
+    .slider .flexslider .slides img{
+        height: 300px;
+    }
     
 }
 
 /* breakpoint_3 */
 @media all and (min-width: 785px) {
     body:after { display: none; content: 'breakpoint_3'; }
+    .slider .flexslider .slides img{
+        height: 350px;
+    }
 }
 
 /* breakpoint_4 */
 @media all and (min-width: 1225px) {
     body:after { display: none; content: 'breakpoint_4'; }
+    .slider .flexslider .slides img{
+        height: 400px;
+    }
 }
 /* breakpoint_5 */
 @media all and (min-width: 1600px) {
   body:after { display: none; content: 'breakpoint_5'; }
+    .slider .flexslider .slides img{
+        height: 500px;
+    }
 }

@@ -58,7 +58,7 @@ function productsResize(){
                       animation: "slide",
                       animationLoop: false,
                       slideshow: false,
-                      itemWidth: 95,
+                      itemWidth: 190,//95,
                       itemMargin: 0,
                       minItems: 1,
                       maxItems: 1,

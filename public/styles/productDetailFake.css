@@ -63,8 +63,8 @@ main{
 }
 
 .product img {
-    height: 90px;
-    width: 90px;
+    height: 400px;
+    width: 300px;
     margin-left: 10px;
 }
 
@@ -536,4 +536,31 @@ main{
         align-self: center;
         width: 90%;
     }
+}
+
+
+
+/*ESTO ES PARA LAS TABS*/
+
+section.tabs {
+    width: 76%;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.5);
+    padding: 0px;
+}
+
+section.tabs>ul{
+    border-radius: 10px 10px 0px 0px;
+}
+
+section.tabs>ul>li.ui-tabs-active.ui-state-active{
+    background-color: #37aa37;
+    text-shadow: 1px 1px 1px rgba(0,0,0,1);
+    box-shadow: none;
+    border: none;
+}
+section.tabs>ul>li>a:focus{
+    outline: none;
+    border: none;
+    box-shadow: none;
 }

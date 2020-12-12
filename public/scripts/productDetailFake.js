@@ -9,8 +9,20 @@ $(document).ready(()=>{
         maxItems: 5
       });
       productsResize();
-    //FIX ancho del slider principal
-    //setTimeout(()=>{fslider.resize();}, 200);
+      
+    //ESTO ES PARA EL ZOOM DE LOS PRODUCTOS
+    let img = $('.product img').parent();
+    console.log(img);      
+    for (let i = 0; i < img.length; i++) {
+      const im = $(img[i]);
+      let iUrl = im.find("img").get(0).src;
+      im.zoom({url: iUrl});
+    }
+
+    //ESTO ES PARA LAS TABS
+    $( function() {
+      $(".tabs").tabs();
+    });
 });
 
 

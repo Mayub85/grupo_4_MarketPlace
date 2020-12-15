@@ -1,14 +1,12 @@
 $(document).ready(()=>{
     setupNumberInputs();
-    $('.productsflexslider').flexslider({
+    let fslider = $('.flexsliderProduct').flexslider({
         animation: "slide",
-        controlNav: false,
         slideshow: false,
-        itemWidth: 190,
-        itemMargin: 5,
-        maxItems: 5
+        itemMargin: 0,
+        itemWidth: 500,
       });
-      productsResize();
+      //productsResize();
       
     //FIX ancho del slider principal
     setTimeout(()=>{fslider.resize();}, 200);

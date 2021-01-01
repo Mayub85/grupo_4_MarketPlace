@@ -1,6 +1,7 @@
 $(document).ready(()=>{
     setupNumberInputs();
-    $('.productsflexslider').flexslider({
+    // $('.productsflexslider').flexslider({
+      $('#Slider').flexslider({
         animation: "slide",
         controlNav: false,
         slideshow: false,

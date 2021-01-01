@@ -1,0 +1,25 @@
+<section class="products">
+    <div class="productsSliderFWrapper">
+        <div class="productsSliderWrapper" id=<%= sliderID %>>
+            <div class="productTitle"><hr><h3><%= sectionTitle %></h3><hr></div>
+            <div class="productsflexslider">
+                <div>    
+                    <ul class="slides">
+                        <% for(producto of products) {%>
+                            <li>
+                                <div class="productContainer">
+                                    <a class="productFav" href="#" onclick="javascript:addToFav(this); return false;"><i class="fas fa-heart"></i></a>
+                                    <a class="productLink" href=<%= "/products/detail/" + producto.Id %>>
+                                        <div class="imgContainer"><img src=<%= "../images/" + producto.Images[0] %> alt="Producto"></div>
+                                        <span class="productDescription"><%= producto.Name %></span>
+                                        <span class="productPrice"><%= producto.Price %></span>
+                                    </a>
+                                </div>
+                            </li>
+                        <% }%>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

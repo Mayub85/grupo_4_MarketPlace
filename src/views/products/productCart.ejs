@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BFG Store!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../plugins/flexCarousel/flexslider.css" type="text/css" media="screen" />
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script defer src="../plugins/flexCarousel/jquery.flexslider.js"></script>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../plugins/toasty/toasty.css" />
+    <script src="../plugins/toasty/jquery.toasty.js"></script>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../styles/global.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../styles/productCart.css" />
+    <script src="../scripts/global.js"></script>
+    <script src="../scripts/productCart.js"></script>
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <main>
+        <div class="product_Actions">
+            <section class="productList">
+                <h2>Mi Carrito</h2>
+                <div class="titles">
+                    <h3>Producto</h3>
+                    <h3>Cantidad</h3>
+                    <h3>Precio</h3>
+                    <h3>Subtotal</h3>
+                </div>
+                <% for (let i=0; i < productsInCart.length; i++){ %>
+                    <%- include('../partials/productsInCart', {product: productsInCart[i]}); %>
+                <% } %>
+
+                <div class="total">
+                    <span>Total</span>
+                    <hr>
+                    <span>$9.999.999,99</span>
+                </div>
+
+            </section>
+
+            <section class="actions">
+                <div class="actionsTop">
+                    <h2><i class="fas fa-truck"></i> Método de envío</h2>
+                    <ul>
+                        <li>
+                            <input type="radio" name="shippingMethod" value="1" id="rbtnSM1">
+                            <div>
+                                <h4>Retiro por sucursal</h4>
+                                <span>Orden Disponible en el día. De L a V de 11 a 20 hs Av. Siempre Viva 742</span>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="radio" name="shippingMethod" value="2" id="rbtnSM2">
+                            <div>
+                                <h4>Envío a domicilio por OCA</h4>
+                                <span>Despacho 1 a 3 días hábiles. Entrega 5 a 7 días hábiles a partir del despacho.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="radio" name="shippingMethod" value="3" id="rbtnSM3">
+                            <div>
+                                <h4>Envío a sucursal OCA más cercana</h4>
+                                <span>Despacho 1 a 2 días hábiles</span>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="radio" name="shippingMethod" value="4" id="rbtnSM4">
+                            <div>
+                                <h4>Envío a domicilio en moto</h4>
+                                <span>1 a 2 días hábiles.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            <hr class="separator">
+            
+            <div class="actionsBottom">
+                <h2><i class="fas fa-wallet"></i> Método de pago</h2>
+                <ul>
+                    <li>
+                        <input type="radio" name="paymentMethod" value="1" id="rbtnPM1">
+                        <div>
+                            <h4>Efectivo</h4>
+                            <span>Sin costo administrativo</span>
+                        </div>
+                    </li>
+                    <li>
+                        <input type="radio" name="paymentMethod" value="2" id="rbtnPM2">
+                        <div>
+                            <h4>Tarjeta de crédito/débito</h4>
+                            <span>Consultar cuotas y promociones</span>
+                        </div>
+                    </li>
+                    <li>
+                        <input type="radio" name="paymentMethod" value="3" id="rbtnPM3">
+                        <div>
+                            <h4>Transferencia o deposito bancario</h4>
+                            <span>Costo administrativo: $40.00</span>
+                        </div>
+                    </li>
+                </ul>
+                <div class="paymentData">
+                    <span>Cuenta Corriente en Pesos 014-999999/1 - Banco: Samtander</span>
+                    <span>CBU: 51515151515156 - Alias: DONT.LOOK.HERE</span>
+                    <span>Razon social: BFG S.A. - Cuit: 30-33333333-9</span>
+                </div>
+            </div>
+            <button class="btnConfirm">Confirmar Compra</button>
+            </section>
+        </div>
+        <%- include('../partials/productsHome', {sectionTitle:"Quizás te pueda interesar", sliderID: "Slider", products: recommendations }) %>
+    </main>
+
+    <%- include('../partials/footer') %>
+
+</body>
+</html>

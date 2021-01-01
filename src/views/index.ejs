@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BFG Store!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../plugins/flexCarousel/flexslider.css" type="text/css" media="screen" />
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script defer src="../plugins/flexCarousel/jquery.flexslider.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../plugins/toasty/toasty.css" />
+    <script src="../plugins/toasty/jquery.toasty.js"></script>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../styles/global.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../styles/home.css" />
+    <script src="../scripts/global.js"></script>
+    <script src="../scripts/home.js"></script>
+</head>
+<body>
+    
+    <%- include('./partials/header') %>
+
+    <main>
+        <section class="slider">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <a href="#"><img src="/images/games1.jpg" /></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="/images/games2.jpg" /></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="/images/games.jpg" /></a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="paymentMethods">
+            <ul>
+                <li>
+                    <i class="far fa-credit-card"></i>
+                    <div>
+                        <span class="payTitle">Tarjeta de crédito</span>
+                        <a href="#" class="payDesc">Ver promociones bancarias</a>
+                    </div>
+                </li>
+                <li>
+                    <i class="far fa-credit-card"></i>
+                    <div>
+                        <span class="payTitle">Tarjeta de débito</span>
+                        <a href="#" class="payDesc">Ver más</a>
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-money-bill-wave-alt"></i>
+                    <div>
+                        <span class="payTitle">Efectivo</span>
+                        <a href="#" class="payDesc">Ver más</a>
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-plus-circle"></i>
+                    <div>
+                        <span class="payTitle">Más medios de pago</span>
+                        <a href="#" class="payDesc">Ver todos</a>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <%- include('./partials/productsHome', {sectionTitle:"OFERTAS", sliderID: "SliderDeals", products: DEALS }); %>
+        <%- include('./partials/productsHome', {sectionTitle:"NUEVOS LANZAMIENTOS", sliderID: "SliderNews", products: NEWS }); %>
+        <%- include('./partials/productsHome', {sectionTitle:"USADOS", sliderID: "SliderUsed", products: USED }); %>
+        <%- include('./partials/productsHome', {sectionTitle:"DESTACADOS", sliderID: "SliderFeatured", products: FEATURED }); %>
+        <%- include('./partials/productsHome', {sectionTitle:"PREVENTAS", sliderID: "SliderPresale", products: PRESALE }); %>
+
+        <div class="whatsappChat">
+            <i class="fab fa-whatsapp"></i>
+        </div>
+    </main>
+
+    <%- include('./partials/footer') %>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<div class="product">
+    <div><img src=<%= "../images/" + product.Image %> alt=<%= product.Name %>></div>
+    <div class="productDetail">
+        <h3 class="name"><%= product.Name %></h3>
+        <span>COD: <%= product.Code %></span>
+        <button>Eliminar</button>
+    </div>
+    <div class="productQty">
+        <div class="quantity">
+            <input type="number" min="1" max="9" step="1" value="1">
+        </div>
+    </div>
+    <div class="productPrice">
+        <span>$<%= product.Price %></span>
+    </div>
+    <div class="productSubtotal">
+        <span>$<%= product.Price %></span>
+    </div>
+</div>

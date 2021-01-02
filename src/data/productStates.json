@@ -1,0 +1,22 @@
+[
+    {
+        "Id": "1",
+        "Name": "OFERTA"
+    },
+    {
+        "Id": "2",
+        "Name": "NOVEDAD"
+    },
+    {
+        "Id": "3",
+        "Name": "USADO"
+    },
+    {
+        "Id": "4",
+        "Name": "DESTACADO"
+    },
+    {
+        "Id": "5",
+        "Name": "PREVENTA"
+    }
+]

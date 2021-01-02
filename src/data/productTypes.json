@@ -1,0 +1,26 @@
+[
+    {
+        "Id": "1",
+        "Name": "CONSOLA"
+    },
+    {
+        "Id": "2",
+        "Name": "VIDEOJUEGO"
+    },
+    {
+        "Id": "3",
+        "Name": "AURICULAR"
+    },
+    {
+        "Id": "4",
+        "Name": "TARJETA"
+    },
+    {
+        "Id": "5",
+        "Name": "PERIFERICO"
+    },
+    {
+        "Id": "6",
+        "Name": "GAMEPAD"
+    }
+]

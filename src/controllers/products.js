@@ -7,13 +7,12 @@ module.exports = {
         prods = JSON.parse(prods);
         for (let prod of prods) {
             prod.Image = prod.Images[0];
-            
         }
         console.log(JSON.stringify(prods));
         res.render("./products/productCart", {productsInCart: fakeRemoveProducts(prods), recommendations: prods});
     },
 
-    detail: function(req, res){
+    detail: function(req, res){ //FALTA IMPLEMENTARLO, ESTO ES SOLO UN EJEMPLO
         let id = req.params.id;
         let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
         prods = JSON.parse(prods);
@@ -25,7 +24,7 @@ module.exports = {
 }
 
 function fakeRemoveProducts(arr){
-    let rnd = getRandomArbitrary(1,4); 
+    let rnd = getRandomArbitrary(0, arr.length); 
     let newArr = arr.map(e=> e);
     for (let i=0; i<rnd; i++) {
         newArr.pop();

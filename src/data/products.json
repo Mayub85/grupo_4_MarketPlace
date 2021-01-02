@@ -23,8 +23,10 @@
             "Altura x Ancho x Profundidad: 301 mm x 151 mm x 151 mm"
         ],
         "Price": 99999.99,
-        "Images": ["sgames1.jpg"],
-        "ProductType": "CONSOLA", 
+        "Images": [
+            "sgames1.jpg"
+        ],
+        "ProductType": "CONSOLA",
         "ProductState": "NEWS",
         "Brand": "MICROSOFT",
         "Code": "0303456"
@@ -51,7 +53,9 @@
             "Altura x Ancho x Profundidad: 301 mm x 151 mm x 151 mm"
         ],
         "Price": 69999.99,
-        "Images": ["sgames2.jpg"],
+        "Images": [
+            "sgames2.jpg"
+        ],
         "ProductType": "CONSOLA",
         "ProductState": "NEWS",
         "Brand": "MICROSOFT",
@@ -72,7 +76,9 @@
             "Horas de diversión garantizada."
         ],
         "Price": 75999.99,
-        "Images": ["sgames3.jpg"],
+        "Images": [
+            "sgames3.jpg"
+        ],
         "ProductType": "CONSOLA",
         "ProductState": "NEWS",
         "Brand": "NINTENDO",
@@ -105,10 +111,67 @@
             "Altura x Ancho x Profundidad: 92 mm x 390 mm x 260 mm"
         ],
         "Price": 99999.99,
-        "Images": ["sgames4.jpg"],
+        "Images": [
+            "sgames4.jpg"
+        ],
         "ProductType": "CONSOLA",
         "ProductState": "NEWS",
         "Brand": "SONY",
         "Code": "55555555"
+    },
+    {
+        "Id": 5,
+        "Name": "Xbox 360",
+        "ShortDescription": "Consola de antigua gen",
+        "LargeDescription": "Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. Esta es la descripción larga de la Xbox 360. ",
+        "Specs": [
+            "Característica 1\r",
+            "Característica 2\r",
+            "Característica 3\r",
+            "Característica 4\r",
+            "Característica 5\r",
+            ""
+        ],
+        "Price": "44444",
+        "Images": [
+            "games4.jpg"
+        ],
+        "ProductType": "1",
+        "ProductState": "3",
+        "Brand": "1",
+        "Code": "100788"
+    },
+    {
+        "Id": 6,
+        "Name": "Playstation 4 Slim",
+        "ShortDescription": "Consola de juegos Sony Playstation 4 Slim",
+        "LargeDescription": "No solo vas a poder descargar los mejores videojuegos y navegar en la web sin límite, sino que, gracias a su interconectividad global, también vas a tener la posibilidad de competir en línea con tus amigos y con personas de todas partes del mundo disfrutando de aventuras inolvidables.\r\n\r\nCalidad de otro nivel\r\nSe considera que esta consola es la mejor dentro del mercado, dado que presenta una resolución de hasta 4K. Vas a poder reproducir música, ver tus películas y series favoritas a través de las aplicaciones descargables.\r\n\r\nDiseño innovador\r\nNo solo esto, el control DualShock combina funciones revolucionarias y sin precedentes mientras conserva precisión, comodidad y exactitud en cada movimiento.\r\n\r\nAdaptada a tus necesidades\r\nGuardá tus apps, fotos, videos y mucho más en el disco duro, que cuenta con una capacidad de 1 TB. Al contar con un procesador de 8 núcleos y un procesador gráfico, brinda una experiencia dinámica, respuestas ágiles, y transiciones fluidas de imágenes en alta definición. Por otro lado, tiene puerto USB y salida HDMI, que permiten conectar accesorios y cargar la batería de tu control mientras jugás.",
+        "Specs": [
+            "Características:\r",
+            "Capacidad 1 TB\r",
+            "Resolución 1080p\r",
+            "Salidas HDMI\r",
+            "Cantidad de joystick 1\r",
+            "Juegos incluídos FIFA 20\r",
+            "Modelo PS4 Slim\r",
+            "Garantía: 1 AÑO directa de fábrica\r",
+            "\r",
+            "Se entrega con:\r",
+            "Consola PlayStation 4 1TB\r",
+            "Control DualShock 4\r",
+            "Cable HDMI\r",
+            "Cable de alimentación\r",
+            "Cable USB de carga\r",
+            "FIFA 20 Cupón de contenido adicional de FIFA 20 Ultimate Team \r",
+            "Cupón con suscripción de 14 días a PlayStation®Plus"
+        ],
+        "Price": "60000",
+        "Images": [
+            "ps4.png"
+        ],
+        "ProductType": "1",
+        "ProductState": "4",
+        "Brand": "2",
+        "Code": "33333333"
     }
 ]

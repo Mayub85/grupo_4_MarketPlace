@@ -16,9 +16,11 @@ module.exports = {
         let id = req.params.id;
         let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
         prods = JSON.parse(prods);
-        res.send(`Acá hay que mostrar al producto id: ${id} \n
-        ${JSON.stringify(prods.find(p=>p.Id == id))}`);
+        // res.send(`Acá hay que mostrar al producto id: ${id} \n
+        // ${JSON.stringify(prods.find(p=>p.Id == id))}`);
         // res.render(`./products/detail/${id}`);
+        let productoMuestra = prods.find(p=>p.Id == id)
+        res.render ("productDetail", productoMuestra);
     }
 
 }

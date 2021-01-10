@@ -1,20 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
-    <title>BFG Store!</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">  
-    <script src="https://www.google.com/recaptcha/api.js"></script>
-    <!--Hojas de Estilo-->
+    <%- include('./partials/head') %>
     <link rel="stylesheet" type="text/css" media="screen" href="../styles/admin.css" />
-    
-</head>
+
 <body>
     <% if(state && state.showMessage) { %>
         <div class="message" style=<%= "background-color:" + state.color %> id="stateMsg">

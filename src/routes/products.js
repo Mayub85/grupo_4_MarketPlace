@@ -4,6 +4,6 @@ const pController = require("../controllers/products");
 
 router.get("/cart", pController.cart);
 
-router.get("/detail/:id", pController.detail); //Falta implementar el controller
+router.get("/detail/:id", pController.detail); //Implementé el controller de ProductDetail
 
 module.exports = router;

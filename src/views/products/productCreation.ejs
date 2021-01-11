@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-    <%- include('./partials/head') %>
-    <link rel="stylesheet" type="text/css" media="screen" href="../styles/admin.css" />
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/admin.css" />
 
 <body>
     <% if(state && state.showMessage) { %>
@@ -12,9 +12,9 @@
     <% } %>
     <div class='table'>
         <div class='cell'>
-            <form action="/admin/create?_method=PUT" method="POST">
+            <form action="/admin/productCreation/create?_method=PUT" method="POST">
                 <a href='/'>
-                    <img class='logo' src='../logos/logo140x140.jpg'>
+                    <img class='logo' src='/logos/logo140x140.jpg'>
                 </a>
                 <h1>CARGA DE PRODUCTOS</h1>
                 <div class="main">

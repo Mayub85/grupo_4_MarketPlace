@@ -19,3 +19,23 @@ Cómo vamos a mejorar lo que hicimos mal y hacer lo que no hicimos?
 1- Vamos a utilizar Trello para tener registro y formalizaro la distribución de tareas como así también los dead lines. Además toda tarea que surja después de las calls de review van a tener su tarjeta de Trello.
 2- Vamos a buscar una metodología para organizar mejor las calls/meetings de forma de hacerlas mas productivas.
 3- Vamos a hacer un proceso de QA cruzado para cada uno de los archivos que generamos.
+
+
+----Sprint 3----
+
+-Qué hicimos bien?
+
+Se preguntaron dudas en clase.
+Algunos integrantes se juntaron para avanzar algo el sprint.
+
+-Qué hicimos mal?
+
+Poca participación en el grupo y retrasos para contestar.
+
+-Qué no hicimos?
+
+No hubo charlas de grupo, no hubo participación activa.
+
+-Cómo vamos a mejorar lo que hicimos mal y hacer lo que no hicimos?
+
+No se pudo llegar a una conclusión.

@@ -163,28 +163,28 @@ button {
 }
 
 
-/*ADMIN INDEX*/
+/*PRODUCTS LIST*/
 
 html, body, main{
   width: 100%;
   height: 100%;
 }
 
-h1.adminTitle{
+h1.productsTitle{
   font-family: 'Roboto', sans-serif;
   color:#fff;
   text-align: center;
 }
 
-ul.adminOptions{
+ul.productsList{
   display: flex;
   flex-wrap: wrap;
   list-style-type: none;
-  justify-content: center;
+  justify-content: left;
   padding: 0;
 }
 
-ul.adminOptions li{
+ul.productsList li{
   box-sizing: border-box;
   margin: 20px 30px;
   min-width: 250px;
@@ -196,24 +196,47 @@ ul.adminOptions li{
   transition: .3s;
 }
 
-ul.adminOptions li:hover{
+ul.productsList li:hover{
   box-shadow: 5px 5px 8px rgba(0,0,0,0.8);
   padding: 6px;
 }
 
-ul.adminOptions li a{
-  height: 100%;
-  width: 100%;
+.productContainer, .productLink {
+  min-width: 250px;
+  min-height: 100px;
+  position: relative;
   text-decoration: none;
-  color: black;
-  text-align: center;
-  transition: .3s;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
 }
 
-ul.adminOptions li a:hover, ul.adminOptions li:hover a{
+.productContainer a.productDelete {
+  text-decoration: none;
+  color: gray;
   font-size: large;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  z-index: 10;
+}
+
+.productContainer a.productDelete:hover {
+  cursor: pointer;
+  text-shadow: .5px .5px 1px rgba(0,0,0,0.5);
+}
+
+.imgContainer { text-align: center; }
+
+.imgContainer img {
+  max-height: 100px;
+  border-radius: 15px;
+  padding-left: 5px;
+  padding-top: 5px; 
+}
+
+.productContainer .productDescription, .productContainer .productPrice {
+  display: block;
+  padding: 5px 10px;
+  text-decoration: none;
+  border: none;
+  color: black;
+  justify-self: center;
 }

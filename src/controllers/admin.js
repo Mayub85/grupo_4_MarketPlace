@@ -1,5 +1,6 @@
 const path = require("path"); 
 const fs = require("fs");
+const { exception } = require("console");
 module.exports = {
     admin: function(req, res){
         res.render("admin");
@@ -139,15 +140,8 @@ module.exports = {
                 case "1":
                     state={
                         showMessage: true,
-                        msg: `Se creó el producto con ID: ${req.query.id}` ,
+                        msg: `Se editó correctamente el producto con ID: ${req.query.id}` ,
                         color: "green"
-                    }
-                break;
-                case "2":
-                    state={
-                        showMessage: true,
-                        msg: `Ya existe el producto con nombre: ${req.query.pname} `,
-                        color: "yellow"
                     }
                 break;
                 default:
@@ -173,12 +167,44 @@ module.exports = {
 
             let oriProd = prods.find(p=> p.Id == id);
             if(oriProd){
-                res.render("./products/productEdition", {product: oriProd, brands: brands, pTypes: pTypes, pStates: pStates});
+                res.render("./products/productEdition", {product: oriProd, brands: brands, pTypes: pTypes, pStates: pStates, state: state});
             } else{
                 throw new Error("No se encontró un producto con id: " + id.toString());
             }
         } catch (error) {
             res.redirect(`/admin/productEdition?state=0&msg=${error.toString()}`);
+        }
+    },
+
+    productEditionSave: function(req, res){
+        try {
+            let {name, shortDescription, brand, code, largeDescription, specs, price, images, productType, productState } = req.body;
+            
+            let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
+            prods = JSON.parse(prods);
+            
+            let id = req.params.id;
+            let product = prods.find(p=> p.Id == id);
+            
+            if(product){
+                product.Name = name;
+                product.ShortDescription = shortDescription;
+                product.LargeDescription =largeDescription;
+                product.Specs = specs.split("\n");
+                product.Price = price;
+                product.Images = [images]; //TODO
+                product.ProductType = productType;
+                product.ProductState = productState;
+                product.Brand = brand;
+                product.Code = code;
+                
+                fs.writeFileSync(path.join(__dirname, "../", "data", "products.json"), JSON.stringify(prods), "utf8");
+                res.redirect(`/admin/productEdition/${id}?state=1&id=${id}`);//OK
+            } else{
+                throw new Error("No se ha podido encontrar el producto con ID: " + id);
+            }
+        } catch (error) {
+            res.redirect(`/admin/productEdition/${id}?state=0&msg=${error.toString()}`);//ya existe
         }
     },
 

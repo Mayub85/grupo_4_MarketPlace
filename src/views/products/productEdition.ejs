@@ -12,7 +12,7 @@
     <% } %>
     <div class='table'>
         <div class='cell'>
-            <form action="/admin/productCreation/create?_method=PUT" method="POST">
+            <form action="/admin/productEdition/save/<%= product.Id %>?_method=PUT" method="POST">
                 <a href='/'>
                     <img class='logo' src='/logos/logo140x140.jpg'>
                 </a>
@@ -29,7 +29,7 @@
                         <label for="brand">Marca:</label>
                         <select name="brand">
                             <% for (let i=0; i< brands.length; i++) { %>
-                                <% if (product.Brand == brands[i].Name) { %>
+                                <% if (product.Brand == brands[i].Id) { %>
                                     <option value=<%= brands[i].Id %> selected><%= brands[i].Name %></option>
                                 <% } else { %>
                                     <option value=<%= brands[i].Id %> ><%= brands[i].Name %></option>
@@ -54,14 +54,14 @@
                         <input type='number' class='entry' name='price' placeholder='Precio' value="<%= product.Price %>">
                     </div>
                     <div>
-                        <input type='text' class='entry' name='images' placeholder='Imágenes'>
+                        <input type='text' class='entry' name='images' placeholder='Imágenes' value="<%= product.Images %>">
                     </div>
 
                     <div class='flex-inner dropdowns'>
                         <label for="productType">Tipo de producto:</label>
                         <select name="productType">
                             <% for (let i=0; i< pTypes.length; i++) { %> 
-                                <% if (product.ProductType == pTypes[i].Name) { %>
+                                <% if (product.ProductType == pTypes[i].Id) { %>
                                     <option value=<%= pTypes[i].Id %> selected><%= pTypes[i].Name %></option>
                                 <% } else { %>
                                     <option value=<%= pTypes[i].Id %> ><%= pTypes[i].Name %></option>
@@ -73,7 +73,7 @@
                         <label for="productState">Estado de producto:</label>
                         <select name="productState">
                             <% for (let i=0; i< pStates.length; i++) { %>
-                                <% if (product.ProductState == pStates[i].Name) { %>
+                                <% if (product.ProductState == pStates[i].Id) { %>
                                     <option value=<%= pStates[i].Id %> selected><%= pStates[i].Name %></option>
                                 <% } else { %>
                                     <option value=<%= pStates[i].Id %> ><%= pStates[i].Name %></option>

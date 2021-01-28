@@ -10,6 +10,8 @@ router.get("/productsList", aController.productsList);
 
 router.put("/productCreation/create", aController.productCreate);
 
+router.put("/productEdition/save/:id", aController.productEditionSave); 
+
 router.get("/productEdition/:id", aController.productEdition); 
 
 router.delete("/productDelete/:id", aController.productDelete);

@@ -6,6 +6,8 @@ const productsRoutes = require("./routes/products");
 const adminRoutes = require("./routes/admin"); 
 let session = require("express-session");
 
+const registerRoutes = require ("./routes/users");
+const loginRoutes = require ("./routes/users");
 
 /******CONFIGS******/
 app.set('views', path.join(__dirname, 'views'));
@@ -17,7 +19,6 @@ app.use(express.json());
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
 
-
 app.use(express.static('public'));
 app.use(session({
     secret: "Grupo4MarketPlace",
@@ -28,17 +29,11 @@ app.use("/", homeRoutes);
 
 app.use("/products", productsRoutes);
 
-
 app.use("/admin", adminRoutes);
 
+app.use("/register", registerRoutes);
 
-// app.get("/register", (req, res)=>{
-//     res.sendFile(path.resolve("./public/pages/register.html"));
-// });
-
-// app.get("/login", (req, res)=>{
-//     res.sendFile(path.resolve("./public/pages/login.html"));
-// });
+app.use("/login", loginRoutes);
 
 
 app.listen(3000,()=>{

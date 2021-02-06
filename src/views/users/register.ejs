@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('../partials/head') %>
+    
+        <link rel="stylesheet" type="text/css" media="screen" href="/styles/register.css" />
+        
+    </head>
+    <body>
+        
+        <%- include('../partials/header') %>
+
+    <section class='form'>
+            <form action="?_method=put" method="post">
+                <div>
+                <label for= "email"> Email</label>label>
+                <input id= "email" name= "email" type="email">
+                </div>
+
+                <div>
+                <label for= "password"> Password</label>label>
+                <input id= "password" name= "password" type="password">
+                </div>
+<!-- Cargo el Repeat Password en el form de registro -->
+                <div>
+                <label for= "repassword"> Repeat Password</label>label>
+                <input id= "repassword" name= "repassword" type="password">
+                </div>
+
+                <div>
+                <label for= "name"> Nombre</label>label>
+                <input id= "name" name= "name" type="text">
+                </div>
+
+                <div>
+                <label for= "lastName"> Apellido</label>label>
+                <input id= "lastName" name= "lastNname" type="text">
+                </div>
+
+                <div>
+                <label for= "avatar"> Avatar</label>label>
+                <input id= "avatar" name= "avatar" type="image">
+                </div>
+
+                <div>
+                <label for= "calleDeEntrega"> Domicilio de entrega</label>label>
+                <input id= "calleDeEntrega" name= "calleDeEntrega" type="text">
+                </div>
+
+                <div>
+                <label for= "ciudadDeEntrega"> Ciudad</label>label>
+                <input id= "ciudadDeEntrega" name= "ciudadDeEntrega" type="text">
+                </div>
+
+                <div>
+                <label for= "paisDeEntrega"> País </label>label>
+                <input id= "paisDeEntrega" name= "paisDeEntrega" type="text">
+                </div>
+                
+                <div>
+                <label for= "cpDeEntrega"> País </label>label>
+                <input id= "cpDeEntrega" name= "cpDeEntrega" type="text">
+                </div>
+
+
+                <div>
+                    <button class='ingresar' type='submit'> Registrarse
+                </div>
+
+                    <div class="Social">
+                
+                        <button type="submit" class="facebook-btn">
+                        
+                        <i class="fa fa-facebook" aria-hidden="true"></i><i class="fab fa-facebook-f"></i> Registrarse con Facebook
+    
+                        <button type="submit" class="twitter-btn">
+                    
+                        <i class="fa fa-twitter" aria-hidden="true"></i><i class="fab fa-twitter"></i> Registrarse con Twitter
+                        </div>
+                        <h1 class='registro'> Si ya tenes una cuenta, <a class='smalltext' href='/login'> hace click aquí</a>
+            </form>
+        </div>
+    
+   
+    <%- include('../partials/footer') %>
+</body>
+</html>

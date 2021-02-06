@@ -4,15 +4,23 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/styles/admin.css" />
 
 <body>
-    <% if(typeof state != "undefined" && state.showMessage) { %>
+    <% if(state && state.showMessage) { %>
         <div class="message" style=<%= "background-color:" + state.color %> id="stateMsg">
-            <span><%= state.msg %></span>
+            <% if(!state.isArray) { %>
+                <span><%= state.msg %></span>
+            <% } else { %>
+                <ul>
+                    <% for (let i=0; i< state.msg.length; i++) { %>
+                        <li><%= state.msg[i].msg%></li>
+                    <% } %>
+                </ul>
+            <% } %>
             <input type="button" value="X" onclick="javascript: var element = document.getElementById('stateMsg'); element.parentNode.removeChild(element);">
         </div>
     <% } %>
     <div class='table'>
         <div class='cell'>
-            <form action="/admin/productEdition/save/<%= product.Id %>?_method=PUT" method="POST">
+            <form action="/admin/productEdition/save/<%= product.Id %>?_method=PUT" method="POST" enctype="multipart/form-data">
                 <a href='/'>
                     <img class='logo' src='/logos/logo140x140.jpg'>
                 </a>
@@ -53,8 +61,21 @@
                     <div class='flex-inner'>    
                         <input type='number' class='entry' name='price' placeholder='Precio' value="<%= product.Price %>">
                     </div>
-                    <div>
-                        <input type='text' class='entry' name='images' placeholder='Imágenes' value="<%= product.Images %>">
+                    <div class='flex-inner images'> 
+                        <div>
+                            <label for="images">Imágenes:</label>
+                            <input type="file" name="images" multiple>
+                        </div>
+                        <% if (typeof product.Images != "undefined" && product.Images.length > 0) { %>
+                            <ul>
+                                <% for (let i=0; i< product.Images.length; i++) { %> 
+                                    <li>
+                                        <input type="button" value="X" onclick="javascript: alert('/images/products/<%= product.Images[i] %>');">
+                                        <img src="/images/products/<%= product.Images[i] %>" alt="<%= product.Name %>">
+                                    </li>
+                                <% } %>
+                            </ul>
+                        <% } %>
                     </div>
 
                     <div class='flex-inner dropdowns'>

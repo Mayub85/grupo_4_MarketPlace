@@ -10,7 +10,7 @@
                                 <div class="productContainer">
                                     <a class="productFav" href="#" onclick="javascript:addToFav(this); return false;"><i class="fas fa-heart"></i></a>
                                     <a class="productLink" href=<%= "/products/detail/" + producto.Id %>>
-                                        <div class="imgContainer"><img src=<%= "../images/" + producto.Images[0] %> alt="Producto"></div>
+                                        <div class="imgContainer"><img src=<%= "../images/products/" + producto.Images[0] %> alt="Producto"></div>
                                         <span class="productDescription"><%= producto.Name %></span>
                                         <span class="productPrice"><%= producto.Price %></span>
                                     </a>

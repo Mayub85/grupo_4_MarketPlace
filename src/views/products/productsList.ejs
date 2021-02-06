@@ -19,7 +19,7 @@
                     <div class="productContainer">
                         <a class="productDelete" data-id="<%= producto.Id %>" href="#" onclick="javascript:deleteProduct(this); return false;"><i class="far fa-trash-alt"></i></a>
                         <a class="productLink" href=<%= "/admin/productEdition/" + producto.Id %>>
-                            <div class="imgContainer"><img src=<%= "../images/" + producto.Images[0] %> alt="Producto"></div>
+                            <div class="imgContainer"><img src=<%= "../images/products/" + producto.Images[0] %> alt="Producto"></div>
                             <span class="productDescription">Nombre: <%= producto.Name %></span>
                             <span class="productPrice">Precio: $<%= producto.Price %></span>
                         </a>

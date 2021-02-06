@@ -8,7 +8,7 @@ module.exports = {
         for (let prod of prods) {
             prod.Image = prod.Images[0];
         }
-        console.log(JSON.stringify(prods));
+        //console.log(JSON.stringify(prods));
         res.render("./products/productCart", {productsInCart: fakeRemoveProducts(prods), recommendations: prods});
     },
 

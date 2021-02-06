@@ -1,6 +1,6 @@
-const path = require("path"); 
+const path = require("path");
 const fs = require("fs");
-const { exception } = require("console");
+const {validationResult} = require('express-validator');
 module.exports = {
     admin: function(req, res){
         res.render("admin");
@@ -30,6 +30,14 @@ module.exports = {
                     color: "yellow"
                 }
             break;
+            case "3":
+                state={
+                    showMessage: true,
+                    msg: req.session.pcErrors.errors,
+                    color: "red",
+                    isArray: true
+                }
+            break;
             default:
                 state={
                     showMessage: false
@@ -54,36 +62,72 @@ module.exports = {
     productCreate: function(req, res){
         try {
             let {name, shortDescription, brand, code, largeDescription, specs, price, images, productType, productState } = req.body;
-            
-            let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
-            prods = JSON.parse(prods);
-            
-            let oldProd = prods.find(p=> p.Name == name);
-            
-            if(!oldProd){
-                let maxID = prods.reduce((max, prod) => max.Id > prod.Id ? max : prod);
-                let newID = parseInt(maxID.Id) + 1;
-                prods.push({
-                    Id: newID,
-                    Name: name,
-                    ShortDescription: shortDescription,
-                    LargeDescription: largeDescription,
-                    Specs: specs.split("\n"),
-                    Price: price,
-                    Images: [images], //TODO
-                    ProductType: productType,
-                    ProductState: productState,
-                    Brand: brand,
-                    Code: code
-                });
+            let errors = validationResult(req);
+
+            if(errors.isEmpty()) {
+                let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
+                prods = JSON.parse(prods);
                 
-                fs.writeFileSync(path.join(__dirname, "../", "data", "products.json"), JSON.stringify(prods), "utf8");
-                res.redirect(`/admin/productCreation?state=1&id=${newID}`);//OK
-            } else{
-                res.redirect(`/admin/productCreation?state=2&pname=${name}`);//ya existe
+                let oldProd = prods.find(p=> p.Name == name);//verifico si existe uno con igual nombre (es una validación poco seria, pero es a fines prácticos)
+                if(!oldProd){
+                    let maxID = prods.reduce((max, prod) => max.Id > prod.Id ? max : prod);
+                    let newID = parseInt(maxID.Id) + 1;
+                    prods.push({
+                        Id: newID,
+                        Name: name,
+                        ShortDescription: shortDescription,
+                        LargeDescription: largeDescription,
+                        Specs: specs.split("\n"),
+                        Price: price,
+                        Images: req.files.images.map(i=> {return i.filename}), //TODO
+                        ProductType: productType,
+                        ProductState: productState,
+                        Brand: brand,
+                        Code: code
+                    });
+                    
+                    fs.writeFileSync(path.join(__dirname, "../", "data", "products.json"), JSON.stringify(prods), "utf8");
+                    res.redirect(`/admin/productCreation?state=1&id=${newID}`); 
+
+                } else{//si ya existe
+                    if(typeof req.files != "undefined" && typeof req.files.images != "undefined" && req.files.images.length > 0){
+                        for (let i = 0; i < req.files.images.length; i++) {
+                            const imageFile = req.files.images[i];
+                            let filePath = path.join(__dirname,"../../", "/public/images/products/", imageFile.filename); 
+                            if (fs.existsSync(filePath)) {
+                                fs.unlinkSync(filePath);
+                            }
+                        }
+                    }
+                    res.redirect(`/admin/productCreation?state=2&pname=${name}`);//ya existe
+                }
+            } else {
+                if(typeof req.files != "undefined" && typeof req.files.images != "undefined" && req.files.images.length > 0){
+                    for (let i = 0; i < req.files.images.length; i++) {
+                        const imageFile = req.files.images[i];
+                        let filePath = path.join(__dirname,"../../", "/public/images/products/", imageFile.filename); 
+                        if (fs.existsSync(filePath)) {
+                            fs.unlinkSync(filePath);
+                        }
+                    }
+                }
+                req.session.pcErrors = errors;
+                // console.log(errors);
+                res.redirect(`/admin/productCreation?state=3`);
+
             }
+            
         } catch (error) {
-            res.redirect(`/admin/productCreation?state=0&msg=${error.toString()}`);//ya existe
+            if(typeof req.files != "undefined" && typeof req.files.images != "undefined" && req.files.images.length > 0){
+                for (let i = 0; i < req.files.images.length; i++) {
+                    const imageFile = req.files.images[i];
+                    let filePath = path.join(__dirname,"../../", "/public/images/products/", imageFile.filename); 
+                    if (fs.existsSync(filePath)) {
+                        fs.unlinkSync(filePath);
+                    }
+                }
+            }
+            res.redirect(`/admin/productCreation?state=0&msg=${error.toString()}`);
         }
     },
 
@@ -144,6 +188,14 @@ module.exports = {
                         color: "green"
                     }
                 break;
+                case "3":
+                state={
+                    showMessage: true,
+                    msg: req.session.pcErrors.errors,
+                    color: "red",
+                    isArray: true
+                }
+            break;
                 default:
                     state={
                         showMessage: false
@@ -179,29 +231,50 @@ module.exports = {
     productEditionSave: function(req, res){
         try {
             let {name, shortDescription, brand, code, largeDescription, specs, price, images, productType, productState } = req.body;
-            
-            let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
-            prods = JSON.parse(prods);
-            
+            let errors = validationResult(req);
             let id = req.params.id;
-            let product = prods.find(p=> p.Id == id);
             
-            if(product){
-                product.Name = name;
-                product.ShortDescription = shortDescription;
-                product.LargeDescription =largeDescription;
-                product.Specs = specs.split("\n");
-                product.Price = price;
-                product.Images = [images]; //TODO
-                product.ProductType = productType;
-                product.ProductState = productState;
-                product.Brand = brand;
-                product.Code = code;
+            if(errors.isEmpty()) {
+                let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
+                prods = JSON.parse(prods);
                 
-                fs.writeFileSync(path.join(__dirname, "../", "data", "products.json"), JSON.stringify(prods), "utf8");
-                res.redirect(`/admin/productEdition/${id}?state=1&id=${id}`);//OK
-            } else{
-                throw new Error("No se ha podido encontrar el producto con ID: " + id);
+                let product = prods.find(p=> p.Id == id);
+                
+                if(product){
+                    product.Name = name;
+                    product.ShortDescription = shortDescription;
+                    product.LargeDescription =largeDescription;
+                    product.Specs = specs.split("\n");
+                    product.Price = price;
+                    if(typeof req.files != "undefined" && typeof req.files.images != "undefined" && req.files.images.length > 0){
+                        for (let i = 0; i < req.files.images.length; i++) {
+                            const imageFile = req.files.images[i];
+                            product.Images.push(imageFile.filename);
+                        }
+                    }
+                    product.ProductType = productType;
+                    product.ProductState = productState;
+                    product.Brand = brand;
+                    product.Code = code;
+                    
+                    fs.writeFileSync(path.join(__dirname, "../", "data", "products.json"), JSON.stringify(prods), "utf8");
+                    res.redirect(`/admin/productEdition/${id}?state=1&id=${id}`);//OK
+                } else{
+                    throw new Error("No se ha podido encontrar el producto con ID: " + id);
+                }
+            } else {
+                if(typeof req.files != "undefined" && typeof req.files.images != "undefined" && req.files.images.length > 0){
+                    for (let i = 0; i < req.files.images.length; i++) {
+                        const imageFile = req.files.images[i];
+                        let filePath = path.join(__dirname,"../../", "/public/images/products/", imageFile.filename); 
+                        if (fs.existsSync(filePath)) {
+                            fs.unlinkSync(filePath);
+                        }
+                    }
+                }
+                req.session.pcErrors = errors;
+                // console.log(errors);
+                res.redirect(`/admin/productEdition/${id}?state=3`); 
             }
         } catch (error) {
             res.redirect(`/admin/productEdition/${id}?state=0&msg=${error.toString()}`);//ya existe

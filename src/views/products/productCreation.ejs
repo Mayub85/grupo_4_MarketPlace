@@ -6,13 +6,21 @@
 <body>
     <% if(state && state.showMessage) { %>
         <div class="message" style=<%= "background-color:" + state.color %> id="stateMsg">
-            <span><%= state.msg %></span>
+            <% if(!state.isArray) { %>
+                <span><%= state.msg %></span>
+            <% } else { %>
+                <ul>
+                    <% for (let i=0; i< state.msg.length; i++) { %>
+                        <li><%= state.msg[i].msg%></li>
+                    <% } %>
+                </ul>
+            <% } %>
             <input type="button" value="X" onclick="javascript: var element = document.getElementById('stateMsg'); element.parentNode.removeChild(element);">
         </div>
     <% } %>
     <div class='table'>
         <div class='cell'>
-            <form action="/admin/productCreation/create?_method=PUT" method="POST">
+            <form action="/admin/productCreation/create?_method=PUT" method="POST" enctype="multipart/form-data">
                 <a href='/'>
                     <img class='logo' src='/logos/logo140x140.jpg'>
                 </a>
@@ -49,8 +57,9 @@
                     <div class='flex-inner'>    
                         <input type='number' class='entry' name='price' placeholder='Precio'>
                     </div>
-                    <div>
-                        <input type='text' class='entry' name='images' placeholder='Imágenes'>
+                    <div class='flex-inner images'> 
+                        <label for="images">Imágenes:</label>
+                        <input type="file" name="images" multiple>
                     </div>
 
                     <div class='flex-inner dropdowns'>

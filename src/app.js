@@ -4,6 +4,7 @@ const path = require("path");
 const homeRoutes = require("./routes/home"); 
 const productsRoutes = require("./routes/products");
 const adminRoutes = require("./routes/admin"); 
+let session = require("express-session");
 
 
 /******CONFIGS******/
@@ -18,6 +19,10 @@ app.use(methodOverride('_method'));
 
 
 app.use(express.static('public'));
+app.use(session({
+    secret: "Grupo4MarketPlace",
+    resave: true,
+    saveUninitialized: true})); 
 
 app.use("/", homeRoutes);
 

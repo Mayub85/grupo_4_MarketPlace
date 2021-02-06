@@ -285,13 +285,45 @@ module.exports = {
         try {
             let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
             prods = JSON.parse(prods);
-            prods = prods.filter(p=> p.id != req.params.id);
+            prods = prods.filter(p=> p.Id != req.params.id);
             // throw new Error("Este es un error de prueba");
-            //fs.writeFileSync(path.join(__dirname, "../", "data", "products.json"), JSON.stringify(prods), "utf8");
+            fs.writeFileSync(path.join(__dirname, "../", "data", "products.json"), JSON.stringify(prods), "utf8");
 
-            res.end('{"success" : "Borrado exitoso", "status" : 200}');
+            return res.end(JSON.stringify({"success" : "Borrado exitoso", "status" : 200}));
         } catch (error) {
-            res.status(400).send({
+            return res.status(400).send(JSON.stringify({
+                message: error.toString()
+             }));
+        }
+    },
+
+    imageDelete: function(req, res){
+        try {
+            //
+            let pId = req.params.id;
+            let filename = req.params.filename;
+            //Borrar file y borrar item JSON
+
+            let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
+            prods = JSON.parse(prods);
+            let prod = prods.find(p=> p.Id == pId);
+
+            if(prod){
+                let imgInArr = prod.Images.find(im=> im.toLowerCase() == filename.toLowerCase());
+                if(imgInArr){
+                    let filePath = path.join(__dirname,"../../", "/public/images/products/", filename); 
+                    if (fs.existsSync(filePath)) {
+                        fs.unlinkSync(filePath);
+                    }
+                    prod.Images = prod.Images.filter(im=> im.toLowerCase() != filename.toLowerCase());
+                    fs.writeFileSync(path.join(__dirname, "../", "data", "products.json"), JSON.stringify(prods), "utf8");
+                    return res.end(JSON.stringify({"success" : "Borrado exitoso", "status" : 200}));
+                }
+                throw new Error(`La imagen de nombre ${filename} no pudo ser encontrada en el storage.`);
+            }
+            throw new Error(`El producto con id ${pId} no pudo ser encontrado.`);
+        } catch (error) {
+            return res.status(400).send({
                 message: error.toString()
              });
         }

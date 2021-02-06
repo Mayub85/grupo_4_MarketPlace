@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/styles/productsList.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/scripts/productsList.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/admin.css" />
 <body>
     <% if(typeof state != "undefined" && state.showMessage) { %>
         <div class="message" style=<%= "background-color:" + state.color %> id="stateMsg">
@@ -11,6 +12,7 @@
             <input type="button" value="X" onclick="javascript: var element = document.getElementById('stateMsg'); element.parentNode.removeChild(element);">
         </div>
     <% } %>
+    <%- include('../partials/adminHeader') %>
     <main>
         <h1 class="productsTitle">Listado de productos</h1>
         <ul class="productsList">
@@ -19,7 +21,7 @@
                     <div class="productContainer">
                         <a class="productDelete" data-id="<%= producto.Id %>" href="#" onclick="javascript:deleteProduct(this); return false;"><i class="far fa-trash-alt"></i></a>
                         <a class="productLink" href=<%= "/admin/productEdition/" + producto.Id %>>
-                            <div class="imgContainer"><img src=<%= "../images/products/" + producto.Images[0] %> alt="Producto"></div>
+                            <div class="imgContainer"><img src=<%= "/images/products/" + producto.Images[0] %> alt="Producto"></div>
                             <span class="productDescription">Nombre: <%= producto.Name %></span>
                             <span class="productPrice">Precio: $<%= producto.Price %></span>
                         </a>

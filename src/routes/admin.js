@@ -111,4 +111,6 @@ router.get("/productEdition/:id", aController.productEdition);
 
 router.delete("/productDelete/:id", aController.productDelete);
 
+router.post("/imageDelete/:id/:filename", aController.imageDelete);
+
 module.exports = router;

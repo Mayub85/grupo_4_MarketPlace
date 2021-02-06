@@ -7,6 +7,23 @@ html, body {
   background-image: linear-gradient(#101f37, #e0f3f3);
 }
 
+header{
+  justify-content: space-between;
+  width: 100%;
+  background-color: #FFF;
+}
+
+header a{
+  text-decoration: none;
+  padding: 10px 20px;
+  font-size: 20px;
+  transition: .3s;
+}
+
+header a:hover{
+  color:blue;
+}
+
 .message{
   position: absolute;
   margin: 0px;
@@ -16,6 +33,7 @@ html, body {
   width: 100%;
   color: black;
   min-height: 80px;
+  z-index: 20;
 }
 
 .message input {
@@ -34,6 +52,10 @@ html, body {
   cursor: pointer;
   background-color: #26abfd;
   color: white;
+}
+
+main {
+  margin-top: 44px;
 }
 
 a {
@@ -95,6 +117,7 @@ form h1{
   color: white;
   background-color: #37aa37;
   font-size: larger;
+  transition: .3s;
 }
 
 
@@ -229,6 +252,9 @@ button {
    font-size: 20px;
 }
 
+.ingresar:hover{
+  background-color: darkgreen;
+}
 
 /*ADMIN INDEX*/
 

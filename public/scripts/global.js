@@ -173,9 +173,9 @@ var allowedKeys = {
   });
   
   function activateCheats() {
-    var audio = new Audio('audio/eegg.mp3');
+    var audio = new Audio('/audio/eegg.mp3');
     audio.play();
-    document.body.style.backgroundImage = "url('images/fede.jpg')";
+    document.body.style.backgroundImage = "url('/images/fede.jpg')";
     document.body.style.backgroundRepeat = "repeat";
     document.body.style.backgroundSize = "auto";
   }

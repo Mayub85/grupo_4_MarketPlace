@@ -274,7 +274,7 @@ module.exports = {
                 if(product){
                     product.Name = name;
                     product.ShortDescription = shortDescription;
-                    product.LargeDescription =largeDescription;
+                    product.LargeDescription = largeDescription;
                     product.Specs = specs.split("\n");
                     product.Price = price;
                     if(typeof req.files != "undefined" && typeof req.files.images != "undefined" && req.files.images.length > 0){

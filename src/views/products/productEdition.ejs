@@ -56,11 +56,11 @@
                         </div>
 
                         <div class='flex-inner'>
-                            <textarea rows="5" name='largeDescription' placeholder='Descripción larga'>value="<%= usrInput != null ? usrInput.LargeDescription : product.LargeDescription %>"</textarea>
+                            <textarea rows="5" name='largeDescription' placeholder='Descripción larga'><%= usrInput != null ? usrInput.LargeDescription : product.LargeDescription %></textarea>
                         </div>
 
                         <div class='flex-inner'>    
-                            <textarea rows="5" name='specs' placeholder='Especificaciones técnicas (una por línea)'>value="<%= usrInput != null ? usrInput.Specs : product.Specs %>"</textarea>
+                            <textarea rows="5" name='specs' placeholder='Especificaciones técnicas (una por línea)'><% if(usrInput != null){ %><%= usrInput.Specs %><% } else {%><%= product.Specs.reduce((accumulator, currentValue)=> `${accumulator}\n${currentValue}`) %><% } %></textarea>
                         </div>
 
                         <div class='flex-inner'>    

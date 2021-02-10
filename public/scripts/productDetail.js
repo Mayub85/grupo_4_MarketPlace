@@ -7,7 +7,11 @@ $(document).ready(()=>{
         itemWidth: 500,
       });
       //productsResize();
-      
+      setupZoom ();
+
+      $( function() {
+        $(".tabs").tabs();
+      });
     //FIX ancho del slider principal
     setTimeout(()=>{fslider.resize();}, 200);
 });
@@ -46,4 +50,15 @@ function setupNumberInputs (){
       });
 
     });
+}
+
+function setupZoom (){
+  $("img[id^=pim-]").each((i, img)=>{
+      $(img)    
+      .wrap('<span style="display:inline-block"></span>')
+      .css('display', 'block')
+      .parent()
+      .zoom();
+    }
+  )
 }

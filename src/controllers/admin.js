@@ -1,8 +1,10 @@
 const path = require("path");
 const fs = require("fs");
 const {validationResult} = require('express-validator');
+const { hasUncaughtExceptionCaptureCallback } = require("process");
 module.exports = {
     admin: function(req, res){
+        req.session.usrInput = null;
         res.render("admin");
     },
 
@@ -55,7 +57,8 @@ module.exports = {
         let pStates = fs.readFileSync(path.join(__dirname, "../", "data", "productStates.json"), "utf-8");
         pStates = JSON.parse(pStates);
 
-        res.render("./products/productCreation", {brands: brands, pTypes: pTypes, pStates: pStates, state: state});
+        let usrInput = req.session.usrInput ? req.session.usrInput : null;
+        res.render("./products/productCreation", {brands: brands, pTypes: pTypes, pStates: pStates, state: state, usrInput: usrInput});
     },
 
     
@@ -63,6 +66,19 @@ module.exports = {
         try {
             let {name, shortDescription, brand, code, largeDescription, specs, price, images, productType, productState } = req.body;
             let errors = validationResult(req);
+
+            let usrInput = {
+                Name: name,
+                ShortDescription: shortDescription,
+                Brand: brand,
+                Code: code,
+                LargeDescription: largeDescription,
+                Specs: specs,
+                Price: price,
+                ProductType: productType,
+                ProductState: productState,
+            }
+            req.session.usrInput = usrInput;
 
             if(errors.isEmpty()) {
                 let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
@@ -79,7 +95,7 @@ module.exports = {
                         LargeDescription: largeDescription,
                         Specs: specs.split("\n"),
                         Price: price,
-                        Images: req.files.images.map(i=> {return i.filename}), //TODO
+                        Images: req.files.images.map(i=> {return i.filename}),
                         ProductType: productType,
                         ProductState: productState,
                         Brand: brand,
@@ -87,6 +103,7 @@ module.exports = {
                     });
                     
                     fs.writeFileSync(path.join(__dirname, "../", "data", "products.json"), JSON.stringify(prods), "utf8");
+                    req.session.usrInput = null;
                     res.redirect(`/admin/productCreation?state=1&id=${newID}`); 
 
                 } else{//si ya existe
@@ -219,7 +236,8 @@ module.exports = {
 
             let oriProd = prods.find(p=> p.Id == id);
             if(oriProd){
-                res.render("./products/productEdition", {product: oriProd, brands: brands, pTypes: pTypes, pStates: pStates, state: state});
+                let usrInput = req.session.usrInput ? req.session.usrInput : null;
+                res.render("./products/productEdition", {product: oriProd, brands: brands, pTypes: pTypes, pStates: pStates, state: state, usrInput: usrInput});
             } else{
                 throw new Error("No se encontró un producto con id: " + id.toString());
             }
@@ -233,6 +251,19 @@ module.exports = {
             let {name, shortDescription, brand, code, largeDescription, specs, price, images, productType, productState } = req.body;
             let errors = validationResult(req);
             let id = req.params.id;
+
+            let usrInput = {
+                Name: name,
+                ShortDescription: shortDescription,
+                Brand: brand,
+                Code: code,
+                LargeDescription: largeDescription,
+                Specs: specs,
+                Price: price,
+                ProductType: productType,
+                ProductState: productState,
+            }
+            req.session.usrInput = usrInput;
             
             if(errors.isEmpty()) {
                 let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
@@ -243,7 +274,7 @@ module.exports = {
                 if(product){
                     product.Name = name;
                     product.ShortDescription = shortDescription;
-                    product.LargeDescription =largeDescription;
+                    product.LargeDescription = largeDescription;
                     product.Specs = specs.split("\n");
                     product.Price = price;
                     if(typeof req.files != "undefined" && typeof req.files.images != "undefined" && req.files.images.length > 0){

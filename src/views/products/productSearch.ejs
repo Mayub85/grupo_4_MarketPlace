@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../partials/head') %>
+  
+    <link rel="stylesheet" href="../plugins/flexCarousel/flexslider.css" type="text/css" media="screen" />
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script defer src="../plugins/flexCarousel/jquery.flexslider.js"></script>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../plugins/toasty/toasty.css" />
+    <script src="../plugins/toasty/jquery.toasty.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="../styles/productSearch.css" />
+    <script src="../scripts/global.js"></script>
+    <script src="../scripts/productSearch.js"></script>
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <main>
+        <div class="results">
+            <h1 class="resultTitle">Resultados de búsqueda</h1>
+            <ul class="resultList">
+                <% for(result of results) {%>
+                    <li>
+                        <div class="resultContainer">
+                            <a class="resultLink" href=<%= "/products/detail/" + result.Id %>>
+                                <div class="resImgContainer"><img src=<%= "/images/products/" + result.Images[0] %> alt="Producto"></div>
+                                <span class="resultDescription"><%= result.Name %></span>
+                                <span class="resultPrice">$<%= result.Price %></span>
+                            </a>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+        <%- include('../partials/productsHome', {sectionTitle:"Quizás te pueda interesar", sliderID: "Slider", products: recommendations }) %>
+    </main>
+
+    <%- include('../partials/footer') %>
+
+</body>
+</html>

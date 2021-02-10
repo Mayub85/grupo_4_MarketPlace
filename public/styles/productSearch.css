@@ -1,0 +1,223 @@
+main {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    position: relative;
+    top: 85px;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.results {
+    display: flex;
+    flex-wrap: wrap;
+    width: 76%;
+    justify-content: space-between;
+}
+
+.results h1.resultTitle {
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+}
+
+.results ul.resultList {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    justify-content: left;
+    padding: 0;
+}
+
+.results ul.resultList li {
+    box-sizing: border-box;
+    margin: 20px 4px;
+    margin-left: 0px;
+    min-width: 285px;
+    max-width: 285px;
+    min-height: 218px;
+    border: none;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    transition: .3s;
+}
+
+.results ul.resultList li:hover {
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.8);
+    padding: 6px;
+}
+
+.results .resultContainer, .resultLink {
+    min-width: 250px;
+    min-height: 100px;
+    position: relative;
+    text-decoration: none;
+}
+
+.resultContainer a.productDelete {
+    text-decoration: none;
+    color: gray;
+    font-size: large;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    z-index: 10;
+}
+
+.results .resImgContainer {
+    text-align: center;
+}
+
+.results .resImgContainer img {
+    max-height: 130px;
+    width: 60%;
+    border-radius: 15px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+.results .resultContainer .resultDescription, .resultContainer .resultPrice {
+    display: block;
+    padding: 5px 10px;
+    text-decoration: none;
+    border: none;
+    color: black;
+    justify-self: center;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.resultContainer .resultPrice {
+    font-weight: 900;
+    text-align: left;
+}
+
+/*PRODUCTOS QUE TE PUEDEN INTERESAR*/
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: center;
+    position: relative;
+    margin: 0px auto;
+    width: 76%;
+    margin-top: 30px;
+    font-family: 'Roboto', sans-serif;
+    height: 270px;
+}
+
+.productsSliderFWrapper {
+    display: flex;
+    flex: 1 0;
+    justify-content: center;
+}
+
+.productsSliderWrapper {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+.productTitle {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #53ff50;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+}
+
+.productTitle hr {
+    display: flex;
+    flex: 1.5;
+    margin: 0px;
+    padding: 0px;
+    height: 1px;
+    border: none;
+    border-top: solid;
+    border-width: 1px;
+    color: #53ff50;
+    box-shadow: 1px 0.5px 1px rgba(0, 0, 0, 1);
+}
+
+.productTitle h3 {
+    display: flex;
+    margin: 0px;
+    justify-content: center;
+    letter-spacing: 3px;
+    padding: 0 5px;
+}
+
+.productContainer {
+    height: 218px;
+    position: relative;
+    background-color: #fff;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+.productContainer:hover {
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.productFav {
+    position: absolute;
+}
+
+.productFav {
+    color: #53ff50;
+    top: 8px;
+    left: 8px;
+}
+
+.productFav i {
+    color: #53ff50;
+}
+
+.productFav i:hover {
+    color: red;
+}
+
+.productFav i:hover {
+    text-shadow: 0px 0px 4px rgba(150, 255, 150, 1);
+}
+
+.productLink {
+    text-decoration: none;
+    color: #000;
+}
+
+.productContainer .imgContainer {
+    text-align: center;
+}
+
+.productContainer img {
+    width: 62%;
+    height: 130px;
+    padding-top: 5px;
+}
+
+.productContainer .productDescription {
+    display: block;
+    text-align: center;
+    padding-left: 5px;
+    font-size: 0.8em;
+}
+
+.productContainer .productPrice {
+    display: block;
+    text-align: left;
+    padding-top: 6px;
+    padding-left: 5px;
+    font-weight: bolder;
+}
+
+.products .flex-direction-nav a {
+    opacity: 0.9;
+}
+
+.products .flex-direction-nav a:hover {
+    opacity: 0.3;
+}

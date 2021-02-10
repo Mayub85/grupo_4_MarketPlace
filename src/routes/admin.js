@@ -113,4 +113,7 @@ router.delete("/productDelete/:id", aController.productDelete);
 
 router.post("/imageDelete/:id/:filename", aController.imageDelete);
 
+router.get("/usersList", aController.usersList);
+
+
 module.exports = router;

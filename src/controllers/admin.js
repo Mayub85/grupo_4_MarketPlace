@@ -327,8 +327,18 @@ module.exports = {
                 message: error.toString()
              });
         }
-    }
+    },
+    usersList: function(req, res){
+    
+
+        let users = fs.readFileSync(path.join(__dirname, "../", "data", "users.json"), "utf-8");
+        users = JSON.parse(users);
+
+        res.render("./users/usersList", {users: users});
+    },
+
 }
+
 
 function fakeRemoveProducts(arr){
     let rnd = getRandomArbitrary(1,4); 
@@ -337,6 +347,8 @@ function fakeRemoveProducts(arr){
         newArr.pop();
     }
     return newArr;
+
+    
 }
 
 function getRandomArbitrary(min, max) {

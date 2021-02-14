@@ -6,7 +6,6 @@ const productsRoutes = require("./routes/products");
 const adminRoutes = require("./routes/admin"); 
 let session = require("express-session");
 
-const registerRoutes = require ("./routes/users");
 const usersRoutes = require ("./routes/users");
 
 let port = process.env.PORT || 3000; //para Heroku
@@ -32,8 +31,6 @@ app.use("/", homeRoutes);
 app.use("/products", productsRoutes);
 
 app.use("/admin", adminRoutes);
-
-app.use("/register", registerRoutes);
 
 app.use("/users", usersRoutes);
 

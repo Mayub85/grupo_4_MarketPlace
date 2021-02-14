@@ -7,7 +7,7 @@ const adminRoutes = require("./routes/admin");
 let session = require("express-session");
 
 const registerRoutes = require ("./routes/users");
-const loginRoutes = require ("./routes/users");
+const usersRoutes = require ("./routes/users");
 
 /******CONFIGS******/
 app.set('views', path.join(__dirname, 'views'));
@@ -33,7 +33,7 @@ app.use("/admin", adminRoutes);
 
 app.use("/register", registerRoutes);
 
-app.use("/login", loginRoutes);
+app.use("/users", usersRoutes);
 
 
 app.listen(3000,()=>{

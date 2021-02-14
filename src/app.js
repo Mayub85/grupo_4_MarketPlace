@@ -9,6 +9,8 @@ let session = require("express-session");
 const registerRoutes = require ("./routes/users");
 const usersRoutes = require ("./routes/users");
 
+let port = process.env.PORT || 3000; //para Heroku
+
 /******CONFIGS******/
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -36,7 +38,7 @@ app.use("/register", registerRoutes);
 app.use("/users", usersRoutes);
 
 
-app.listen(3000,()=>{
+app.listen(port,()=>{
     console.log("http://localhost:3000/");
     console.log("http://localhost:3000/productCart");
     console.log("http://localhost:3000/admin");

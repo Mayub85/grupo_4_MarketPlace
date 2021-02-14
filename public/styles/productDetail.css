@@ -290,6 +290,7 @@ hr.separador {
     border-bottom: 1px solid #ffffff;
     margin: 25px 0;
     box-shadow: 1px 1px 4px rgb(0,0,0,.8);
+    border-color: #53ff50;
 }
 
 .deliverText{

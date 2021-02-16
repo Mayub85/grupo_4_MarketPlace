@@ -1,65 +1,62 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <%- include('../partials/head') %>
-    
-        <link rel="stylesheet" type="text/css" media="screen" href="/styles/register.css" />
-        
-    </head>
-    <body>
-        
-        <%- include('../partials/header') %>
+<head>
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/register.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../plugins/toasty/toasty.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../plugins/toasty/jquery.toasty.js"></script>
+    <script src="../scripts/global.js"></script>
+</head>
 
-    <section class='form'>
+<body>
+    <%- include('../partials/header') %>
+    <div class='table'>
+        <div class='cell'>
             <form action="?_method=put" method="post">
+                <a href='/'>
+                    <img class='logo' src='/logos/logo140x140.jpg'><br>
+                </a>
+                <h1 class='logintext'> Ingresá a tu cuenta</h1>
                 <div>
-                <label for= "email"> Email</label>label>
-                <input id= "email" name= "email" type="email">
+                    <input id="email" name="email" type="email" placeholder="Email">
                 </div>
 
                 <div>
-                <label for= "password"> Password</label>label>
-                <input id= "password" name= "password" type="password">
+                    <input id="password" name="password" type="password" placeholder="Contraseña">
                 </div>
-<!-- Cargo el Repeat Password en el form de registro -->
+                <!-- Cargo el Repeat Password en el form de registro -->
                 <div>
-                <label for= "repassword"> Repeat Password</label>label>
-                <input id= "repassword" name= "repassword" type="password">
+                    <input id="repassword" name="repassword" type="password" placeholder="Repite la contraseña">
                 </div>
 
                 <div>
-                <label for= "name"> Nombre</label>label>
-                <input id= "name" name= "name" type="text">
+                    <input id="name" name="name" type="text" placeholder="Nombre">
                 </div>
 
                 <div>
-                <label for= "lastName"> Apellido</label>label>
-                <input id= "lastName" name= "lastNname" type="text">
+                    <input id="lastName" name="lastNname" type="text" placeholder="Apellido">
+                </div>
+
+                <div class='flex-inner images'> 
+                    <label for="images">Avatar:</label>
+                    <input type="file" name="avatar">
                 </div>
 
                 <div>
-                <label for= "avatar"> Avatar</label>label>
-                <input id= "avatar" name= "avatar" type="image">
+                    <input id="calleDeEntrega" name="calleDeEntrega" type="text" placeholder="Dirección de entrega">
                 </div>
 
                 <div>
-                <label for= "calleDeEntrega"> Domicilio de entrega</label>label>
-                <input id= "calleDeEntrega" name= "calleDeEntrega" type="text">
+                    <input id="ciudadDeEntrega" name="ciudadDeEntrega" type="text" placeholder="Ciudad de entrega">
                 </div>
 
                 <div>
-                <label for= "ciudadDeEntrega"> Ciudad</label>label>
-                <input id= "ciudadDeEntrega" name= "ciudadDeEntrega" type="text">
+                    <input id="paisDeEntrega" name="paisDeEntrega" type="text" placeholder="País">
                 </div>
 
                 <div>
-                <label for= "paisDeEntrega"> País </label>label>
-                <input id= "paisDeEntrega" name= "paisDeEntrega" type="text">
-                </div>
-                
-                <div>
-                <label for= "cpDeEntrega"> País </label>label>
-                <input id= "cpDeEntrega" name= "cpDeEntrega" type="text">
+                    <input id="cpDeEntrega" name="cpDeEntrega" type="text" placeholder="Código postal">
                 </div>
 
 
@@ -67,21 +64,24 @@
                     <button class='ingresar' type='submit'> Registrarse
                 </div>
 
-                    <div class="Social">
-                
-                        <button type="submit" class="facebook-btn">
-                        
-                        <i class="fa fa-facebook" aria-hidden="true"></i><i class="fab fa-facebook-f"></i> Registrarse con Facebook
-    
+                <div class="Social">
+
+                    <button type="submit" class="facebook-btn">
+
+                        <i class="fa fa-facebook" aria-hidden="true"></i><i class="fab fa-facebook-f"></i>
+                        Registrarse con Facebook
+
                         <button type="submit" class="twitter-btn">
-                    
-                        <i class="fa fa-twitter" aria-hidden="true"></i><i class="fab fa-twitter"></i> Registrarse con Twitter
-                        </div>
-                        <h1 class='registro'> Si ya tenes una cuenta, <a class='smalltext' href='/login'> hace click aquí</a>
+
+                            <i class="fa fa-twitter" aria-hidden="true"></i><i class="fab fa-twitter"></i>
+                            Registrarse con Twitter
+                </div>
+                <h1 class='registro'> Si ya tenes una cuenta, <a class='smalltext' href='/users'> hace click
+                        aquí</a>
             </form>
         </div>
-    
-   
+    </div>
     <%- include('../partials/footer') %>
 </body>
+
 </html>

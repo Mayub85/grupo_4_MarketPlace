@@ -13,10 +13,16 @@ a {
   font-family: 'Roboto', sans-serif; 
 }
 
-.flex-inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+.cell .logo {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+}
+
+.logintext {
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  margin-top: 0;
 }
 
 .smalltext {
@@ -48,34 +54,67 @@ form {
   padding:40px 0;
   background: #101e38;
   border-radius: 20px;
-  
+  margin-top: 75px;
+  padding-top: 0;
 }
 
-.ingresar {
-  margin-top: 3%;
-  color: white;
-  background-color: #37aa37
-}
-
-
-input {
-  width : 45%;
+.table input {
+  width : 90%;
   padding: 5px;
   box-sizing: border-box;
   border-radius: 5px;
   margin-bottom:5px;
-  
 }
 
-button {
-  padding      : 5px;
-  font         : bold .6em sans-serif;
-  border       : 2px solid #333;
+.table button {
+  padding: 5px;
+  font: bold .6em sans-serif;
+  border: 2px solid #333;
   border-radius: 5px;
-  background   : whitesmoke;
-  cursor       : pointer;
+  background: whitesmoke;
+  cursor: pointer;
   width: 200px;
-  
+}
+
+.flex-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0px;
+}
+
+.images {
+  color: #37aa37;
+  font-family: 'Roboto', sans-serif;
+  justify-content: start;
+  padding-left: 21px;
+  margin-bottom: 5px;
+  font-size: 15px;
+  display: flex;
+  flex-wrap: wrap;;
+}
+
+.images > div{
+    width: 100%;
+    text-align: left;
+}
+
+.images label {
+  padding-right: 10px;
+}
+
+.images input{
+  display: inline-block;
+  width: auto;
+  margin: 0;
+}
+
+button.ingresar {
+  margin-top: 3%;
+  font-size: 18px;
+  color: white;
+  background-color: #37aa37
 }
 
 .Social button.twitter-btn,
@@ -102,3 +141,6 @@ button {
    font-size: 20px;
 }
 
+footer {
+  margin-top: 0px;
+}

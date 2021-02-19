@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs");
 let multer = require("multer");
 const {check, body} = require('express-validator');
+let adminMiddleware = require("../middlewares/adminMiddleware");
 
 
 let miStorage = multer.diskStorage({ //configuración del storage
@@ -25,11 +26,13 @@ let upload = multer({
                         }
                     }); 
 
-router.get("/", aController.admin);
+router.get("/", adminMiddleware, aController.admin);
 
-router.get("/productCreation", aController.productCreation);
+router.get("/nop", aController.nop);
 
-router.get("/productsList", aController.productsList);
+router.get("/productCreation", adminMiddleware, aController.productCreation);
+
+router.get("/productsList", adminMiddleware, aController.productsList);
 
 router.put("/productCreation/create", 
             [ 
@@ -107,13 +110,13 @@ router.put("/productEdition/save/:id",
                 })
             ], aController.productEditionSave); 
 
-router.get("/productEdition/:id", aController.productEdition); 
+router.get("/productEdition/:id", adminMiddleware, aController.productEdition); 
 
 router.delete("/productDelete/:id", aController.productDelete);
 
 router.post("/imageDelete/:id/:filename", aController.imageDelete);
 
-router.get("/usersList", aController.usersList);
+router.get("/usersList", adminMiddleware, aController.usersList);
 
 
 module.exports = router;

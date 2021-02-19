@@ -11,9 +11,19 @@
 
 <body>
     <%- include('../partials/header') %>
+    <div class="errors">
+        <% if(typeof errors != "undefined") {%>
+            <ul id="errorsUl" class="errors">
+                <li class="closeErrors"><button onclick="javascript: getElementById('errorsUl').remove();">X</button></li>
+                <% for(let i=0; i < errors.length; i++) { %>
+                    <li><%= errors[i].msg%></li>
+                <% } %>
+            </ul>
+        <% }%>
+    </div>
     <div class='table'>
         <div class='cell'>
-            <form>
+            <form method="POST"> 
                 <a href='../pages/index.html'>
                 <img class='logo' src='../logos/logo140x140.jpg'><br>
                 </a>
@@ -22,11 +32,15 @@
                     <input type='text' class='entry' name='usuario' placeholder='Usuario'><br>
                 </div>  
                 <div class='passwordtext'>
-                    <input type='password' class='entry' name='contrasenia' placeholder='Contraseña'><br>
+                    <input type='password' class='entry' name='password' placeholder='Contraseña'><br>
                     <a href=''><h1 class='smalltext'> Olvidé mi contraseña</h1></a>
                 </div>
+                <div class="remember">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Recordarme</label>
+                </div>
                 <div>
-                <button class='ingresar' type='submit'> Ingresar
+                    <button class='ingresar' type='submit'> Ingresar
                 </div>
 
                 <div class="Social">

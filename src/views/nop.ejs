@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <%- include('./partials/head') %>
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/admin.css" />
+    <script src="/scripts/global.js"></script>
+<body>
+    <% if(typeof state != "undefined" && state.showMessage) { %>
+        <div class="message" style=<%= "background-color:" + state.color %> id="stateMsg">
+            <span><%= state.msg %></span>
+            <input type="button" value="X" onclick="javascript: var element = document.getElementById('stateMsg'); element.parentNode.removeChild(element);">
+        </div>
+    <% } %>
+    <%- include('./partials/adminHeader') %>
+    <main>
+        <h1 class="adminTitle">AH AH AH... No tenés permisos para entrar acá...</h1>
+        <div style="width: 100%; text-align: center;">
+            <img src="/images/nop.gif"></img>
+            <p><button onclick="javascript:window.location='/';">HOME</button></p>
+            <div style="display: none;"><audio src="/audio/ahahah.mp3" loop id="audio-player"></audio></div>
+        </div>
+    </main>
+   
+    <script type="text/javascript">
+        document.addEventListener('mouseover', musicPlay);
+        function musicPlay() {
+            document.getElementById('audio-player').play();
+            document.removeEventListener('click', musicPlay);
+        }
+    </script>
+</body>
+</html>

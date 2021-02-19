@@ -8,6 +8,11 @@ module.exports = {
         res.render("admin");
     },
 
+    nop: function(req, res){
+        req.session.usrInput = null;
+        res.render("nop");
+    },
+
     productCreation: function(req, res){
         let state = req.query.state;
         switch (state) {
@@ -150,7 +155,6 @@ module.exports = {
 
     productsList: function(req, res){
         let state = req.query.state;
-        console.log("Estado: " + state);
         switch (state) {
             case "0":
                 state={

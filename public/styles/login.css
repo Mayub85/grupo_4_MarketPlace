@@ -10,6 +10,38 @@ html, body {
   background-image: linear-gradient(#101f37, #e0f3f3);
 }
 
+div.errors{
+  position: relative;
+  width: 100%;
+}
+
+ul.errors{
+  position: absolute;
+  display: block;
+  background-color: red;
+  font-weight: 500;
+  margin: 0;
+  width: 100%;
+  margin-top: 90px;
+  min-height: 50px;
+}
+li.closeErrors {
+  position: absolute;
+  right: 10px;
+  list-style-type: none;
+}
+
+li.closeErrors button{
+  background-color: red;
+  font-weight: 900;
+  border: none;
+  outline: none;
+}
+
+li.closeErrors button{
+  cursor: pointer;
+}
+
 a {
   color: #37aa37;
   font-family: 'Roboto', sans-serif;
@@ -75,6 +107,30 @@ form {
   background: whitesmoke;
   cursor: pointer;
   width: 200px;
+}
+
+.remember {
+  width: 80%;
+  margin: 0px auto;
+  text-align: left;
+}
+
+.remember label{
+  display: inline-block;
+  margin: 0px auto;
+  width: auto;
+  color: #37aa37;
+  padding-left: 5px;
+  font-size: 13px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  vertical-align: top;
+}
+
+.remember input{
+  display: inline-block;
+  margin: 0px auto;
+  width: auto;
 }
 
 button.ingresar {

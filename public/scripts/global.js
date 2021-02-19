@@ -168,3 +168,10 @@ function activateCheats() {
   document.body.style.backgroundRepeat = "repeat";
   document.body.style.backgroundSize = "auto";
 }
+
+function closeSession(id) {
+  let res = confirm("¿Está seguro?");
+  if(res){
+    window.location = "/users/close/" + id;
+  }
+}

@@ -23,14 +23,6 @@ let upload = multer({
 
 
 router.get("/", usersController.login);
-<<<<<<< HEAD
-router.put("/", usersController.checkuser);
-
-
-router.get("/register", usersController.create);
-router.post("/register/create", usersController.creation);
-
-=======
 router.post("/", usersController.checkuser);
 
 
@@ -67,7 +59,6 @@ router.post("/register",
                 })
             ],
             usersController.creation);
->>>>>>> 7791b0297fa45f551b0754cb619a1876c4c490e0
 
 router.put("/userEdition/save/:id", usersController.editionSave); 
 router.get("/userEdition/:id", usersController.edition); 

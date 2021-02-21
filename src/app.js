@@ -39,4 +39,6 @@ app.listen(port,()=>{
     console.log("http://localhost:3000/");
     console.log("http://localhost:3000/productCart");
     console.log("http://localhost:3000/admin");
+    console.log("http://localhost:3000/users");
+    console.log("http://localhost:3000/users/register");
 });

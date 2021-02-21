@@ -1,8 +1,9 @@
 const path = require("path"); 
 const fs = require("fs");
+const db = require ("../../database/models");
 
 module.exports = {
-    home: function(req, res){
+    home: function(req, res){        
         let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
         prods = JSON.parse(prods);
         res.render("index",  { DEALS: fakeMultiplyProducts(prods), NEWS: fakeMultiplyProducts(prods), USED: fakeMultiplyProducts(prods), FEATURED: fakeMultiplyProducts(prods), PRESALE: fakeMultiplyProducts(prods)});

@@ -1,0 +1,41 @@
+* {box-sizing: border-box}
+
+html, body {
+  width:100%;
+  margin:0;
+  padding:0; 
+  background-image: linear-gradient(#101f37, #e0f3f3);
+}
+.title404{
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
+  text-align: center;
+}
+
+main {
+  margin: 0px auto;
+  margin-top: 80px;
+}
+
+main img{
+  background: white;
+  border-radius: 15px;
+  box-shadow: 2px 2px 4px rgb(1 1 1 / 80%);
+}
+
+main button{
+  border-radius: 15px;
+  box-shadow: 1px 1px 3px rgb(1 1 1 / 80%);
+  background-color: #37aa37;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  outline: none;
+  border: none;
+  padding: 10px 15px;
+}
+
+main button:hover{
+  box-shadow: 1px 1px 1px rgb(1 1 1 / 80%);
+  background-color:#101F37;
+}

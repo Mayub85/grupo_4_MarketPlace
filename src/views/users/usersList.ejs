@@ -22,7 +22,7 @@
                         <a class="productDelete" data-id="<%= user.id %>" href="#" onclick="javascript:alert(this); return false;"><i class="far fa-trash-alt"></i></a>
                         <a class="productLink" href=<%= "/admin/userEdition/" + user.id %>>
                             <div class="imgContainer"><img src=<%= "/images/users/" + user.avatar %> alt="avatar"></div>
-                            <span class="productDescription">Nombre: <%= user.name +" "+ user.lastname %></span>
+                            <span class="productDescription">Nombre: <%= user.name +" "+ user.lastName %></span>
                             <span class="productPrice">Email: <%= user.email %></span>
                         </a>
                     </div>

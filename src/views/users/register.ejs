@@ -11,15 +11,25 @@
 
 <body>
     <%- include('../partials/header') %>
+    <div class="errors">
+        <% if(typeof errors != "undefined") {%>
+            <ul id="errorsUl" class="errors">
+                <li class="closeErrors"><button onclick="javascript: getElementById('errorsUl').remove();">X</button></li>
+                <% for(let i=0; i < errors.length; i++) { %>
+                    <li><%= errors[i].msg%></li>
+                <% } %>
+            </ul>
+        <% }%>
+    </div>
     <div class='table'>
         <div class='cell'>
-            <form action="?_method=put" method="post">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <a href='/'>
                     <img class='logo' src='/logos/logo140x140.jpg'><br>
                 </a>
                 <h1 class='logintext'> Ingresá a tu cuenta</h1>
                 <div>
-                    <input id="email" name="email" type="email" placeholder="Email">
+                    <input id="email" name="email" type="email" placeholder="Email" value="<%= typeof inputValues != 'undefined' ? inputValues.email : '' %>">
                 </div>
 
                 <div>
@@ -31,11 +41,11 @@
                 </div>
 
                 <div>
-                    <input id="name" name="name" type="text" placeholder="Nombre">
+                    <input id="name" name="name" type="text" placeholder="Nombre" value="<%= typeof inputValues != 'undefined' ? inputValues.name : '' %>">
                 </div>
 
                 <div>
-                    <input id="lastName" name="lastNname" type="text" placeholder="Apellido">
+                    <input id="lastName" name="lastName" type="text" placeholder="Apellido" value="<%= typeof inputValues != 'undefined' ? inputValues.lastName : '' %>">
                 </div>
 
                 <div class='flex-inner images'> 
@@ -44,19 +54,19 @@
                 </div>
 
                 <div>
-                    <input id="calleDeEntrega" name="calleDeEntrega" type="text" placeholder="Dirección de entrega">
+                    <input id="calleDeEntrega" name="calleDeEntrega" type="text" placeholder="Dirección de entrega" value="<%= typeof inputValues != 'undefined' ? inputValues.calleDeEntrega : '' %>">
                 </div>
 
                 <div>
-                    <input id="ciudadDeEntrega" name="ciudadDeEntrega" type="text" placeholder="Ciudad de entrega">
+                    <input id="ciudadDeEntrega" name="ciudadDeEntrega" type="text" placeholder="Ciudad de entrega" value="<%= typeof inputValues != 'undefined' ? inputValues.ciudadDeEntrega : '' %>">
                 </div>
 
                 <div>
-                    <input id="paisDeEntrega" name="paisDeEntrega" type="text" placeholder="País">
+                    <input id="paisDeEntrega" name="paisDeEntrega" type="text" placeholder="País" value="<%= typeof inputValues != 'undefined' ? inputValues.paisDeEntrega : '' %>">
                 </div>
 
                 <div>
-                    <input id="cpDeEntrega" name="cpDeEntrega" type="text" placeholder="Código postal">
+                    <input id="cpDeEntrega" name="cpDeEntrega" type="text" placeholder="Código postal" value="<%= typeof inputValues != 'undefined' ? inputValues.cpDeEntrega : '' %>">
                 </div>
 
 
@@ -67,14 +77,13 @@
                 <div class="Social">
 
                     <button type="submit" class="facebook-btn">
-
                         <i class="fa fa-facebook" aria-hidden="true"></i><i class="fab fa-facebook-f"></i>
                         Registrarse con Facebook
-
-                        <button type="submit" class="twitter-btn">
-
-                            <i class="fa fa-twitter" aria-hidden="true"></i><i class="fab fa-twitter"></i>
-                            Registrarse con Twitter
+                    </button>
+                    <button type="submit" class="twitter-btn">
+                        <i class="fa fa-twitter" aria-hidden="true"></i><i class="fab fa-twitter"></i>
+                        Registrarse con Twitter
+                    </button>
                 </div>
                 <h1 class='registro'> Si ya tenes una cuenta, <a class='smalltext' href='/users'> hace click
                         aquí</a>

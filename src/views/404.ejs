@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <%- include('./partials/head') %>
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/404.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="../plugins/toasty/toasty.css" />
+    <script src="../plugins/toasty/jquery.toasty.js"></script>
+    <script src="/scripts/global.js"></script>
+<body>
+    <%- include('./partials/header') %>
+    <main>
+        <h1 class="title404">UPS! algo no fue bien</h1>
+        <div style="width: 100%; text-align: center;">
+            <img src="/images/john.gif"></img>
+            <p><button onclick="javascript:window.location='/';">HOME</button></p>
+        </div>
+    </main>
+    <%- include('./partials/footer') %>
+</body>
+</html>

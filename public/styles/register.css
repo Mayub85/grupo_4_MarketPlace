@@ -8,6 +8,38 @@ html, body {
   background-image: linear-gradient(#101f37, #e0f3f3);
 }
 
+div.errors{
+  position: relative;
+  width: 100%;
+}
+
+ul.errors{
+  position: absolute;
+  display: block;
+  background-color: red;
+  font-weight: 500;
+  margin: 0;
+  width: 100%;
+  margin-top: 90px;
+  min-height: 50px;
+}
+li.closeErrors {
+  position: absolute;
+  right: 10px;
+  list-style-type: none;
+}
+
+li.closeErrors button{
+  background-color: red;
+  font-weight: 900;
+  border: none;
+  outline: none;
+}
+
+li.closeErrors button{
+  cursor: pointer;
+}
+
 a {
   color: #37aa37;
   font-family: 'Roboto', sans-serif; 

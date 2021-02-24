@@ -9,47 +9,55 @@ module.exports = function (sequelize, dataTypes){
         },
 
         name: {
-            type: dataTypes.STRING(100),
+            type: dataTypes.STRING(),
             notNull: true,
         },
 
         ShortDescription:{
-            type: dataTypes.STRING(100),
+            field: 'ShortDescription',
+            type: dataTypes.TEXT,
             notNull: true,
         },
 
         LargeDescription: {
-            type: dataTypes.STRING(1000),
+            field: 'ShortDescription',
+            type: dataTypes.TEXT,
         },
 
         Specs: {
-            type: dataTypes.STRING(1000),
-
+            field: 'Specs',
+            type: dataTypes.TEXT,
         }, 
 
         Price: {
+            field: 'Price',
             type: dataTypes.DECIMAL(10,2).UNSIGNED,
             notNull: true,
         }, 
 
         Images:{
-            type: dataTypes.BLOB, 
+            field: 'Images',
+            type: dataTypes.STRING(), 
         },
 
         ProductType: {
+            field: 'ProductType',
             type: dataTypes.INTEGER,
             notNull: true,
         },
 
         ProductState:{
+            field: 'ProductState',
             type: dataTypes.INTEGER,
         },
 
         Brand: {
+            field: 'Brand',
             type: dataTypes.INTEGER,            
         },    
 
         Code: {
+            field: 'Code',
             type: dataTypes.INTEGER(7),
             notNull: true,
         }
@@ -62,6 +70,16 @@ module.exports = function (sequelize, dataTypes){
         underscored: true 
     }
 
-    const Product = sequelize.define(alias, cols, config)
+    const Product = sequelize.define(alias, cols, config);
+
+
+    Product.associate = (models)=>{
+        Product.belongsTo(models.Brand,       
+                            {
+                                as: "brands",        //este es un alias de la relación 
+                                foreignKey: "Brand"   //la columna fk de la tabla products (la que apunta al id de la tabla brands)
+                            })
+    }
+
     return Product
 }

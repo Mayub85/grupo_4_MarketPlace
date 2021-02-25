@@ -9,9 +9,9 @@
                             <li>
                                 <div class="productContainer">
                                     <a class="productFav" href="#" onclick="javascript:addToFav(this); return false;"><i class="fas fa-heart"></i></a>
-                                    <a class="productLink" href=<%= "/products/detail/" + producto.Id %>>
+                                    <a class="productLink" href=<%= "/products/detail/" + producto.id %>>
                                         <div class="imgContainer"><img src=<%= "../images/products/" + producto.Images[0] %> alt="Producto"></div>
-                                        <span class="productDescription"><%= producto.Name %></span>
+                                        <span class="productDescription"><%= producto.name %></span>
                                         <span class="productPrice"><%= producto.Price %></span>
                                     </a>
                                 </div>

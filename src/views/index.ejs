@@ -69,11 +69,25 @@
             </ul>
         </section>
 
-        <%- include('./partials/productsHome', {sectionTitle:"OFERTAS", sliderID: "SliderDeals", products: DEALS }); %>
-        <%- include('./partials/productsHome', {sectionTitle:"NUEVOS LANZAMIENTOS", sliderID: "SliderNews", products: NEWS }); %>
-        <%- include('./partials/productsHome', {sectionTitle:"USADOS", sliderID: "SliderUsed", products: USED }); %>
-        <%- include('./partials/productsHome', {sectionTitle:"DESTACADOS", sliderID: "SliderFeatured", products: FEATURED }); %>
-        <%- include('./partials/productsHome', {sectionTitle:"PREVENTAS", sliderID: "SliderPresale", products: PRESALE }); %>
+        <% if(typeof(DEALS) != "undefined" && DEALS.length > 0) { %>
+            <%- include('./partials/productsHome', {sectionTitle:"OFERTAS", sliderID: "SliderDeals", products: DEALS }); %>
+        <% } %>
+
+        <% if(typeof(NEWS) != "undefined" && NEWS.length > 0) { %>
+            <%- include('./partials/productsHome', {sectionTitle:"NUEVOS LANZAMIENTOS", sliderID: "SliderNews", products: NEWS }); %>
+        <% } %>
+
+        <% if(typeof(USED) != "undefined" && USED.length > 0) { %>
+            <%- include('./partials/productsHome', {sectionTitle:"USADOS", sliderID: "SliderUsed", products: USED }); %>
+        <% } %>
+
+        <% if(typeof(FEATURED) != "undefined" && FEATURED.length > 0) { %>
+            <%- include('./partials/productsHome', {sectionTitle:"DESTACADOS", sliderID: "SliderFeatured", products: FEATURED }); %>
+        <% } %>
+
+        <% if(typeof(PRESALE) != "undefined" && PRESALE.length > 0) { %>
+            <%- include('./partials/productsHome', {sectionTitle:"PREVENTAS", sliderID: "SliderPresale", products: PRESALE }); %>
+        <% } %>
 
         <div class="whatsappChat">
             <i class="fab fa-whatsapp"></i>

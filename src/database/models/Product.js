@@ -75,10 +75,15 @@ module.exports = function (sequelize, dataTypes){
 
     Product.associate = (models)=>{
         Product.belongsTo(models.Brand,       
-                            {
-                                as: "brands",        //este es un alias de la relación 
-                                foreignKey: "Brand"   //la columna fk de la tabla products (la que apunta al id de la tabla brands)
-                            })
+            {
+                as: "brands",        //este es un alias de la relación 
+                foreignKey: "Brand"   //la columna fk de la tabla products (la que apunta al id de la tabla brands)
+            }),
+        Product.belongsTo(models.State,       
+            {
+                as: "states",        //este es un alias de la relación 
+                foreignKey: "ProductState"   //la columna fk de la tabla products (la que apunta al id de la tabla states)
+            })
     }
 
     return Product

@@ -21,9 +21,9 @@
         <section class="prodSection">
             <div class="flexsliderProduct">
                 <ul class="slides">
-                    <% for (let i=0; i < Images.length; i++){%>
+                    <% for (let i=0; i < producto.Images.length; i++){%>
                         <li>
-                            <img id="pim-<%= i %>" src = <%= "/images/products/"+Images[i]%> />
+                            <img id="pim-<%= i %>" src = <%= "/images/products/"+producto.Images[i]%> />
                         </li> 
                     <%}%>
                    
@@ -31,12 +31,12 @@
             </div>
 
             <div class="productInfo">
-                <h1><%= Name %></h1>
+                <h1><%= producto.name %></h1>
                 <div class="container">
                     <ul class="codQtyPri">
                         <li>
                             <span>Código</span>
-                            <span>Cod <%= Code %></span>
+                            <span>Cod <%= producto.Code %></span>
                         </li>
 
                         <li>
@@ -50,24 +50,24 @@
 
                         <li>
                             <span>Precio</span>
-                            <span>$ <%= Price %></span>
+                            <span>$ <%= producto.Price %></span>
                         </li>
 
                         <li>
                             <span>Subtotal</span>
-                            <span>$ <%= Price %></span>
+                            <span>$ <%= producto.Price %></span>
                         </li>
                     </ul>
                     <div class="productDetail">
                         <ul>
-                            <% for (let i=0; i < Specs.length && i < 20 ; i++){%>
+                            <% for (let i=0; i < producto.Specs.length && i < 20 ; i++){%>
                                 <li>
-                                    <%= Specs[i]%>
+                                    <%= producto.Specs[i]%>
                                 </li> 
                             <%}%>
                         </ul>
                         <div class="productText">
-                            <%= ShortDescription %>
+                            <%= producto.ShortDescription %>
                         </div>
 
                     </div>
@@ -75,7 +75,7 @@
                     <div class="productPrice">
                         <span>Total:</span>
                         <hr>
-                        <span>$ <%= Price %></span>
+                        <span>$ <%= producto.Price %></span>
                     </div>
                 </div>
             </div>
@@ -113,12 +113,12 @@
                 <li><a href="#tabs-3">Opiniones y Consultas</a></li>
             </ul>
             <div id="tabs-1">
-                <p><%= LargeDescription %></p>
+                <p><%= producto.LargeDescription %></p>
             </div>
             <div id="tabs-2">
-                <% for (let i=0; i < Specs.length; i++){%>
+                <% for (let i=0; i < producto.Specs.length; i++){%>
                     <li>
-                        <%= Specs[i]%>
+                        <%= producto.Specs[i]%>
                     </li> 
                 <%}%>
             </div>

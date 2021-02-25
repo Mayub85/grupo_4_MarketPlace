@@ -1,7 +1,8 @@
 const path = require("path");
 const fs = require("fs");
 const {validationResult} = require('express-validator');
-const { hasUncaughtExceptionCaptureCallback } = require("process");
+const db = require ("../database/models");
+const {Op, literal} = require("sequelize");
 module.exports = {
     admin: function(req, res){
         req.session.usrInput = null;
@@ -53,17 +54,31 @@ module.exports = {
         }
 
 
-        let brands = fs.readFileSync(path.join(__dirname, "../", "data", "brands.json"), "utf-8");
-        brands = JSON.parse(brands);
+        // let brands = fs.readFileSync(path.join(__dirname, "../", "data", "brands.json"), "utf-8");
+        // brands = JSON.parse(brands);
+        let brandsPromise = db.Brand.findAll();
 
-        let pTypes = fs.readFileSync(path.join(__dirname, "../", "data", "productTypes.json"), "utf-8");
-        pTypes = JSON.parse(pTypes);
+        // let pTypes = fs.readFileSync(path.join(__dirname, "../", "data", "productTypes.json"), "utf-8");
+        // pTypes = JSON.parse(pTypes);
+        let pTypesPromise = db.Type.findAll();
 
-        let pStates = fs.readFileSync(path.join(__dirname, "../", "data", "productStates.json"), "utf-8");
-        pStates = JSON.parse(pStates);
+        // let pStates = fs.readFileSync(path.join(__dirname, "../", "data", "productStates.json"), "utf-8");
+        // pStates = JSON.parse(pStates);
+        let pStatesPromise = db.State.findAll();
 
-        let usrInput = req.session.usrInput ? req.session.usrInput : null;
-        res.render("./products/productCreation", {brands: brands, pTypes: pTypes, pStates: pStates, state: state, usrInput: usrInput});
+        Promise.all([brandsPromise, pTypesPromise, pStatesPromise])
+        .then((data)=>{ 
+            let brands = data[0];
+            let pTypes = data[1];
+            let pStates = data[2];
+            console.log(data);
+            let usrInput = req.session.usrInput ? req.session.usrInput : null;
+            res.render("./products/productCreation", {brands: brands, pTypes: pTypes, pStates: pStates, state: state, usrInput: usrInput});
+        })
+        .catch((error)=>{
+            res.send(error.toString());
+        });
+
     },
 
     

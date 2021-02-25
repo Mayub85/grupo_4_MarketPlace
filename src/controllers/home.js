@@ -1,17 +1,11 @@
 const path = require("path"); 
 const fs = require("fs");
 const db = require ("../database/models");
-const { deepStrictEqual } = require("assert");
-const Brand = require("../database/models/Brand");
-
+const constants = require("../utils/constants");
+const bfgFunctions = require("../utils/bfgFunctions");
 module.exports = {
     home: function(req, res){      
-        //Lo viejo con FS:
-        // let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
-        // prods = JSON.parse(prods);
-        // res.render("index",  { DEALS: fakeMultiplyProducts(prods), NEWS: fakeMultiplyProducts(prods), USED: fakeMultiplyProducts(prods), FEATURED: fakeMultiplyProducts(prods), PRESALE: fakeMultiplyProducts(prods)});
-        //****************/        
-        //Así busco los productos que tengan marca "NINTENDO"  usando association
+        // Así buscaría los productos que tengan marca "NINTENDO"  usando association
         // db.Product.findAll({
         //     include: [{
         //         association: "brands",
@@ -21,16 +15,18 @@ module.exports = {
         //     console.log("Nano:");
         //     console.log(pr);
         // });
-
-        db.Product.findAll()                       
+        db.Product.findAll({
+            include: [{
+                        association: "states",
+                    }]
+        })                       
         .then((products) => {
-            for (let i=0; i<products.length; i++) { //ESTE FOR lo hice para convertir la columna Images (que es un texto), a un array de strings
-                let prod = products[i];
-                if(prod.Images && prod.Images.length > 0){
-                    prod.Images = JSON.parse(prod.Images);
-                }
-            }
-            res.render("index",  { DEALS: fakeMultiplyProducts(products), NEWS: fakeMultiplyProducts(products), USED: fakeMultiplyProducts(products), FEATURED: fakeMultiplyProducts(products), PRESALE: fakeMultiplyProducts(products)});
+            bfgFunctions.imagesParser(products);//Lo hice para convertir la columna Images (que es un texto), a un array de strings
+            res.render("index",  { DEALS: products.filter(p=> p.states.name == constants.productStates.OFERTA).slice(0, 20), //un máximo de 20
+                                   NEWS: products.filter(p=> p.states.name == constants.productStates.NOVEDAD).slice(0, 20),
+                                   USED: products.filter(p=> p.states.name == constants.productStates.USADO).slice(0, 20),
+                                   FEATURED: products.filter(p=> p.states.name == constants.productStates.DESTACADO).slice(0, 20),
+                                   PRESALE: products.filter(p=> p.states.name == constants.productStates.PREVENTA).slice(0, 20)});
         }).catch((error) => {
             console.log(error);
             res.send(error);
@@ -38,18 +34,4 @@ module.exports = {
 
     }
 
-}
-
-function fakeMultiplyProducts(arr){
-    let rnd = getRandomArbitrary(1,11); 
-    let newArr = arr.map(e=> e);
-    for (let i=0; i<rnd; i++) {
-        let it = getRandomArbitrary(0,4); 
-        newArr.push(newArr[it]);
-    }
-    return newArr;
-}
-
-function getRandomArbitrary(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
 }

@@ -24,9 +24,9 @@
                 <% for(result of results) {%>
                     <li>
                         <div class="resultContainer">
-                            <a class="resultLink" href=<%= "/products/detail/" + result.Id %>>
+                            <a class="resultLink" href=<%= "/products/detail/" + result.id %>>
                                 <div class="resImgContainer"><img src=<%= "/images/products/" + result.Images[0] %> alt="Producto"></div>
-                                <span class="resultDescription"><%= result.Name %></span>
+                                <span class="resultDescription"><%= result.name %></span>
                                 <span class="resultPrice">$<%= result.Price %></span>
                             </a>
                         </div>

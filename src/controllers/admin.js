@@ -66,14 +66,17 @@ module.exports = {
         // pStates = JSON.parse(pStates);
         let pStatesPromise = db.State.findAll();
 
-        Promise.all([brandsPromise, pTypesPromise, pStatesPromise])
+        let countriesPromise = db.Country.findAll();
+
+        Promise.all([brandsPromise, pTypesPromise, pStatesPromise, countriesPromise])
         .then((data)=>{ 
             let brands = data[0];
             let pTypes = data[1];
             let pStates = data[2];
+            let countries = data[3];
             console.log(data);
             let usrInput = req.session.usrInput ? req.session.usrInput : null;
-            res.render("./products/productCreation", {brands: brands, pTypes: pTypes, pStates: pStates, state: state, usrInput: usrInput});
+            res.render("./products/productCreation", {brands: brands, pTypes: pTypes, pStates: pStates, state: state, countries: countries, usrInput: usrInput});
         })
         .catch((error)=>{
             res.send(error.toString());

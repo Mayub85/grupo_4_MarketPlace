@@ -29,6 +29,7 @@ module.exports = function (sequelize, dataTypes){
             notNull: true,
         },
         lastName: {
+            field: 'lastName',
             type: dataTypes.STRING(100),
             notNull: true,
 
@@ -38,51 +39,70 @@ module.exports = function (sequelize, dataTypes){
 
         },
         calleDeEntrega:{
+            field: 'calleDeEntrega',
             type: dataTypes.STRING(100),
 
         },
 
         ciudadDeEntrega: {
+            field: 'ciudadDeEntrega',
             type: dataTypes.STRING(100),
 
         },
 
-        paisDeEntrega: {
-            type: dataTypes.STRING(1000),
+        country_id:{
+            type: dataTypes.INTEGER,
+            notNull: true,
+        }, 
 
+        paisDeEntrega: {
+            field: 'paisDeEntrega',
+            type: dataTypes.STRING(1000),
         }, 
 
         cpDeEntrega: {
+            field: 'cpDeEntrega',
             type: dataTypes.INTEGER,
         
         }, 
         calleDeEntrega2:{
+            field: 'calleDeEntrega2',
             type: dataTypes.STRING(100),
 
         },
 
         ciudadDeEntrega2: {
+            field: 'ciudadDeEntrega2',
             type: dataTypes.STRING(100),
         },
 
         paisDeEntrega2: {
+            field: 'paisDeEntrega2',
             type: dataTypes.STRING(1000),
-
         }, 
 
         cpDeEntrega2: {
+            field: 'cpDeEntrega2',
             type: dataTypes.INTEGER,
-        
         }, 
 
     }
 
     let config = {
-        tableName: "products",
+        tableName: "users",
         timestamps: true,
         underscored: true 
     }
 
-    const User = sequelize.define(alias, cols, config)
+    const User = sequelize.define(alias, cols, config);
+
+    User.associate = (models)=>{
+        User.belongsTo(models.Country,       
+            {
+                as: "country",        //este es un alias de la relación 
+                foreignKey: "country_id"   //la columna fk de la tabla products (la que apunta al id de la tabla states)
+            })
+    }
+
     return User
 }

@@ -15,6 +15,20 @@ module.exports = {
         //     console.log("Nano:");
         //     console.log(pr);
         // });
+
+        // db.User.findAll({
+        //     include: [{
+        //                 association: "country",
+        //             }]
+        // })       
+        // .then((users)=>{
+        //     res.send(users);
+        // })
+        // .catch((error) => {
+        //     console.log(error);
+        //     res.send(error);
+        // });
+
         db.Product.findAll({
             include: [{
                         association: "states",

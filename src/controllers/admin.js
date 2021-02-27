@@ -3,6 +3,8 @@ const fs = require("fs");
 const {validationResult} = require('express-validator');
 const db = require ("../database/models");
 const {Op, literal} = require("sequelize");
+const bcrypt = require ("bcrypt");
+
 module.exports = {
     admin: function(req, res){
         req.session.usrInput = null;
@@ -381,6 +383,7 @@ module.exports = {
              });
         }
     },
+
     usersList: function(req, res){
     
 
@@ -389,6 +392,7 @@ module.exports = {
 
         res.render("./users/usersList", {users: users});
     },
+
     usersCreation: function(req, res){
         let state = req.query.state;
         switch (state) {
@@ -433,81 +437,71 @@ module.exports = {
     },
     usersAdminCreation: function(req, res){
         try {
-            let {name, email, password, avatar} = req.body;
+            let {name, lastName, email, password} = req.body;
             let errors = validationResult(req);
 
-            let usrInput = {
-                Name: name,
-                Email: email,
-                Password: password,
+            let inputValues = undefined;
+            if(typeof(req.inputValues) != "undefined"){
+                inputValues = req.inputValues
+            } else{
+                inputValues = {
+                    name: name,
+                    lastName: lastName,
+                    email: email,
+                    password: password,
+                };
             }
-            req.session.usrInput = usrInput;
+            req.session.inputValues = inputValues;
 
             if(errors.isEmpty()) {
-                let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
-                prods = JSON.parse(prods);
+                let users = fs.readFileSync(path.join(__dirname,"../data/users.json"), "utf8");
+                users = JSON.parse(users);
+                                
+                let preUser = users.find(u=>u.email == req.body.email);
+                if(preUser){
+                // res.send("Ya existe el usuario");
+                return res.render("./users/registerAdmin", {errors: [{msg:"El usuario ya existe"}], inputValues: req.session.inputValues});
+                }
                 
-                let oldProd = prods.find(p=> p.Name == name);//verifico si existe uno con igual nombre (es una validación poco seria, pero es a fines prácticos)
-                if(!oldProd){
-                    let maxID = prods.reduce((max, prod) => max.Id > prod.Id ? max : prod);
-                    let newID = parseInt(maxID.Id) + 1;
-                    prods.push({
-                        Id: newID,
-                        Name: name,
-                        ShortDescription: shortDescription,
-                        LargeDescription: largeDescription,
-                        Specs: specs.split("\n"),
-                        Price: price,
-                        Images: req.files.images.map(i=> {return i.filename}),
-                        ProductType: productType,
-                        ProductState: productState,
-                        Brand: brand,
-                        Code: code
-                    });
-                    
-                    fs.writeFileSync(path.join(__dirname, "../", "data", "products.json"), JSON.stringify(prods), "utf8");
-                    req.session.usrInput = null;
-                    res.redirect(`/admin/productCreation?state=1&id=${newID}`); 
+                let maxID = users.reduce((max, user) => max.Id > user.Id ? max : user);
+                let newID = parseInt(maxID.id) + 1;
 
-                } else{//si ya existe
-                    if(typeof req.files != "undefined" && typeof req.files.images != "undefined" && req.files.images.length > 0){
-                        for (let i = 0; i < req.files.images.length; i++) {
-                            const imageFile = req.files.images[i];
-                            let filePath = path.join(__dirname,"../../", "/public/images/products/", imageFile.filename); 
-                            if (fs.existsSync(filePath)) {
-                                fs.unlinkSync(filePath);
-                            }
-                        }
-                    }
-                    res.redirect(`/admin/productCreation?state=2&pname=${name}`);//ya existe
-                }
+                let newUser = {...inputValues};
+                newUser.id = newID;
+                newUser.type = 0;//Con esto le digo q va a ser un admin
+                newUser.password = bcrypt.hashSync(req.body.password, 12);
+                newUser.avatar = req.files.avatar[0].filename;
+
+                users.push(newUser);
+
+                fs.writeFileSync(path.join(__dirname,"../data/users.json"), JSON.stringify(users));
+                req.session.inputValues = undefined; //limpio la session de los valores de los inputs
+                delete newUser.password;
+                return res.redirect("/admin/usersList");
             } else {
-                if(typeof req.files != "undefined" && typeof req.files.images != "undefined" && req.files.images.length > 0){
-                    for (let i = 0; i < req.files.images.length; i++) {
-                        const imageFile = req.files.images[i];
-                        let filePath = path.join(__dirname,"../../", "/public/images/products/", imageFile.filename); 
-                        if (fs.existsSync(filePath)) {
-                            fs.unlinkSync(filePath);
-                        }
+                //Borro la imagen de avatar si es que se subió
+                if(typeof req.files.avatar != "undefined"){
+                    let avatarPath = path.join(__dirname,"../../", "/public/images/users/", req.files.avatar[0].filename); 
+                    if (fs.existsSync(avatarPath)) {
+                        fs.unlinkSync(avatarPath);
                     }
                 }
-                req.session.pcErrors = errors;
-                // console.log(errors);
-                res.redirect(`/admin/productCreation?state=3`);
-
+                console.log(errors.errors);
+                return res.render("./users/registerAdmin", {errors: errors.errors, inputValues: req.session.inputValues});
+                // return res.redirect(`/admin/registerAdmin?state=0&msg=${error.toString()}`);
             }
-            
+//
         } catch (error) {
             if(typeof req.files != "undefined" && typeof req.files.images != "undefined" && req.files.images.length > 0){
                 for (let i = 0; i < req.files.images.length; i++) {
                     const imageFile = req.files.images[i];
-                    let filePath = path.join(__dirname,"../../", "/public/images/products/", imageFile.filename); 
+                    let filePath = path.join(__dirname,"../../", "/public/images/users/", imageFile.filename); 
                     if (fs.existsSync(filePath)) {
                         fs.unlinkSync(filePath);
                     }
                 }
             }
-            res.redirect(`/admin/productCreation?state=0&msg=${error.toString()}`);
+            return res.redirect(`/admin/registerAdmin?state=0&msg=${error.toString()}`);
         }
     },
 

@@ -11,7 +11,11 @@ let adminMiddleware = require("../middlewares/adminMiddleware");
 let miStorage = multer.diskStorage({ //configuración del storage
     destination: function(req, file, cb){
         //console.log(path.join("..","..","/public","images","users"));
-        cb(null, path.join("public","images","products")); //esta carpeta debe existir (ojo de escribir bien la ruta -fijarse si no hay que hacer un ../ )
+        if(req.originalUrl.includes("/admin/usersCreation")){
+            cb(null, path.join("public","images","users"));
+        } else {
+            cb(null, path.join("public","images","products")); //esta carpeta debe existir (ojo de escribir bien la ruta -fijarse si no hay que hacer un ../ )
+        }
     },
     filename: function(req, file, cb){
         cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
@@ -119,7 +123,28 @@ router.post("/imageDelete/:id/:filename", aController.imageDelete);
 router.get("/usersList", adminMiddleware, aController.usersList);
 
 router.get("/usersCreation", adminMiddleware, aController.usersCreation);
-router.put("/usersCreation/create", adminMiddleware, aController.usersAdminCreation);
+router.put("/usersCreation", [ 
+                                    upload.fields([
+                                        {name: 'avatar', maxCount: 1}
+                                    ]),
+                                    check('name').isLength({min:1}).withMessage('Debes ingresar un nombre'),
+                                    check('lastName').isLength({min:1}).withMessage('Debes ingresar un apellido '),
+                                    check('email').isEmail().withMessage('No es un email válido'),
+                                    check('password').isLength({min:6}).withMessage('Debes ingresar una contraseña'),
+                                    body("avatar").custom(function(value, {req}){
+                                        if(typeof req.files.avatar != "undefined" && req.files.avatar[0].size <= 209715){
+                                            return true;
+                                        } else {
+                                            if(typeof req.files.avatar != "undefined"){
+                                                let filePath = path.join(__dirname,"../../", "/public/images/users/", req.files.avatar[0].filename); 
+                                                if (fs.existsSync(filePath)) {
+                                                    fs.unlinkSync(filePath);
+                                                }
+                                            }
+                                            throw new Error('La imagen es obligatoria y hasta 2MB');
+                                        }
+                                    })
+                                ], aController.usersAdminCreation);
 
 
 module.exports = router;

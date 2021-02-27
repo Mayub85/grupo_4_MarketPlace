@@ -188,6 +188,7 @@ ul.productsList li{
   box-sizing: border-box;
   margin: 20px 30px;
   min-width: 250px;
+  max-width: 250px;
   min-height: 180px;
   border: none;
   border-radius: 15px;

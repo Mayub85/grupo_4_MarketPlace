@@ -118,5 +118,8 @@ router.post("/imageDelete/:id/:filename", aController.imageDelete);
 
 router.get("/usersList", adminMiddleware, aController.usersList);
 
+router.get("/usersCreation", adminMiddleware, aController.usersCreation);
+router.put("/usersCreation/create", adminMiddleware, aController.usersAdminCreation);
+
 
 module.exports = router;

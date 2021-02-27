@@ -43,7 +43,10 @@ module.exports = {
                                    PRESALE: products.filter(p=> p.states.name == constants.productStates.PREVENTA).slice(0, 20)});
         }).catch((error) => {
             console.log(error);
-            res.send(error);
+         //   res.send(error);
+         res.render("error", {msg: "Esto no existe chabón",
+                            img: "fede.jpg",
+         })
         });
 
     }

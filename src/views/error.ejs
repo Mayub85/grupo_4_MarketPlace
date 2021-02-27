@@ -9,9 +9,9 @@
 <body>
     <%- include('./partials/header') %>
     <main>
-        <h1 class="title404">UPS! algo no fue bien</h1>
+        <h1 class="title404"><%=msg%></h1>
         <div style="width: 100%; text-align: center;">
-            <img src="/images/john.gif"></img>
+            <img src="/images/<%=img%>"></img>
             <p><button onclick="javascript:window.location='/';">HOME</button></p>
         </div>
     </main>

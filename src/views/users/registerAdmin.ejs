@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/productsList.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/scripts/productsList.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/admin.css" />
+<body>
+    <% if(typeof state != "undefined" && state.showMessage) { %>
+        <div class="message" style=<%= "background-color:" + state.color %> id="stateMsg">
+            <span><%= state.msg %></span>
+            <input type="button" value="X" onclick="javascript: var element = document.getElementById('stateMsg'); element.parentNode.removeChild(element);">
+        </div>
+    <% } %>
+    <%- include('../partials/adminHeader') %>
+    <main>
+        <div class='table'>
+            <div class='cell'>
+                <form action="/admin/usersCreation/create?_method=PUT" method="POST" enctype="multipart/form-data">
+                    <a href='/'>
+                        <img class='logo' src='/logos/logo140x140.jpg'>
+                    </a>
+                    <h1>CREACION DE USUARIO</h1>
+                    <div class="main">
+                        <div class='flex-inner'>
+                            <input type='text' class='entry' name='name' placeholder='Nombre' value="<%= usrInput != null ? usrInput.Name : '' %>">
+                        </div>
+                        <div class='flex-inner'>
+                            <input type='text' class='entry' name='email' placeholder='Email' value="<%= usrInput != null ? usrInput.Email : '' %>">
+                        </div>
+                        <div class='flex-inner'>
+                            <input type='text' class='entry' name='password' placeholder='Password'>
+                        </div>
+                        <div class='flex-inner images'> 
+                            <label for="images">Avatar:</label>
+                            <input type="file" name="avatar">
+                        </div>
+                    </div>
+                    <div>
+                        <button class='ingresar' type='submit'> Cargar </button>
+                        <button class='ingresar' type='button' onclick="javascript: window.location ='/admin';"> Volver </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </main>
+   
+
+</body>
+</html>

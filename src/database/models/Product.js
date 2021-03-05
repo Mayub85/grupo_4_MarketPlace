@@ -20,7 +20,7 @@ module.exports = function (sequelize, dataTypes){
         },
 
         LargeDescription: {
-            field: 'ShortDescription',
+            field: 'LargeDescription',
             type: dataTypes.TEXT,
         },
 

@@ -44,8 +44,8 @@ module.exports = {
         }).catch((error) => {
             console.log(error);
          //   res.send(error);
-         res.render("error", {msg: "Esto no existe chabón",
-                            img: "fede.jpg",
+            res.render("error", {msg: "Error inesperado. Intentalo más tarde. ",
+                            img: "broken.jpg",
          })
         });
 

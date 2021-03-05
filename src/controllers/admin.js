@@ -87,7 +87,7 @@ module.exports = {
     },
 
     
-    productCreate: function(req, res){
+    productCreate: async function(req, res){
         try {
             let {name, shortDescription, brand, code, largeDescription, specs, price, images, productType, productState } = req.body;
             let errors = validationResult(req);
@@ -106,31 +106,67 @@ module.exports = {
             req.session.usrInput = usrInput;
 
             if(errors.isEmpty()) {
-                let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
-                prods = JSON.parse(prods);
+                // let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
+                // prods = JSON.parse(prods);
+                // let oldProd = prods.find(p=> p.Name == name);//verifico si existe uno con igual nombre (es una validación poco seria, pero es a fines prácticos)
                 
-                let oldProd = prods.find(p=> p.Name == name);//verifico si existe uno con igual nombre (es una validación poco seria, pero es a fines prácticos)
-                if(!oldProd){
-                    let maxID = prods.reduce((max, prod) => max.Id > prod.Id ? max : prod);
-                    let newID = parseInt(maxID.Id) + 1;
-                    prods.push({
-                        Id: newID,
-                        Name: name,
-                        ShortDescription: shortDescription,
-                        LargeDescription: largeDescription,
-                        Specs: specs.split("\n"),
-                        Price: price,
-                        Images: req.files.images.map(i=> {return i.filename}),
-                        ProductType: productType,
-                        ProductState: productState,
-                        Brand: brand,
-                        Code: code
-                    });
-                    
-                    fs.writeFileSync(path.join(__dirname, "../", "data", "products.json"), JSON.stringify(prods), "utf8");
-                    req.session.usrInput = null;
-                    res.redirect(`/admin/productCreation?state=1&id=${newID}`); 
+                let prod = await db.Product.findAll({
+                    where:{
+                         name: name         
+                   }
+                });
 
+                
+                if(prod.length == 0){
+                    // let maxID = prods.reduce((max, prod) => max.Id > prod.Id ? max : prod);
+                    // let newID = parseInt(maxID.Id) + 1;
+                    // prods.push({
+                    //     Id: newID,
+                    //     Name: name,
+                    //     ShortDescription: shortDescription,
+                    //     LargeDescription: largeDescription,
+                    //     Specs: specs.split("\n"),
+                    //     Price: price,
+                    //     Images: req.files.images.map(i=> {return i.filename}),
+                    //     ProductType: productType,
+                    //     ProductState: productState,
+                    //     Brand: brand,
+                    //     Code: code
+                    // });
+                    let newProd = {
+                                    Name: name,
+                                    ShortDescription: shortDescription,
+                                    LargeDescription: largeDescription,
+                                    Specs: specs,//specs.split("\n"),
+                                    Price: price,
+                                    Images: req.files.images.map(i=> {return i.filename}),
+                                    ProductType: productType,
+                                    ProductState: productState,
+                                    Brand: brand,
+                                    Code: code
+                                }
+                    db.Product.create({
+                                            name: name,
+                                            ShortDescription: shortDescription,
+                                            LargeDescription: largeDescription,
+                                            Specs: specs,//specs.split("\n"),
+                                            Price: price,
+                                            Images: JSON.stringify(req.files.images.map(i=> {return i.filename})),
+                                            ProductType: productType,
+                                            ProductState: productState,
+                                            Brand: brand,
+                                            Code: code
+                                        })
+                    .then((r)=>{
+                        req.session.usrInput = null;
+                        res.redirect(`/admin/productCreation?state=1&id=${r.dataValues.id}`);
+                    })
+                    .catch(error=>{
+                        req.session.pcErrors = errors;
+                        console.log(error);
+                        res.redirect(`/admin/productCreation?state=3`);
+                    });
+                 
                 } else{//si ya existe
                     if(typeof req.files != "undefined" && typeof req.files.images != "undefined" && req.files.images.length > 0){
                         for (let i = 0; i < req.files.images.length; i++) {

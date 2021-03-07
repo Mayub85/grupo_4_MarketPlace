@@ -18,7 +18,6 @@ module.exports = {
         db.Product.findByPk(id)
         .then((productoMuestra)=>{
             productoMuestra.Images = JSON.parse(productoMuestra.Images);
-            console.log(typeof(productoMuestra.Specs));
             productoMuestra.Specs = productoMuestra.Specs.replace(/\\r/g, "");
             productoMuestra.Specs = productoMuestra.Specs.replace(/\"/g, "");
             productoMuestra.Specs = productoMuestra.Specs.split(",");

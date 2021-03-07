@@ -29,7 +29,7 @@ module.exports = {
             delete user.password;
             req.session.loggedUser = {...user};
             if(req.body.remember != undefined){ 
-                res.cookie("recordarme", user.id, { maxAge: 864000});//nombre de la cookie, valor a guardar, duración de la cookie
+                res.cookie("recordarme", user.id, { maxAge: 1296000});//nombre de la cookie, valor a guardar, duración de la cookie
             }
             return res.redirect("/");
         }

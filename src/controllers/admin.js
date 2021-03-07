@@ -1,9 +1,10 @@
 const path = require("path");
 const fs = require("fs");
 const {validationResult} = require('express-validator');
-const db = require ("../database/models");
+const db = require("../database/models");
 const {Op, literal} = require("sequelize");
 const bcrypt = require ("bcrypt");
+const bfgFunctions = require("../utils/bfgFunctions");
 
 module.exports = {
     admin: function(req, res){
@@ -118,33 +119,18 @@ module.exports = {
 
                 
                 if(prod.length == 0){
-                    // let maxID = prods.reduce((max, prod) => max.Id > prod.Id ? max : prod);
-                    // let newID = parseInt(maxID.Id) + 1;
-                    // prods.push({
-                    //     Id: newID,
-                    //     Name: name,
-                    //     ShortDescription: shortDescription,
-                    //     LargeDescription: largeDescription,
-                    //     Specs: specs.split("\n"),
-                    //     Price: price,
-                    //     Images: req.files.images.map(i=> {return i.filename}),
-                    //     ProductType: productType,
-                    //     ProductState: productState,
-                    //     Brand: brand,
-                    //     Code: code
-                    // });
-                    let newProd = {
-                                    Name: name,
-                                    ShortDescription: shortDescription,
-                                    LargeDescription: largeDescription,
-                                    Specs: specs,//specs.split("\n"),
-                                    Price: price,
-                                    Images: req.files.images.map(i=> {return i.filename}),
-                                    ProductType: productType,
-                                    ProductState: productState,
-                                    Brand: brand,
-                                    Code: code
-                                }
+                    // let newProd = {
+                    //                 Name: name,
+                    //                 ShortDescription: shortDescription,
+                    //                 LargeDescription: largeDescription,
+                    //                 Specs: specs,//specs.split("\n"),
+                    //                 Price: price,
+                    //                 Images: req.files.images.map(i=> {return i.filename}),
+                    //                 ProductType: productType,
+                    //                 ProductState: productState,
+                    //                 Brand: brand,
+                    //                 Code: code
+                    //             }
                     db.Product.create({
                                             name: name,
                                             ShortDescription: shortDescription,
@@ -240,15 +226,20 @@ module.exports = {
             break;
         }
 
-        let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
-        prods = JSON.parse(prods);
-
-        res.render("./products/productsList", {products: prods, state: state});
+        db.Product.findAll()
+        .then(prods=>{
+            bfgFunctions.imagesParser(prods);
+            return res.render("./products/productsList", {products: prods, state: state});
+        })
+        .catch(errors=>{
+            req.session.pcErrors = errors;
+            console.log(errors);
+            res.redirect(`/admin/productsListn?state=0&msg=Se produjo un error`);
+        });
     },
     
     productEdition: function(req, res){
         try {
-
             let state = req.query.state;
             switch (state) {
                 case "0":
@@ -281,36 +272,45 @@ module.exports = {
             }
 
             let { id } = req.params;
-            
-            let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
-            prods = JSON.parse(prods);
 
-            let brands = fs.readFileSync(path.join(__dirname, "../", "data", "brands.json"), "utf-8");
-            brands = JSON.parse(brands);
+            let brandsPromise = db.Brand.findAll();
+            let pTypesPromise = db.Type.findAll();
+            let pStatesPromise = db.State.findAll();
+            let productPromise = db.Product.findByPk(id);
+    
+            Promise.all([brandsPromise, pTypesPromise, pStatesPromise, productPromise])
+            .then((data)=>{
+                let brands = data[0];
+                let pTypes = data[1];
+                let pStates = data[2];
+                let oriProd = data[3];
+                if(oriProd){
+                    oriProd.Specs = oriProd.Specs.replace(/\\r/g, "");
+                    oriProd.Specs = oriProd.Specs.replace(/\"/g, "");
+                    oriProd.Specs = oriProd.Specs.split(",");
+                    bfgFunctions.imagesParser([oriProd]);
+                    req.session.ImagesArray = oriProd.Images;
+                    let usrInput = req.session.usrInput ? req.session.usrInput : null;
+                    return res.render("./products/productEdition", {product: oriProd, brands: brands, pTypes: pTypes, pStates: pStates, state: state, usrInput: usrInput});
+                } else{
+                    throw new Error("No se encontró un producto con id: " + id.toString());
+                }
+            })
+            .catch(error=>{
+                return res.redirect(`/admin/productEdition?state=0&msg=${error.toString()}`);
+            })
 
-            let pTypes = fs.readFileSync(path.join(__dirname, "../", "data", "productTypes.json"), "utf-8");
-            pTypes = JSON.parse(pTypes);
-
-            let pStates = fs.readFileSync(path.join(__dirname, "../", "data", "productStates.json"), "utf-8");
-            pStates = JSON.parse(pStates);
-
-            let oriProd = prods.find(p=> p.Id == id);
-            if(oriProd){
-                let usrInput = req.session.usrInput ? req.session.usrInput : null;
-                res.render("./products/productEdition", {product: oriProd, brands: brands, pTypes: pTypes, pStates: pStates, state: state, usrInput: usrInput});
-            } else{
-                throw new Error("No se encontró un producto con id: " + id.toString());
-            }
         } catch (error) {
             res.redirect(`/admin/productEdition?state=0&msg=${error.toString()}`);
         }
     },
 
     productEditionSave: function(req, res){
+        let id = 0;
         try {
             let {name, shortDescription, brand, code, largeDescription, specs, price, images, productType, productState } = req.body;
             let errors = validationResult(req);
-            let id = req.params.id;
+            id = req.params.id;
 
             let usrInput = {
                 Name: name,
@@ -326,33 +326,43 @@ module.exports = {
             req.session.usrInput = usrInput;
             
             if(errors.isEmpty()) {
-                let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
-                prods = JSON.parse(prods);
-                
-                let product = prods.find(p=> p.Id == id);
-                
-                if(product){
-                    product.Name = name;
-                    product.ShortDescription = shortDescription;
-                    product.LargeDescription = largeDescription;
-                    product.Specs = specs.split("\n");
-                    product.Price = price;
-                    if(typeof req.files != "undefined" && typeof req.files.images != "undefined" && req.files.images.length > 0){
-                        for (let i = 0; i < req.files.images.length; i++) {
-                            const imageFile = req.files.images[i];
-                            product.Images.push(imageFile.filename);
-                        }
-                    }
-                    product.ProductType = productType;
-                    product.ProductState = productState;
-                    product.Brand = brand;
-                    product.Code = code;
-                    
-                    fs.writeFileSync(path.join(__dirname, "../", "data", "products.json"), JSON.stringify(prods), "utf8");
-                    res.redirect(`/admin/productEdition/${id}?state=1&id=${id}`);//OK
+                let images;
+                if(req.session.ImagesArray != undefined && req.session.ImagesArray.length > 0){
+                    images = [...req.files.images.map(i=> {return i.filename}), ...req.session.ImagesArray];
                 } else{
-                    throw new Error("No se ha podido encontrar el producto con ID: " + id);
+                    images = req.files.images.map(i=> {return i.filename});
                 }
+
+                db.Product.update({
+                                    name: name,
+                                    ShortDescription: shortDescription,
+                                    LargeDescription: largeDescription,
+                                    Specs: specs,//specs.split("\n"),
+                                    Price: price,
+                                    Images: JSON.stringify(images),
+                                    ProductType: productType,
+                                    ProductState: productState,
+                                    Brand: brand,
+                                    Code: code
+                                },
+                                {
+                                    where:{
+                                            id: id  
+                                        }
+                                }    
+                )
+                .then(result=>{
+                    if(result && result.length > 0 && result[0] == 1){
+                        req.session.ImagesArray = images;
+                        return res.redirect(`/admin/productEdition/${id}?state=1&id=${id}`);//OK
+                    } else{
+                        throw new Error("No se ha podido encontrar el producto con ID: " + id);
+                    }
+                })
+                .catch(error=>{
+                    return res.redirect(`/admin/productEdition/${id}?state=0&msg=${error.toString()}`);
+                });
+
             } else {
                 if(typeof req.files != "undefined" && typeof req.files.images != "undefined" && req.files.images.length > 0){
                     for (let i = 0; i < req.files.images.length; i++) {
@@ -373,14 +383,29 @@ module.exports = {
     },
 
     productDelete: function(req, res){
+        let id = 0;
         try {
-            let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
-            prods = JSON.parse(prods);
-            prods = prods.filter(p=> p.Id != req.params.id);
-            // throw new Error("Este es un error de prueba");
-            fs.writeFileSync(path.join(__dirname, "../", "data", "products.json"), JSON.stringify(prods), "utf8");
-
-            return res.end(JSON.stringify({"success" : "Borrado exitoso", "status" : 200}));
+            id = req.params.id;
+            db.Product.destroy(
+                {
+                    where: {
+                                id: id 
+                            }
+                })
+                .then(result=>{
+                    if(result == 1){
+                        return res.end(JSON.stringify({"success" : "Borrado exitoso", "status" : 200}));
+                    } else{
+                        return res.status(400).send(JSON.stringify({
+                            message: "No se ha podido encontrar el producto con ID: " + id
+                        }));
+                    }
+                })
+                .catch(error=>{
+                    return res.status(400).send(JSON.stringify({
+                        message: error.toString()
+                     }));
+                });
         } catch (error) {
             return res.status(400).send(JSON.stringify({
                 message: error.toString()
@@ -393,26 +418,45 @@ module.exports = {
             //
             let pId = req.params.id;
             let filename = req.params.filename;
-            //Borrar file y borrar item JSON
-
-            let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
-            prods = JSON.parse(prods);
-            let prod = prods.find(p=> p.Id == pId);
-
-            if(prod){
-                let imgInArr = prod.Images.find(im=> im.toLowerCase() == filename.toLowerCase());
-                if(imgInArr){
-                    let filePath = path.join(__dirname,"../../", "/public/images/products/", filename); 
-                    if (fs.existsSync(filePath)) {
-                        fs.unlinkSync(filePath);
-                    }
-                    prod.Images = prod.Images.filter(im=> im.toLowerCase() != filename.toLowerCase());
-                    fs.writeFileSync(path.join(__dirname, "../", "data", "products.json"), JSON.stringify(prods), "utf8");
-                    return res.end(JSON.stringify({"success" : "Borrado exitoso", "status" : 200}));
-                }
-                throw new Error(`La imagen de nombre ${filename} no pudo ser encontrada en el storage.`);
+            let images;
+            if(req.session.ImagesArray != undefined && req.session.ImagesArray.length > 0){
+                images = req.session.ImagesArray;
+            } else{
+                images = [];
             }
-            throw new Error(`El producto con id ${pId} no pudo ser encontrado.`);
+
+            let imgInArr = images.find(im=> im.toLowerCase() == filename.toLowerCase());
+            if(imgInArr){
+                let filePath = path.join(__dirname,"../../", "/public/images/products/", filename); 
+                if (fs.existsSync(filePath)) {
+                    fs.unlinkSync(filePath);
+                }
+                images = images.filter(im=> im.toLowerCase() != filename.toLowerCase());
+                
+                db.Product.update({
+                    Images: JSON.stringify(images),
+                },
+                {
+                    where:{
+                            id: pId  
+                        }
+                })
+                .then(result=>{
+                    if(result && result.length > 0 && result[0] == 1){
+                        req.session.ImagesArray = images;
+                        return res.end(JSON.stringify({"success" : "Borrado exitoso", "status" : 200}));
+                    } else{
+                        return res.status(400).send({
+                            message: "No se ha podido encontrar la imagen"
+                        });
+                    }
+                })
+                .catch(error=>{
+                    return res.status(400).send({
+                        message: error.toString()
+                    });
+                });
+            }
         } catch (error) {
             return res.status(400).send({
                 message: error.toString()
@@ -421,12 +465,13 @@ module.exports = {
     },
 
     usersList: function(req, res){
-    
-
-        let users = fs.readFileSync(path.join(__dirname, "../", "data", "users.json"), "utf-8");
-        users = JSON.parse(users);
-
-        res.render("./users/usersList", {users: users});
+        db.User.findAll()
+        .then(users=>{
+            res.render("./users/usersList", {users: users});
+        })
+        .catch(error=>{
+            res.render("error", {msg:"UPS! algo no fue bien", img: "broken.jpg"});
+        });
     },
 
     usersCreation: function(req, res){

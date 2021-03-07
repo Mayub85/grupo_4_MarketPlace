@@ -23,14 +23,14 @@
     <main>
         <div class='table'>
             <div class='cell'>
-                <form action="/admin/productEdition/save/<%= product.Id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                <form action="/admin/productEdition/save/<%= product.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
                     <a href='/'>
                         <img class='logo' src='/logos/logo140x140.jpg'>
                     </a>
                     <h1>EDICIÓN DE PRODUCTOS</h1>
                     <div class="main">
                         <div class='flex-inner'>
-                            <input type='text' class='entry' name='name' placeholder='Nombre' value="<%= usrInput != null ? usrInput.Name : product.Name %>">
+                            <input type='text' class='entry' name='name' placeholder='Nombre' value="<%= usrInput != null ? usrInput.Name : product.name %>">
                         </div>
                         <div class='flex-inner'>
                             <input type='text' class='entry' name='shortDescription' placeholder='Descripción corta' value="<%= usrInput != null ? usrInput.ShortDescription : product.ShortDescription %>">
@@ -40,12 +40,12 @@
                             <label for="brand">Marca:</label>
                             <select name="brand">
                                 <% for (let i=0; i< brands.length; i++) { %>
-                                    <% if(usrInput != null && usrInput.Brand != null && usrInput.Brand == brands[i].Id){ %>
-                                        <option value=<%= brands[i].Id %> selected><%= brands[i].Name %></option>
-                                    <% } else if (product.Brand == brands[i].Id) { %>
-                                        <option value=<%= brands[i].Id %> selected><%= brands[i].Name %></option>
+                                    <% if(usrInput != null && usrInput.Brand != null && usrInput.Brand == brands[i].id){ %>
+                                        <option value=<%= brands[i].id %> selected><%= brands[i].name %></option>
+                                    <% } else if (product.Brand == brands[i].id) { %>
+                                        <option value=<%= brands[i].id %> selected><%= brands[i].name %></option>
                                     <% } else { %>
-                                        <option value=<%= brands[i].Id %> ><%= brands[i].Name %></option>
+                                        <option value=<%= brands[i].id %> ><%= brands[i].name %></option>
                                     <% } %>
                                 <% } %>
                             </select>
@@ -75,7 +75,7 @@
                                 <ul>
                                     <% for (let i=0; i< product.Images.length; i++) { %> 
                                         <li>
-                                            <input id="btnDelImg<%= product.Id %>" type="button" value="X" onclick="javascript: deleteImage('<%= product.Id %>', '<%= product.Images[i] %>');">
+                                            <input id="btnDelImg<%= product.id %>" type="button" value="X" onclick="javascript: deleteImage('<%= product.id %>', '<%= product.Images[i] %>');">
                                             <!-- data-id="<%= product.Id %>" data-filename="<%= product.Images[i] %>" -->
                                             <img src="/images/products/<%= product.Images[i] %>" alt="<%= product.Name %>">
                                         </li>
@@ -89,11 +89,11 @@
                             <select name="productType">
                                 <% for (let i=0; i< pTypes.length; i++) { %>
                                     <% if(usrInput != null && usrInput.ProductType != null && usrInput.ProductType == pTypes[i].Id){ %>
-                                        <option value=<%= pTypes[i].Id %> selected><%= pTypes[i].Name %></option>
+                                        <option value=<%= pTypes[i].id %> selected><%= pTypes[i].name %></option>
                                     <% } else if (product.ProductType == pTypes[i].Id) { %>
-                                        <option value=<%= pTypes[i].Id %> selected><%= pTypes[i].Name %></option>
+                                        <option value=<%= pTypes[i].id %> selected><%= pTypes[i].name %></option>
                                     <% } else { %>
-                                        <option value=<%= pTypes[i].Id %> ><%= pTypes[i].Name %></option>
+                                        <option value=<%= pTypes[i].id %> ><%= pTypes[i].name %></option>
                                     <% } %>
                                 <% } %>
                             </select>
@@ -102,12 +102,12 @@
                             <label for="productState">Estado de producto:</label>
                             <select name="productState">
                                 <% for (let i=0; i< pStates.length; i++) { %>
-                                    <% if(usrInput != null && usrInput.ProductState != null && usrInput.ProductState == pStates[i].Id){ %>
-                                        <option value=<%= pStates[i].Id %> selected><%= pStates[i].Name %></option>
+                                    <% if(usrInput != null && usrInput.ProductState != null && usrInput.ProductState == pStates[i].id){ %>
+                                        <option value=<%= pStates[i].id %> selected><%= pStates[i].name %></option>
                                     <% } else if (product.ProductState == pStates[i].Id) { %>
-                                        <option value=<%= pStates[i].Id %> selected><%= pStates[i].Name %></option>
+                                        <option value=<%= pStates[i].id %> selected><%= pStates[i].name %></option>
                                     <% } else { %>
-                                        <option value=<%= pStates[i].Id %> ><%= pStates[i].Name %></option>
+                                        <option value=<%= pStates[i].id %> ><%= pStates[i].name %></option>
                                     <% } %>
                                 <% } %>
                             </select>

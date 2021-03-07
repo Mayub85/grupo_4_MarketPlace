@@ -6,6 +6,8 @@ const fs = require("fs");
 let multer = require("multer");
 const {check, body} = require('express-validator');
 let adminMiddleware = require("../middlewares/adminMiddleware");
+const db = require("../database/models");
+const bfgFunctions = require('../utils/bfgFunctions');
 
 
 let miStorage = multer.diskStorage({ //configuración del storage
@@ -78,14 +80,16 @@ router.put("/productEdition/save/:id",
                 check('largeDescription').isLength({min:1}).withMessage('La descripción larga es obligatoria'),
                 check('specs').isLength({min:1}).withMessage('Las especificaciones son obligatorias'),
                 check('price').isFloat({min:0.01}).withMessage('El precio debe ser un valor mayor a 0'),
-                body("images").custom(function(value, {req}){
+                body("images").custom(async function(value, {req}){
                     //Primero tengo q recuperar los nombres de los files ya subidos
                     let { id } = req.params;
-                    let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
-                    prods = JSON.parse(prods);
-                    let oriProd = prods.find(p=> p.Id == id);
+                    // let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
+                    // prods = JSON.parse(prods);
+                    // let oriProd = prods.find(p=> p.Id == id);
+                    let oriProd = await db.Product.findByPk(id);
                     if(oriProd){
                         //determinar si efectivamente, entre lo anterior y lo nuevo, hay al menos una imagen
+                        bfgFunctions.imagesParser([oriProd]);
                         if(oriProd.Images.length > 0 && 
                             ((typeof req.files.images != "undefined" && req.files.images.filter(im=> im.size > 5242880).length == 0) ||
                              (typeof req.files.images == "undefined"))

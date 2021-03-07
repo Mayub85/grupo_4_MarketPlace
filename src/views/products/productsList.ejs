@@ -19,10 +19,10 @@
             <% for(producto of products) {%>
                 <li>
                     <div class="productContainer">
-                        <a class="productDelete" data-id="<%= producto.Id %>" href="#" onclick="javascript:deleteProduct(this); return false;"><i class="far fa-trash-alt"></i></a>
-                        <a class="productLink" href=<%= "/admin/productEdition/" + producto.Id %>>
+                        <a class="productDelete" data-id="<%= producto.id %>" href="#" onclick="javascript:deleteProduct(this); return false;"><i class="far fa-trash-alt"></i></a>
+                        <a class="productLink" href=<%= "/admin/productEdition/" + producto.id %>>
                             <div class="imgContainer"><img src=<%= "/images/products/" + producto.Images[0] %> alt="Producto"></div>
-                            <span class="productDescription">Nombre: <%= producto.Name %></span>
+                            <span class="productDescription">Nombre: <%= producto.name %></span>
                             <span class="productPrice">Precio: $<%= producto.Price %></span>
                         </a>
                     </div>

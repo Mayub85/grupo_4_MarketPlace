@@ -541,7 +541,7 @@ module.exports = {
                 let preUser = users.find(u=>u.email == req.body.email);
                 if(preUser){
                 // res.send("Ya existe el usuario");
-                return res.render("./users/registerAdmin", {errors: [{msg:"El usuario ya existe"}], inputValues: req.session.inputValues});
+                    return res.render("./users/registerAdmin", {errors: [{msg:"El usuario ya existe"}], inputValues: req.session.inputValues});
                 }
                 
                 let maxID = users.reduce((max, user) => max.Id > user.Id ? max : user);

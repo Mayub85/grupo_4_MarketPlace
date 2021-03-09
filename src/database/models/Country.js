@@ -18,7 +18,8 @@ module.exports = function (sequelize, dataTypes){
     let config = {
         tableName: "countries",
         timestamps: true,
-        underscored: true 
+        underscored: true,
+        paranoid: true 
     }
 
     const Country = sequelize.define(alias, cols, config);

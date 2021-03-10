@@ -1,10 +1,10 @@
 module.exports = {
   "development": {
     "username": "root",
-    "password": "",
+    "password": "root",
     "database": "bfgstore",
     "host": "127.0.0.1",
-    "port": "3306",//8889
+    "port": "8889",//"3306"
     "dialect": "mysql"
   },
   "test": {

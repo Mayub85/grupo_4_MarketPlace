@@ -77,7 +77,7 @@ module.exports = {
             let pTypes = data[1];
             let pStates = data[2];
             let countries = data[3];
-            console.log(data);
+            
             let usrInput = req.session.usrInput ? req.session.usrInput : null;
             res.render("./products/productCreation", {brands: brands, pTypes: pTypes, pStates: pStates, state: state, countries: countries, usrInput: usrInput});
         })

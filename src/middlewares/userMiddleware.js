@@ -15,9 +15,6 @@ function userMiddleware(req, res, next){
         .catch((error)=>{
             res.send(error.toString());
         });
-        // let users = fs.readFileSync(path.join(__dirname,"../data/users.json"), "utf8");
-        // users = JSON.parse(users);
-        // let user = users.find(u=> u.id == req.cookies.recordarme);
     }
 
     next();

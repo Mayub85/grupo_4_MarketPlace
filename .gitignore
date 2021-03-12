@@ -1,4 +1,7 @@
 # dependencies
 node_modules
-/public/images/users/
-/public/images/products/
+/public/images/users/*
+/public/images/products/*
+
+#include /public/images/users/default.jpg
+!/public/images/users/default.jpg

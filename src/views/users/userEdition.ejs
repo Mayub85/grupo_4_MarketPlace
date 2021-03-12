@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/admin.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/adminRegister.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/scripts/admin.js"></script>
+<body>
+    <div class="errors">
+        <% if(typeof errors != "undefined") {%>
+            <ul id="errorsUl" class="errors">
+                <li class="closeErrors"><button onclick="javascript: getElementById('errorsUl').remove();">X</button></li>
+                <% for(let i=0; i < errors.length; i++) { %>
+                    <li><%= errors[i].msg%></li>
+                <% } %>
+            </ul>
+        <% }%>
+        <% if(state && state.showMessage) { %>
+            <div class="message" style=<%= "background-color:" + state.color %> id="stateMsg">
+                <% if(!state.isArray) { %>
+                    <span><%= state.msg %></span>
+                <% } else { %>
+                    <ul>
+                        <% for (let i=0; i< state.msg.length; i++) { %>
+                            <li><%= state.msg[i].msg%></li>
+                        <% } %>
+                    </ul>
+                <% } %>
+                <input type="button" value="X" onclick="javascript: var element = document.getElementById('stateMsg'); element.parentNode.removeChild(element);">
+            </div>
+        <% } %>
+    </div>
+    <%- include('../partials/adminHeader') %>
+    <main>
+        <div class='table'>
+            <div class='cell'>
+                <form action="/admin/userEdition/save/<%= user.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                    <a href='/'>
+                        <img class='logo' src='/logos/logo140x140.jpg'>
+                    </a>
+                    <h1>EDICIÓN DE USUARIO</h1>
+                    <div class="main">
+                        <div class='flex-inner'>
+                            <input type='text' class='entry' name='name' placeholder='Nombre' value="<%= usrInput != null ? usrInput.name : user.name %>">
+                        </div>
+                        <div class='flex-inner'>
+                            <input type='text' class='entry' name='lastName' placeholder='Apellido' value="<%= usrInput != null ? usrInput.lastName : user.lastName %>">
+                        </div>
+                        <div class='flex-inner'>
+                            <input type='text' class='entry' name='email' placeholder='Email' value="<%= usrInput != null ? usrInput.email : user.email %>">
+                        </div>
+                        <div class='flex-inner'>
+                            <input type='password' class='entry' name='password' placeholder='Password'>
+                        </div>
+                        <div class='flex-inner images'> 
+                            <label for="avatar">Avatar:</label>
+                            <input type="file" name="avatar">
+                            <% if (typeof user.avatar != "undefined" && user.avatar != "") { %>
+                                <ul>
+                                    <li>
+                                        <input id="btnDelImg<%= user.id %>" type="button" value="X" onclick="javascript: deleteUserImage('<%= user.id %>', '<%= user.avatar %>');">
+                                        <!-- data-id="<%= user.id %>" data-filename="<%= user.avatar %>" -->
+                                        <img src="/images/users/<%= user.avatar %>" alt="<%= user.email %>">
+                                    </li>
+                                </ul>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div>
+                        <button class='ingresar' type='submit'> Actualizar </button>
+                        <button class='ingresar' type='button' onclick="javascript: window.location ='/admin';"> Volver </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </main>
+   
+
+</body>
+</html>

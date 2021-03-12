@@ -3,7 +3,7 @@
     <%- include('../partials/head') %>
     <link rel="stylesheet" type="text/css" media="screen" href="/styles/productsList.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/scripts/productsList.js" type="text/javascript"></script>
+    <script src="/scripts/usersList.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="/styles/admin.css" />
 <body>
     <% if(typeof state != "undefined" && state.showMessage) { %>
@@ -19,9 +19,9 @@
             <% for(user of users) {%>
                 <li>
                     <div class="productContainer">
-                        <a class="productDelete" data-id="<%= user.id %>" href="#" onclick="javascript:alert(this); return false;"><i class="far fa-trash-alt"></i></a>
+                        <a class="productDelete" data-id="<%= user.id %>" href="#" onclick="javascript:deleteUser(this); return false;"><i class="far fa-trash-alt"></i></a>
                         <a class="productLink" href=<%= "/admin/userEdition/" + user.id %>>
-                            <div class="imgContainer"><img src=<%= "/images/users/" + user.avatar %> alt="avatar"></div>
+                            <div class="imgContainer"><img src=<%= "/images/users/" + (user.avatar != "" ? user.avatar : "default.jpg") %> alt="avatar"></div>
                             <span class="productDescription">Nombre: <%= user.name +" "+ user.lastName %></span>
                             <span class="productPrice">Email: <%= user.email %></span>
                         </a>

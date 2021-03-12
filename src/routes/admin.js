@@ -13,7 +13,7 @@ const bfgFunctions = require('../utils/bfgFunctions');
 let miStorage = multer.diskStorage({ //configuración del storage
     destination: function(req, file, cb){
         //console.log(path.join("..","..","/public","images","users"));
-        if(req.originalUrl.includes("/admin/usersCreation")){
+        if(req.originalUrl.includes("/admin/usersCreation") || req.originalUrl.includes("/admin/userEdition")){
             cb(null, path.join("public","images","users"));
         } else {
             cb(null, path.join("public","images","products")); //esta carpeta debe existir (ojo de escribir bien la ruta -fijarse si no hay que hacer un ../ )
@@ -81,11 +81,7 @@ router.put("/productEdition/save/:id",
                 check('specs').isLength({min:1}).withMessage('Las especificaciones son obligatorias'),
                 check('price').isFloat({min:0.01}).withMessage('El precio debe ser un valor mayor a 0'),
                 body("images").custom(async function(value, {req}){
-                    //Primero tengo q recuperar los nombres de los files ya subidos
                     let { id } = req.params;
-                    // let prods = fs.readFileSync(path.join(__dirname, "../", "data", "products.json"), "utf-8");
-                    // prods = JSON.parse(prods);
-                    // let oriProd = prods.find(p=> p.Id == id);
                     let oriProd = await db.Product.findByPk(id);
                     if(oriProd){
                         //determinar si efectivamente, entre lo anterior y lo nuevo, hay al menos una imagen
@@ -150,5 +146,51 @@ router.put("/usersCreation", [
                                     })
                                 ], aController.usersAdminCreation);
 
+router.delete("/userDelete/:id", aController.userDelete);
+
+router.get("/userEdition/:id", adminMiddleware, aController.userEdition); 
+router.put("/userEdition/save/:id", 
+            [ 
+                upload.fields([
+                                {name: 'avatar'}
+                            ]),
+                check('name').isLength({min:1}).withMessage('Debes ingresar un nombre'),
+                check('lastName').isLength({min:1}).withMessage('El apellido no puede quedar vacío'),
+                check('email').isLength({min:1}).withMessage('Debes ingresar un email válido'),
+                check('password').isLength({min:1}).withMessage('El password no puede ser vacío'),
+                body("avatar").custom(async function(value, {req}){
+                    let { id } = req.params;
+                    let oriUser = await db.User.findByPk(id);
+                    if(oriUser){
+                        //determinar si efectivamente, entre lo anterior y lo nuevo, hay al menos una imagen
+                        if(oriUser.avatar != "" && 
+                            ((typeof req.files.avatar != "undefined" && req.files.avatar[0].size <= 2097150) ||
+                             (typeof req.files.avatar == "undefined"))
+                          ) {
+                            return true;
+                        } else {
+                            if(typeof req.files.avatar != "undefined" && req.files.avatar[0].size <= 2097150){
+                                return true;
+                            } else {
+                                if(typeof req.files.avatar != "undefined"){
+                                    for (let i = 0; i < req.files.avatar.length; i++) {
+                                        const imageFile = req.files.avatar[i];
+                                        let filePath = path.join(__dirname,"../../", "/public/images/users/", imageFile.filename); 
+                                        if (fs.existsSync(filePath)) {
+                                            fs.unlinkSync(filePath);
+                                        }
+                                    }
+                                }
+                                throw new Error('La imagen es obligatoria (PDF, JPG o JPEG) y debe pesar hasta 2MB');
+                            }
+                        }
+                    } else{
+                        console.log("admin.js router - image custom validator - oriUser no encontrado");
+                        throw new Error('Error inesperado');
+                    }
+                })
+            ], aController.userEditionSave); 
+
+router.post("/userImageDelete/:id/:filename", aController.userImageDelete);
 
 module.exports = router;

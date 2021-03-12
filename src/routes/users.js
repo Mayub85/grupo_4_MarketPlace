@@ -63,7 +63,7 @@ router.post("/register",
 router.put("/userEdition/save/:id", usersController.editionSave); 
 router.get("/userEdition/:id", usersController.edition); 
 
-router.delete("/userDelete/:id", usersController.delete);
+//router.delete("/userDelete/:id", usersController.delete);
 
 router.get("/close/:id", usersController.logout);
 

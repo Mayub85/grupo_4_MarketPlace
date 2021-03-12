@@ -1,9 +1,9 @@
-function deleteProduct(el){
-    let res = confirm("¿Está seguro que desea eliminar el producto?");
+function deleteUser(el){
+    let res = confirm("¿Está seguro que desea eliminar usuario?");
     if(res){
         let id = el.attributes["data-id"].value;
         $.ajax({
-            url: `/admin/productDelete/${id}`,
+            url: `/admin/userDelete/${id}`,
             type: 'DELETE',
             success: function(result) {
                 let url = window.location.href.split("?")[0];

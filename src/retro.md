@@ -58,3 +58,22 @@ Algunos objetivos opcionales se nos ven lejanos por la disminución a la mitad d
 
 -Cómo vamos a mejorar lo que hicimos mal y hacer lo que no hicimos?
 Se tratará de compensar la pérdida de 2 integrantes con un poco más de tiempo personal (en la medida de lo posible)
+
+
+----Sprint 5 y 6----
+
+-Qué hicimos bien?
+
+Se preguntaron dudas en clase.
+Solo 2 integrantes participan y trabajan para avanzar, pese a eso, se pudo lograr el objetivo.
+
+-Qué hicimos mal?
+
+Perder participación de integrantes del equipo
+
+-Qué no hicimos?
+
+Algunos objetivos opcionales se nos ven lejanos por la disminución a la mitad del equipo.
+
+-Cómo vamos a mejorar lo que hicimos mal y hacer lo que no hicimos?
+Se tratará de compensar la pérdida de 2 integrantes con un poco más de tiempo personal (en la medida de lo posible)

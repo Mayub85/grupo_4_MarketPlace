@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 module.exports = {
   "development": {
     "username": "root",
@@ -15,10 +17,10 @@ module.exports = {
     "dialect": "mysql"
   },
   "production": {
-    "username": "mayub85",
-    "password": "Goku3558!",
-    "database": "mayub85_bfgstore",
-    "host": "mysql-mayub85.alwaysdata.net",
+    "username": process.env.DB_USER,
+    "password": process.env.DB_PASS,
+    "database": process.env.DB_NAME,
+    "host": process.env.DB_HOST,
     "dialect": "mysql"
   }
 }

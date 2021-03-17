@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/register.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/usrData.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../plugins/toasty/toasty.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../plugins/toasty/jquery.toasty.js"></script>
+    <script src="../scripts/global.js"></script>
+</head>
+
+<body>
+    <%- include('../partials/header') %>
+    <div class="errors">
+        <% if(typeof errors != "undefined") {%>
+            <ul id="errorsUl" class="errors">
+                <li class="closeErrors"><button onclick="javascript: getElementById('errorsUl').remove();">X</button></li>
+                <% for(let i=0; i < errors.length; i++) { %>
+                    <li><%= errors[i].msg%></li>
+                <% } %>
+            </ul>
+        <% }%>
+    </div>
+    <div class='table'>
+        <div class='cell'>
+            <form action="/users/edit/<%= user.id %>" method="get">
+                <a href='/'>
+                    <img class='logo' src='/logos/logo140x140.jpg'><br>
+                </a>
+                <h1 class='logintext'>Tus Datos</h1>
+                <div class='flex-inner labelData'>
+                    <div class="innerData">
+                        <label>Email:</label>
+                        <label><%= user.email %></label>
+                    </div>
+                </div>
+                <div class='flex-inner labelData'>
+                    <div class="innerData">
+                        <label>Nombre:</label>
+                        <label><%= user.name %></label>
+                    </div>
+                </div>
+
+                <div class='flex-inner labelData'>
+                    <div class="innerData">
+                        <label>Apellido:</label>
+                        <label><%= user.lastName %></label>
+                    </div>
+                </div>
+
+                <div class='flex-inner images'> 
+                    <div class="innerData">
+                        <label for="images">Avatar:</label>
+                        <% if (typeof user.avatar != "undefined" && user.avatar != "") { %>
+                            <ul>
+                                <li>
+                                    <img src="/images/users/<%= user.avatar %>" alt="<%= user.email %>">
+                                </li>
+                            </ul>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class='flex-inner labelData'>
+                    <div class="innerData">
+                        <label>Dirección de entrega:</label>
+                        <label><%= user.calleDeEntrega %></label>
+                    </div>
+                </div>
+
+                <div class='flex-inner labelData'>
+                    <div class="innerData">
+                        <label>Ciudad de entrega:</label>
+                        <label><%= user.ciudadDeEntrega %></label>
+                    </div>
+                </div>
+
+                <div class='flex-inner labelData'>
+                    <div class="innerData">
+                        <label>País de entrega:</label>
+                        <label><%= user.paisDeEntrega %></label>
+                    </div>
+                </div>
+
+                <div class='flex-inner labelData'>
+                    <div class="innerData">
+                        <label>Código postal:</label>
+                        <label><%= user.cpDeEntrega %></label>
+                    </div>
+                </div>
+
+                <div class='flex-inner'>
+                    <button class='ingresar' type='submit'> Editar datos </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <%- include('../partials/footer') %>
+</body>
+
+</html>

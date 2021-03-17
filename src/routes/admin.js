@@ -28,7 +28,7 @@ let upload = multer({
                         storage: miStorage,
                         fileFilter(req, file, cb){
                             //req.errorMayub = {msg:"Sarasa"}; //PARA PROBAR LO DE PASARLE ESTO CON DATA Y VALIDAR LUEGO
-                            cb(null, file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png');
+                            cb(null, file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif');
                         }
                     }); 
 
@@ -45,11 +45,11 @@ router.put("/productCreation/create",
                 upload.fields([
                                 {name: 'images'}
                             ]),
-                check('name').isLength({min:1}).withMessage('Debes ingresar un nombre de producto'),
-                check('shortDescription').isLength({min:1}).withMessage('La descripción corta es obligatoria'),
-                check('code').isLength({min:1}).withMessage('Debes ingresar un código de producto'),
-                check('largeDescription').isLength({min:1}).withMessage('La descripción larga es obligatoria'),
-                check('specs').isLength({min:1}).withMessage('Las especificaciones son obligatorias'),
+                check('name').isLength({min:5}).withMessage('Debes ingresar un nombre de producto'),
+                check('shortDescription').isLength({min:20}).withMessage('La descripción corta es obligatoria'),
+                check('code').isLength({min:6}).withMessage('Debes ingresar un código de producto válido'),
+                check('largeDescription').isLength({min:20}).withMessage('La descripción larga es obligatoria'),
+                check('specs').isLength({min:20}).withMessage('Las especificaciones son obligatorias'),
                 check('price').isFloat({min:0.01}).withMessage('El precio debe ser un valor mayor a 0'),
                 body("images").custom(function(value, {req}){
                     if(typeof req.files.images != "undefined" && req.files.images.filter(im=> im.size > 5242880).length == 0){  //req.files.images[0].size <= 5242880){
@@ -74,11 +74,11 @@ router.put("/productEdition/save/:id",
                 upload.fields([
                                 {name: 'images'}
                             ]),
-                check('name').isLength({min:1}).withMessage('Debes ingresar un nombre de producto'),
-                check('shortDescription').isLength({min:1}).withMessage('La descripción corta es obligatoria'),
-                check('code').isLength({min:1}).withMessage('Debes ingresar un código de producto'),
-                check('largeDescription').isLength({min:1}).withMessage('La descripción larga es obligatoria'),
-                check('specs').isLength({min:1}).withMessage('Las especificaciones son obligatorias'),
+                check('name').isLength({min:5}).withMessage('Debes ingresar un nombre de producto'),
+                check('shortDescription').isLength({min:20}).withMessage('La descripción corta es obligatoria'),
+                check('code').isLength({min:6}).withMessage('Debes ingresar un código de producto válido'),
+                check('largeDescription').isLength({min:20}).withMessage('La descripción larga es obligatoria'),
+                check('specs').isLength({min:20}).withMessage('Las especificaciones son obligatorias'),
                 check('price').isFloat({min:0.01}).withMessage('El precio debe ser un valor mayor a 0'),
                 body("images").custom(async function(value, {req}){
                     let { id } = req.params;
@@ -127,12 +127,15 @@ router.put("/usersCreation", [
                                     upload.fields([
                                         {name: 'avatar', maxCount: 1}
                                     ]),
-                                    check('name').isLength({min:1}).withMessage('Debes ingresar un nombre'),
-                                    check('lastName').isLength({min:1}).withMessage('Debes ingresar un apellido '),
-                                    check('email').isEmail().withMessage('No es un email válido'),
-                                    check('password').isLength({min:6}).withMessage('Debes ingresar una contraseña'),
+                                    check('name').isLength({min:2}).withMessage('Debes ingresar un nombre'),
+                                    check('lastName').isLength({min:2}).withMessage('Debes ingresar un apellido '),
+                                    check('email').normalizeEmail().isEmail().withMessage('No es un email válido'),
+                                    check('password').not()
+                                                    .isEmpty().trim()
+                                                    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "i")
+                                                    .withMessage('Debes ingresar una contraseña de al menos 8 caracteres. Debe contener al menos una mayúscula, un nro y un caracter especial.'),
                                     body("avatar").custom(function(value, {req}){
-                                        if(typeof req.files.avatar != "undefined" && req.files.avatar[0].size <= 209715){
+                                        if(typeof req.files.avatar != "undefined" && req.files.avatar[0].size <= 2097150){
                                             return true;
                                         } else {
                                             if(typeof req.files.avatar != "undefined"){
@@ -154,10 +157,13 @@ router.put("/userEdition/save/:id",
                 upload.fields([
                                 {name: 'avatar'}
                             ]),
-                check('name').isLength({min:1}).withMessage('Debes ingresar un nombre'),
-                check('lastName').isLength({min:1}).withMessage('El apellido no puede quedar vacío'),
-                check('email').isLength({min:1}).withMessage('Debes ingresar un email válido'),
-                check('password').isLength({min:1}).withMessage('El password no puede ser vacío'),
+                check('name').isLength({min:2}).withMessage('Debes ingresar un nombre'),
+                check('lastName').isLength({min:2}).withMessage('El apellido no puede quedar vacío'),
+                check('email').normalizeEmail().isEmail().withMessage('Debes ingresar un email válido'),
+                check('password').not()
+                                .isEmpty().trim()
+                                .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "i")
+                                .withMessage('Debes ingresar una contraseña de al menos 8 caracteres. Debe contener al menos una mayúscula, un nro y un caracter especial.'),
                 body("avatar").custom(async function(value, {req}){
                     let { id } = req.params;
                     let oriUser = await db.User.findByPk(id);

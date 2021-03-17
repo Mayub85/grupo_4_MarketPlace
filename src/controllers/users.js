@@ -133,11 +133,41 @@
             }
         },
 
-        editionSave: function (req, res){
-
+        data: function (req, res){
+            let { id } = req.params;
+            db.User.findByPk(id)
+            .then((data)=>{
+                if(data){
+                    let oriUser = data;
+                    return res.render("./users/data", {user: oriUser});
+                } else{
+                    throw new Error("No se encontró un usuario con id: " + id.toString());
+                }
+            })
+            .catch(error=>{
+                return res.redirect(`/admin/userEdition?state=0&msg=${error.toString()}`);
+            });
         },
 
-        edition: function (req, res){
+        
+
+        dataEdit: function (req, res){
+            let { id } = req.params;
+            db.User.findByPk(id)
+            .then((data)=>{
+                if(data){
+                    let oriUser = data;
+                    return res.render("./users/data", {user: oriUser});
+                } else{
+                    throw new Error("No se encontró un usuario con id: " + id.toString());
+                }
+            })
+            .catch(error=>{
+                return res.redirect(`/admin/userEdition?state=0&msg=${error.toString()}`);
+            });
+        },
+
+        dataEditSave: function (req, res){
 
         },
 

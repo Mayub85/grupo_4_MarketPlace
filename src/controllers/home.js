@@ -35,6 +35,7 @@ module.exports = {
                     }]
         })                       
         .then((products) => {
+            console.log(res.locals);
             bfgFunctions.imagesParser(products);//Lo hice para convertir la columna Images (que es un texto), a un array de strings
             res.render("index",  { DEALS: products.filter(p=> p.states.name == constants.productStates.OFERTA).slice(0, 20), //un máximo de 20
                                    NEWS: products.filter(p=> p.states.name == constants.productStates.NOVEDAD).slice(0, 20),

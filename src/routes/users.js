@@ -17,7 +17,7 @@ let miStorage = multer.diskStorage({
 let upload = multer({
                         storage: miStorage,
                         fileFilter(req, file, cb){
-                            cb(null, file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png');
+                            cb(null, file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif');
                         }
                     }); 
 
@@ -32,20 +32,23 @@ router.post("/register",
                 upload.fields([
                     {name: 'avatar', maxCount: 1}
                 ]),
-                check('name').isLength({min:1}).withMessage('Debes ingresar un nombre'),
-                check('lastName').isLength({min:1}).withMessage('Debes ingresar un apellido '),
-                check('email').isEmail().withMessage('No es un email válido'),
-                check('password').isLength({min:6}).withMessage('Debes ingresar una contraseña'),
+                check('name').isLength({min:2}).withMessage('Debes ingresar un nombre'),
+                check('lastName').isLength({min:2}).withMessage('Debes ingresar un apellido'),
+                check('email').normalizeEmail().isEmail().withMessage('No es un email válido'),
+                check('password').not()
+                                 .isEmpty().trim()
+                                 .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "i")
+                                 .withMessage('Debes ingresar una contraseña de al menos 8 caracteres. Debe contener al menos una mayúscula, un nro y un caracter especial.'),
                 check('repassword').custom((value, { req }) => {
                     if (value !== req.body.password) {
                       throw new Error('La confirmación de contraseña no concuerda');
                     }
                     return true;
                 }),
-                check('calleDeEntrega').isLength({min:1}).withMessage('Debes ingresar una calle de entrega'),
+                check('calleDeEntrega').isLength({min:5}).withMessage('Debes ingresar una calle de entrega'),
                 check('cpDeEntrega').isLength({min:4}).withMessage('Debes ingresar un código postal de entrega'),
                 body("avatar").custom(function(value, {req}){
-                    if(typeof req.files.avatar != "undefined" && req.files.avatar[0].size <= 209715){
+                    if(typeof req.files.avatar != "undefined" && req.files.avatar[0].size <= 2097150){
                         return true;
                     } else {
                         if(typeof req.files.avatar != "undefined"){
@@ -60,11 +63,11 @@ router.post("/register",
             ],
             usersController.creation);
 
-router.put("/userEdition/save/:id", usersController.editionSave); 
-router.get("/userEdition/:id", usersController.edition); 
-
-//router.delete("/userDelete/:id", usersController.delete);
-
 router.get("/close/:id", usersController.logout);
+
+router.get("/:id", usersController.data);
+
+router.get("/edit/:id", usersController.dataEdit);
+router.put("/edit/:id", usersController.dataEditSave);
 
 module.exports = router;

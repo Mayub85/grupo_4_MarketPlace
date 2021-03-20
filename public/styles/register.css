@@ -95,7 +95,8 @@ form {
   padding: 5px;
   box-sizing: border-box;
   border-radius: 5px;
-  margin-bottom:5px;
+  margin-bottom: 2.5px;
+  margin-top: 2.5px;
 }
 
 .table button {

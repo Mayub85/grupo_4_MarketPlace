@@ -692,6 +692,9 @@ module.exports = {
             let uId = req.params.id;
             let filename = req.params.filename;
             
+            if(filename == "default.jpg"){
+                return res.end(JSON.stringify({"success" : "No se puede borrar la imagen por defecto", "status" : 200}));
+            }
             db.User.update({
                 avatar: "",
             },

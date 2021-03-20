@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/register.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/usrData.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/plugins/toasty/toasty.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="/plugins/toasty/jquery.toasty.js"></script>
+    <script src="/plugins/validatejs/validate.js"></script>
+    <script src="/scripts/global.js"></script>
+    <script src="/scripts/user.js"></script>
+</head>
+
+<body>
+    <%- include('../partials/header') %>
+    <div class="errors">
+        <% if(typeof errors != "undefined") {%>
+            <ul id="errorsUl" class="errors">
+                <li class="closeErrors"><button onclick="javascript: getElementById('errorsUl').remove();">X</button></li>
+                <% for(let i=0; i < errors.length; i++) { %>
+                    <li><%= errors[i].msg%></li>
+                <% } %>
+            </ul>
+        <% }%>
+        <% if(typeof state != "undefined" && state.showMessage) { %>
+            <div class="message" style=<%= "background-color:" + state.color %> id="stateMsg">
+                <% if(!state.isArray) { %>
+                    <span><%= state.msg %></span>
+                <% } else { %>
+                    <ul>
+                        <% for (let i=0; i< state.msg.length; i++) { %>
+                            <li><%= state.msg[i].msg%></li>
+                        <% } %>
+                    </ul>
+                <% } %>
+                <input type="button" value="X" onclick="javascript: var element = document.getElementById('stateMsg'); element.parentNode.removeChild(element);">
+            </div>
+        <% } %>
+    </div>
+    <div class='table'>
+        <div class='cell'>
+            <form action="/users/edit/<%= user.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                <a href='/'>
+                    <img class='logo' src='/logos/logo140x140.jpg'><br>
+                </a>
+                <h1 class='logintext'>Tus Datos</h1>
+
+                <div class='flex-inner labelData'>
+                    <div class="innerData">
+                        <label>Email:</label>
+                        <label><%= user.email %></label>
+                    </div>
+                </div>
+
+                <div class="editPass">
+                    <label for="editPassword">Cambiar password</label>
+                    <% if(typeof usrInput != "undefined" && typeof usrInput.editPassword != "undefined") { %>
+                        <input type="checkbox" name="editPassword" id="editPassword" checked>
+                    <%} else {%>
+                        <input type="checkbox" name="editPassword" id="editPassword">
+                    <%}%>
+                </div>
+
+                <div class='flex-inner'>
+                    <input id="password" name="password" type="password" placeholder="Contraseña" class="hidden">
+                    <div class="messages"></div>
+                </div>
+                <!-- Cargo el Repeat Password en el form de registro -->
+                <div>
+                    <input id="repassword" name="repassword" type="password" placeholder="Repite la contraseña" class="hidden">
+                </div>
+
+                <div class='flex-inner'>
+                    <input type='text' class='entry' name='name' id="name" placeholder='Nombre' value="<%= typeof usrInput != "undefined" && !firstLoad ? usrInput.name : user.name %>">
+                    <div class="messages"></div>
+                </div>
+
+                <div class='flex-inner'>
+                    <input type='text' class='entry' name='lastName' id="lastName" placeholder='Apellido' value="<%= typeof usrInput != "undefined" && !firstLoad ? usrInput.lastName : user.lastName %>">
+                    <div class="messages"></div>
+                </div>
+
+                <div class='flex-inner images'> 
+                    <label for="avatar">Avatar:</label>
+                    <input type="file" name="avatar" id="avatar">
+                    <% if (typeof user.avatar != "undefined" && user.avatar != "") { %>
+                        <ul>
+                            <li>
+                                <input id="btnDelImg<%= user.id %>" type="button" value="X" onclick="javascript: deleteUserImage('<%= user.id %>', '<%= user.avatar %>');">
+                                <!-- data-id="<%= user.id %>" data-filename="<%= user.avatar %>" -->
+                                <img src="/images/users/<%= user.avatar %>" alt="<%= user.email %>">
+                            </li>
+                        </ul>
+                    <% } %>
+                </div>
+
+                <div class='flex-inner'>
+                    <input id="calleDeEntrega" name="calleDeEntrega" type="text" placeholder="Dirección de entrega" value="<%= typeof usrInput != 'undefined' && !firstLoad ? usrInput.calleDeEntrega : user.calleDeEntrega %>">
+                    <div class="messages"></div>
+                </div>
+
+                <div class='flex-inner'>
+                    <input id="ciudadDeEntrega" name="ciudadDeEntrega" type="text" placeholder="Ciudad de entrega" value="<%= typeof usrInput != 'undefined' && !firstLoad ? usrInput.ciudadDeEntrega : user.ciudadDeEntrega %>">
+                    <div class="messages"></div>
+                </div>
+
+                <div class='flex-inner'>
+                    <input id="paisDeEntrega" name="paisDeEntrega" type="text" placeholder="País" value="<%= typeof usrInput != 'undefined' && !firstLoad ? usrInput.paisDeEntrega : user.paisDeEntrega %>">
+                    <div class="messages"></div>
+                </div>
+
+                <div class='flex-inner'>
+                    <input id="cpDeEntrega" name="cpDeEntrega" type="text" placeholder="Código postal" value="<%= typeof usrInput != 'undefined' && !firstLoad ? usrInput.cpDeEntrega : user.cpDeEntrega %>">
+                    <div class="messages"></div>
+                </div>
+              
+                <div class='flex-inner'>
+                    <button class='ingresar' type='submit' id="btnSave"> Guardar </button>
+                    <div class="messages"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <%- include('../partials/footer') %>
+</body>
+
+</html>

@@ -129,7 +129,7 @@ router.put("/usersCreation", [
                                     ]),
                                     check('name').isLength({min:2}).withMessage('Debes ingresar un nombre'),
                                     check('lastName').isLength({min:2}).withMessage('Debes ingresar un apellido '),
-                                    check('email').normalizeEmail().isEmail().withMessage('No es un email válido'),
+                                    check('email').isEmail().withMessage('No es un email válido'),
                                     check('password').not()
                                                     .isEmpty().trim()
                                                     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "i")
@@ -159,7 +159,7 @@ router.put("/userEdition/save/:id",
                             ]),
                 check('name').isLength({min:2}).withMessage('Debes ingresar un nombre'),
                 check('lastName').isLength({min:2}).withMessage('El apellido no puede quedar vacío'),
-                check('email').normalizeEmail().isEmail().withMessage('Debes ingresar un email válido'),
+                check('email').isEmail().withMessage('Debes ingresar un email válido'),
                 check('password').not()
                                 .isEmpty().trim()
                                 .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "i")

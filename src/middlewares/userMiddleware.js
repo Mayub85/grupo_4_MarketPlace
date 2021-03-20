@@ -13,7 +13,8 @@ function userMiddleware(req, res, next){
             res.locals.loggedUser = user;
         })
         .catch((error)=>{
-            res.send(error.toString());
+            //res.send(error.toString());
+            return res.render("error", {msg:"Ups! Algo malió sal!", img: "broken.jpg"});
         });
     }
 

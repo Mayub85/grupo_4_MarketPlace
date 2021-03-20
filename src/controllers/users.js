@@ -152,23 +152,141 @@
         
 
         dataEdit: function (req, res){
-            let { id } = req.params;
-            db.User.findByPk(id)
-            .then((data)=>{
-                if(data){
-                    let oriUser = data;
-                    return res.render("./users/data", {user: oriUser});
-                } else{
-                    throw new Error("No se encontró un usuario con id: " + id.toString());
+            try {
+                let state = req.query.state;
+                let firstLoad = Object.keys(req.query).length == 0;
+                switch (state) {
+                    case "0":
+                        state={
+                            showMessage: true,
+                            msg: req.query.msg,
+                            color: "red"
+                        }
+                    break;
+                    case "1":
+                        state={
+                            showMessage: true,
+                            msg: `Se editó correctamente el usuario con ID: ${req.query.id}` ,
+                            color: "green"
+                        }
+                    break;
+                    case "3":
+                    state={
+                        showMessage: true,
+                        msg: req.session.pcErrors.errors,
+                        color: "red",
+                        isArray: true
+                    }
+                break;
+                    default:
+                        state={
+                            showMessage: false
+                        }
+                    break;
                 }
-            })
-            .catch(error=>{
-                return res.redirect(`/admin/userEdition?state=0&msg=${error.toString()}`);
-            });
+    
+                let { id } = req.params;
+                db.User.findByPk(id)
+                .then((data)=>{
+                    if(data){
+                        let oriUser = data;
+                        let usrInput = req.session.usrInput ? req.session.usrInput : undefined;
+                        req.session.userAvatar = data.avatar;
+                        return res.render("./users/edit", {user: oriUser, state: state, usrInput: usrInput, firstLoad: firstLoad});
+                    } else{
+                        return res.render("./users/edit", {user: {id: id}, state: state, usrInput: undefined, firstLoad: firstLoad})
+                    }
+                })
+                .catch(error=>{
+                    return res.redirect(`/users/edit?state=0&msg=${error.toString()}`);
+                })
+    
+            } catch (error) {
+                res.redirect(`/users/edit?state=0&msg=${error.toString()}`);
+            }
         },
 
         dataEditSave: function (req, res){
+            let id = 0;
+            let uUser;
+            try {
+                let {editPassword, password, repassword, name, lastName, avatar, calleDeEntrega, ciudadDeEntrega, paisDeEntrega, cpDeEntrega} = req.body;
+                let errors = validationResult(req);
+                id = req.params.id;
 
+                let usrInput = {...req.body}
+                req.session.usrInput = usrInput;
+            
+                if(errors.isEmpty()) {
+                    let newAvatar = req.session.userAvatar;
+                    if(typeof req.files != "undefined" && typeof req.files.avatar != "undefined" && req.files.avatar.length > 0){
+                        newAvatar = req.files.avatar[0].filename;
+                    }
+
+                    if(newAvatar == ""){
+                        newAvatar = "default.jpg";
+                    }
+
+                    uUser = {
+                        avatar: newAvatar,
+                        name: name,
+                        lastName: lastName,
+                        // country_id
+                        paisDeEntrega: paisDeEntrega,
+                        calleDeEntrega: calleDeEntrega,
+                        ciudadDeEntrega: ciudadDeEntrega,
+                        cpDeEntrega: cpDeEntrega
+                    }
+
+                    if(editPassword){
+                        uUser.password = bcrypt.hashSync(password, 12);
+                    } 
+
+                    db.User.update({
+                                    ...uUser
+                                    },
+                                    {
+                                        where:{
+                                                id: id  
+                                            }
+                                    }    
+                    )
+                    .then(result=>{
+                        if(result && result.length > 0 && result[0] == 1){
+                            req.session.userAvatar = uUser.avatar;
+                            return res.redirect(`/users/edit/${id}?state=1&id=${id}`);//OK
+                        } else{
+                            if(typeof req.files.avatar != "undefined"){
+                                let avatarPath = path.join(__dirname,"../../", "/public/images/users/", req.files.avatar[0].filename); 
+                                if (fs.existsSync(avatarPath)) {
+                                    fs.unlinkSync(avatarPath);
+                                }
+                            }
+                            return res.redirect(`/users/edit/${id}?state=0&msg=No se ha podido encontrar el usuario con ID: ${id}`);
+                        }
+                    })
+                    .catch(error=>{
+                        return res.redirect(`/users/edit/${id}?state=0&msg=${error.toString()}`);
+                    });
+                } else {
+                    if(typeof req.files != "undefined" && typeof req.files.avatar != "undefined"){
+                        let avatarPath = path.join(__dirname,"../../", "/public/images/users/", req.files.avatar[0].filename); 
+                        if (fs.existsSync(avatarPath)) {
+                            fs.unlinkSync(avatarPath);
+                        }
+                    }
+                    req.session.pcErrors = errors;
+                    res.redirect(`/users/edit/${id}?state=3`); 
+                }
+            } catch (error) {
+                if(typeof req.files != "undefined" && typeof req.files.avatar != "undefined"){
+                    let avatarPath = path.join(__dirname,"../../", "/public/images/users/", req.files.avatar[0].filename); 
+                    if (fs.existsSync(avatarPath)) {
+                        fs.unlinkSync(avatarPath);
+                    }
+                }
+                res.redirect(`/users/edit/${id}?state=0&msg=${error.toString()}`);//ya existe
+            }
         },
 
     }

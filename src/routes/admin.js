@@ -64,7 +64,7 @@ router.put("/productCreation/create",
                                 }
                             }
                         }
-                        throw new Error('Al menos una image es obligatoria (PDF, JPG o JPEG) y deben pesar hasta 5MB');
+                        throw new Error('Al menos una image es obligatoria (PDF, JPG, JPEG o GIF) y deben pesar hasta 5MB');
                     }
                 })
             ], aController.productCreate);
@@ -104,7 +104,7 @@ router.put("/productEdition/save/:id",
                                         }
                                     }
                                 }
-                                throw new Error('Al menos una image es obligatoria (PDF, JPG o JPEG) y deben pesar hasta 5MB');
+                                throw new Error('Al menos una image es obligatoria (PDF, JPG, JPEG o GIF) y deben pesar hasta 5MB');
                             }
                         }
                     } else{
@@ -187,7 +187,7 @@ router.put("/userEdition/save/:id",
                                         }
                                     }
                                 }
-                                throw new Error('La imagen es obligatoria (PDF, JPG o JPEG) y debe pesar hasta 2MB');
+                                throw new Error('La imagen es obligatoria (PDF, JPG, JPEG o GIF) y debe pesar hasta 2MB');
                             }
                         }
                     } else{

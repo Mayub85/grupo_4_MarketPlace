@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../plugins/toasty/jquery.toasty.js"></script>
     <script src="../scripts/global.js"></script>
+    <script src="/scripts/register.js"></script>
 </head>
 
 <body>
@@ -28,24 +29,28 @@
                     <img class='logo' src='/logos/logo140x140.jpg'><br>
                 </a>
                 <h1 class='logintext'> Ingresá a tu cuenta</h1>
-                <div>
+                <div class='flex-inner'>
                     <input id="email" name="email" type="email" placeholder="Email" value="<%= typeof inputValues != 'undefined' ? inputValues.email : '' %>">
+                    <div class="messages"></div>
                 </div>
 
-                <div>
+                <div class='flex-inner'>
                     <input id="password" name="password" type="password" placeholder="Contraseña">
+                    <div class="messages"></div>
                 </div>
                 <!-- Cargo el Repeat Password en el form de registro -->
-                <div>
+                <div class='flex-inner'>
                     <input id="repassword" name="repassword" type="password" placeholder="Repite la contraseña">
                 </div>
 
-                <div>
+                <div class='flex-inner'>
                     <input id="name" name="name" type="text" placeholder="Nombre" value="<%= typeof inputValues != 'undefined' ? inputValues.name : '' %>">
+                    <div class="messages"></div>
                 </div>
 
-                <div>
+                <div class='flex-inner'>
                     <input id="lastName" name="lastName" type="text" placeholder="Apellido" value="<%= typeof inputValues != 'undefined' ? inputValues.lastName : '' %>">
+                    <div class="messages"></div>
                 </div>
 
                 <div class='flex-inner images'> 
@@ -53,37 +58,41 @@
                     <input type="file" name="avatar">
                 </div>
 
-                <div>
+                <div class='flex-inner'>
                     <input id="calleDeEntrega" name="calleDeEntrega" type="text" placeholder="Dirección de entrega" value="<%= typeof inputValues != 'undefined' ? inputValues.calleDeEntrega : '' %>">
+                    <div class="messages"></div>
                 </div>
 
-                <div>
+                <div class='flex-inner'>
                     <input id="ciudadDeEntrega" name="ciudadDeEntrega" type="text" placeholder="Ciudad de entrega" value="<%= typeof inputValues != 'undefined' ? inputValues.ciudadDeEntrega : '' %>">
+                    <div class="messages"></div>
                 </div>
 
-                <div>
+                <div class='flex-inner'>
                     <input id="paisDeEntrega" name="paisDeEntrega" type="text" placeholder="País" value="<%= typeof inputValues != 'undefined' ? inputValues.paisDeEntrega : '' %>">
+                    <div class="messages"></div>
                 </div>
 
-                <div>
+                <div class='flex-inner'>
                     <input id="cpDeEntrega" name="cpDeEntrega" type="text" placeholder="Código postal" value="<%= typeof inputValues != 'undefined' ? inputValues.cpDeEntrega : '' %>">
+                    <div class="messages"></div>
                 </div>
 
 
                 <div>
-                    <button class='ingresar' type='submit'> Registrarse
+                    <button id="btnSave" class='ingresar' type='submit'> Registrarse
                 </div>
 
                 <div class="Social">
 
-                    <button type="submit" class="facebook-btn">
+                    <!-- <button type="submit" class="facebook-btn">
                         <i class="fa fa-facebook" aria-hidden="true"></i><i class="fab fa-facebook-f"></i>
                         Registrarse con Facebook
                     </button>
                     <button type="submit" class="twitter-btn">
                         <i class="fa fa-twitter" aria-hidden="true"></i><i class="fab fa-twitter"></i>
                         Registrarse con Twitter
-                    </button>
+                    </button> -->
                 </div>
                 <h1 class='registro'> Si ya tenes una cuenta, <a class='smalltext' href='/users'> hace click
                         aquí</a>

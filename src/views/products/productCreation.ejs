@@ -2,7 +2,7 @@
 <html>
     <%- include('../partials/head') %>
     <link rel="stylesheet" type="text/css" media="screen" href="/styles/admin.css" />
-
+    <script src="/scripts/productCreation.js"></script>
 <body>
     <% if(state && state.showMessage) { %>
         <div class="message" style=<%= "background-color:" + state.color %> id="stateMsg">
@@ -29,15 +29,17 @@
                     <h1>CARGA DE PRODUCTOS</h1>
                     <div class="main">
                         <div class='flex-inner'>
-                            <input type='text' class='entry' name='name' placeholder='Nombre' value="<%= usrInput != null ? usrInput.Name : '' %>">
+                            <input type='text' class='entry' name='name' id="name" placeholder='Nombre' value="<%= usrInput != null ? usrInput.Name : '' %>">
+                            <div class="messages"></div>
                         </div>
                         <div class='flex-inner'>
-                            <input type='text' class='entry' name='shortDescription' placeholder='Descripción corta' value="<%= usrInput != null ? usrInput.ShortDescription : '' %>">
+                            <input type='text' class='entry' name='shortDescription' id='shortDescription' placeholder='Descripción corta' value="<%= usrInput != null ? usrInput.ShortDescription : '' %>">
+                            <div class="messages"></div>
                         </div>
 
                         <div class='flex-inner dropdowns'>
                             <label for="brand">Marca:</label>
-                            <select name="brand">
+                            <select name="brand" id="brand">
                                 <% for (let i=0; i< brands.length; i++) { %>
                                     <% if(usrInput != null && usrInput.Brand != null && usrInput.Brand == brands[i].id){ %>
                                         <option value=<%= brands[i].id %> selected><%= brands[i].name %></option>
@@ -46,31 +48,37 @@
                                     <% } %>
                                 <% } %>
                             </select>
+                            <div class="messages"></div>
                         </div>
 
                         <div class='flex-inner'>
-                            <input type='text' class='entry' name='code' placeholder='Código' value="<%= usrInput != null ? usrInput.Code : '' %>">
+                            <input type='text' class='entry' name='code' id="code" placeholder='Código' value="<%= usrInput != null ? usrInput.Code : '' %>">
+                            <div class="messages"></div>
                         </div>
 
                         <div class='flex-inner'>
-                            <textarea rows="5" name='largeDescription' placeholder='Descripción larga'><%= usrInput != null ? usrInput.LargeDescription : '' %></textarea>
+                            <textarea rows="5" name='largeDescription' id='largeDescription' placeholder='Descripción larga'><%= usrInput != null ? usrInput.LargeDescription : '' %></textarea>
+                            <div class="messages"></div>
                         </div>
 
                         <div class='flex-inner'>    
-                            <textarea rows="5" name='specs' placeholder='Especificaciones técnicas (una por línea)'><%= usrInput != null ? usrInput.Specs : '' %></textarea>
+                            <textarea rows="5" name='specs' id='specs' placeholder='Especificaciones técnicas (una por línea)'><%= usrInput != null ? usrInput.Specs : '' %></textarea>
+                            <div class="messages"></div>
                         </div>
 
                         <div class='flex-inner'>    
-                            <input type='number' class='entry' name='price' placeholder='Precio' value="<%= usrInput != null ? usrInput.Price : '' %>">
+                            <input type='number' class='entry' name='price' id='price' placeholder='Precio' value="<%= usrInput != null ? usrInput.Price : '' %>">
+                            <div class="messages"></div>
                         </div>
                         <div class='flex-inner images'> 
                             <label for="images">Imágenes:</label>
-                            <input type="file" name="images" multiple>
+                            <input type="file" name="images" id="images" multiple>
+                            <div class="messages"></div>
                         </div>
 
                         <div class='flex-inner dropdowns'>
                             <label for="productType">Tipo de producto:</label>
-                            <select name="productType">
+                            <select name="productType" id="productType">
                                 <% for (let i=0; i< pTypes.length; i++) { %>
                                     <% if(usrInput != null && usrInput.ProductType != null && usrInput.ProductType == pTypes[i].id){ %>
                                         <option value=<%= pTypes[i].id %> selected><%= pTypes[i].name %></option>
@@ -79,10 +87,11 @@
                                     <% } %>
                                 <% } %>
                             </select>
+                            <div class="messages"></div>
                         </div>
                         <div class='flex-inner dropdowns'>
                             <label for="productState">Estado de producto:</label>
-                            <select name="productState">
+                            <select name="productState" id="productState">
                                 <% for (let i=0; i< pStates.length; i++) { %>
                                     <% if(usrInput != null && usrInput.ProductState != null && usrInput.ProductState == pStates[i].id){ %>
                                         <option value=<%= pStates[i].id %>><%= pStates[i].name %></option>
@@ -91,10 +100,11 @@
                                     <% } %>
                                 <% } %>
                             </select>
+                            <div class="messages"></div>
                         </div>
                     </div>
                     <div>
-                        <button class='ingresar' type='submit'> Cargar </button>
+                        <button class='ingresar' type='submit' id="btnSave"> Cargar </button>
                         <button class='ingresar' type='button' onclick="javascript: window.location ='/admin';"> Volver </button>
                     </div>
                     

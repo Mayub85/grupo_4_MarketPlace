@@ -133,32 +133,6 @@ div.innerData label:nth-child(1){
   vertical-align: middle;
 }
 
-.hidden{
-  display: none;
-}
-
-
-/*ERRORS*/
-
-.has-error {
-  border: solid 2px red;
-}
-
-.messages{
-  width: 90%;
-}
-
-.messages p{
-  margin: 0px;
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
-  color: red;
-  padding: 2px;
-  text-align: left;
-}
-
-
-
 
 /*TOP ERRORS*/
 div.errors{

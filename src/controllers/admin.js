@@ -148,7 +148,6 @@ module.exports = {
                     }
                 }
                 req.session.pcErrors = errors;
-                // console.log(errors);
                 res.redirect(`/admin/productCreation?state=3`);
 
             }

@@ -69,6 +69,8 @@ a {
     align-items: center;
     justify-content: space-around;
     padding: 0px;
+    margin-top:5px;
+    margin-bottom:5px;
 }
 
 .smalltext {
@@ -126,8 +128,6 @@ input {
   padding: 5px;
   box-sizing: border-box;
   border-radius: 5px;
-  margin-bottom:5px;
-  
 }
 
 textarea {
@@ -309,4 +309,28 @@ ul.adminOptions li a{
 
 ul.adminOptions li a:hover, ul.adminOptions li:hover a{
   font-size: large;
+}
+
+
+/*VALIDACIONES*/
+
+.hidden{
+  display: none;
+}
+
+.has-error {
+  border: solid 2px red;
+}
+
+.messages{
+  width: 95%;
+}
+
+.messages p{
+  margin: 0px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: red;
+  padding: 2px;
+  text-align: left;
 }

@@ -177,3 +177,27 @@ button.ingresar {
 footer {
   margin-top: 0px;
 }
+
+
+/*VALIDACIONES*/
+
+.hidden{
+  display: none;
+}
+
+.has-error {
+  border: solid 2px red;
+}
+
+.messages{
+  width: 90%;
+}
+
+.messages p{
+  margin: 0px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: red;
+  padding: 2px;
+  text-align: left;
+}

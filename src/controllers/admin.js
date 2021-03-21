@@ -299,7 +299,11 @@ module.exports = {
             if(errors.isEmpty()) {
                 let images;
                 if(req.session.ImagesArray != undefined && req.session.ImagesArray.length > 0){
-                    images = [...req.files.images.map(i=> {return i.filename}), ...req.session.ImagesArray];
+                    if(typeof req.files.images != "undefined"){
+                        images = [...req.files.images.map(i=> {return i.filename}), ...req.session.ImagesArray];
+                    } else {
+                        images = [...req.session.ImagesArray];
+                    }
                 } else{
                     images = req.files.images.map(i=> {return i.filename});
                 }
@@ -729,6 +733,7 @@ module.exports = {
 
     userEditionSave: function(req, res){
         let id = 0;
+        let newAvatar = req.session.userAvatar;
         try {
             let {name, lastName, email, password} = req.body;
             let errors = validationResult(req);
@@ -743,8 +748,7 @@ module.exports = {
             req.session.usrInput = usrInput;
          
             if(errors.isEmpty()) {
-                let newAvatar = req.session.userAvatar;
-                if(typeof req.files.avatar != undefined && req.files.avatar.length > 0){
+                if(typeof req.files.avatar != "undefined" && req.files.avatar.length > 0){
                     newAvatar = req.files.avatar[0].filename;
                 }
 
@@ -763,7 +767,7 @@ module.exports = {
                 )
                 .then(result=>{
                     if(result && result.length > 0 && result[0] == 1){
-                        req.session.userAvatar = req.files.avatar[0].filename;
+                        req.session.userAvatar = newAvatar;
                         return res.redirect(`/admin/userEdition/${id}?state=1&id=${id}`);//OK
                     } else{
                         if(typeof req.files.avatar != "undefined"){

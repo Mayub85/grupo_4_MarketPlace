@@ -1,6 +1,8 @@
 var fslider;
 $(document).ready(()=>{
+  if(!!$.prototype.toasty){
     $("body").toasty();
+  }
     $('#sandwich').on( "click", function() {
         $("#menu").slideToggle();
     });
@@ -174,4 +176,135 @@ function closeSession(id) {
   if(res){
     window.location = "/users/close/" + id;
   }
+}
+
+/**
+ * Format bytes as human-readable text.
+ * 
+ * @param bytes Number of bytes.
+ * @param si True to use metric (SI) units, aka powers of 1000. False to use 
+ *           binary (IEC), aka powers of 1024.
+ * @param dp Number of decimal places to display.
+ * 
+ * @return Formatted string.
+ */
+ function humanFileSize(bytes, si=false, dp=1) {
+  const thresh = si ? 1000 : 1024;
+
+  if (Math.abs(bytes) < thresh) {
+    return bytes + ' B';
+  }
+
+  const units = si 
+    ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'] 
+    : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+  let u = -1;
+  const r = 10**dp;
+
+  do {
+    bytes /= thresh;
+    ++u;
+  } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
+
+
+  return bytes.toFixed(dp) + ' ' + units[u];
+}
+
+function checkImage(input, maxSize, regexExt, regexMsg, required=false) { 
+  var files = input.files;
+  var maxSize = maxSize; //bytes
+  let errorCount = 0; 
+  let msg = "";
+  let isError = false;
+
+  if(required && files.length == 0){
+    isError = true;
+    errorCount++;
+    msg = "Al menos una imagen es requerida";
+  }
+
+  if(!isError){
+    for(let i=0; i < files.length; i++){
+      let file = files[i];
+      let fileName = file.name;
+      let pointIdx = fileName.lastIndexOf(".");
+      let ext = fileName.substring(pointIdx+1, fileName.length)
+    
+      if(!regexExt.test(ext)){
+        errorCount++;
+        msg = regexMsg;
+        isError = true;
+        break;
+      }
+    
+      if(file.size > maxSize){
+        errorCount++;
+        msg = `Las imágenes no pueden pesar más de ${humanFileSize(maxSize, true)}`;
+        isError = true;
+        break;
+      }
+    }
+  }
+
+  let messages = input.parentElement.getElementsByClassName("messages")[0];
+  messages.innerHTML = "";
+  if(isError){
+    input.classList.add("has-error");
+    let block = document.createElement("p");
+    block.classList.add("help-block");
+    block.classList.add("error");
+    block.innerText = msg;
+    messages.appendChild(block);
+  } else {
+    input.classList.remove("has-error");
+  }
+
+  return isError ? 1 : 0;
+
+}
+
+/*
+field: el elemento html
+regex: expresión regular a utilizar
+regexMsg: el mensaje a mostrar si no se cumple la condición de la regex
+min: Cantidad mínima de caracteres. -1 para no permitir vacío, 0 no valida por cantidad.
+fieldName: Nombre del campo a mostrar en los mensajes
+Retorna: 0 si no tiene error, 1 si tiene error
+*/
+function checkTextField(field, regex=null, regexMsg="", min=0, fieldName=""){//min -1 es para que no esté vacío
+  let isError = false;
+  let error = "";
+  if(min > 0){
+    if(field.value.length < min){
+      error = `El campo ${fieldName != "" ? fieldName + " " : fieldName}debe contener al menos ${min} caracteres`;
+      isError = true;
+    }
+  } else if(min == -1){
+    if(field.value.length == 0){
+      error = `El campo ${fieldName != "" ? fieldName + " " : fieldName}no puede estar vacío`;
+      isError = true;
+    }
+  }
+
+  if(!isError && regex){
+    if(!regex.test(field.value)){
+      error = regexMsg; 
+      isError = true;
+    }
+  }
+
+  //encuentro al div hermano con clase messages
+  let messages = field.parentElement.getElementsByClassName("messages")[0];
+  messages.innerHTML = "";
+  if(isError){
+    field.classList.add("has-error");
+    let block = document.createElement("p");
+    block.classList.add("help-block");
+    block.classList.add("error");
+    block.innerText = error;
+    messages.appendChild(block);
+  } else {
+    field.classList.remove("has-error");
+  }
+  return isError ? 1 : 0;
 }

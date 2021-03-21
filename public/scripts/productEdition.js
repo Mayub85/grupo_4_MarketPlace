@@ -55,8 +55,10 @@ window.addEventListener("load",(e)=>{
       0.01,
       "Precio");
     
-    errCount += checkImage(inputImages, 5242880, /jpg|jpeg|png|gif/i, "Formatos aceptados PDF, JPG, JPEG o GIF", true);
-   
+    if(typeof document.getElementById("preImages") == "undefined" || document.getElementById("preImages") == null){
+      errCount += checkImage(inputImages, 5242880, /jpg|jpeg|png|gif/i, "Formatos aceptados PDF, JPG, JPEG o GIF", true);
+    }
+
     if(errCount == 0){
       form.submit();
     }
@@ -76,7 +78,7 @@ function checkPriceField(field, regex=null, regexMsg="", min, fieldName=""){
   } 
 
   if(!isError && regex){
-    if(!regex.test(field.value)){
+    if(!regex.test(parseFloat(field.value))){
       error = regexMsg; 
       isError = true;
     }

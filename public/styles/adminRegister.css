@@ -181,3 +181,8 @@ button.ingresar {
 footer {
   margin-top: 0px;
 }
+
+/*Fix messages*/
+.messages {
+  width: 90%;
+}

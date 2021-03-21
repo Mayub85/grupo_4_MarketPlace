@@ -5,6 +5,8 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/styles/adminRegister.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/scripts/admin.js"></script>
+    <script src="/scripts/global.js"></script>
+    <script src="/scripts/editAdmin.js"></script>
 <body>
     <div class="errors">
         <% if(typeof errors != "undefined") {%>
@@ -41,33 +43,38 @@
                     <h1>EDICIÓN DE USUARIO</h1>
                     <div class="main">
                         <div class='flex-inner'>
-                            <input type='text' class='entry' name='name' placeholder='Nombre' value="<%= usrInput != null ? usrInput.name : user.name %>">
+                            <input type='text' class='entry' name='name' id='name' placeholder='Nombre' value="<%= usrInput != null ? usrInput.name : user.name %>">
+                            <div class="messages"></div>
                         </div>
                         <div class='flex-inner'>
-                            <input type='text' class='entry' name='lastName' placeholder='Apellido' value="<%= usrInput != null ? usrInput.lastName : user.lastName %>">
+                            <input type='text' class='entry' name='lastName' id='lastName' placeholder='Apellido' value="<%= usrInput != null ? usrInput.lastName : user.lastName %>">
+                            <div class="messages"></div>
                         </div>
                         <div class='flex-inner'>
-                            <input type='text' class='entry' name='email' placeholder='Email' value="<%= usrInput != null ? usrInput.email : user.email %>">
+                            <input type='text' class='entry' name='email' id='email' placeholder='Email' value="<%= usrInput != null ? usrInput.email : user.email %>">
+                            <div class="messages"></div>
                         </div>
                         <div class='flex-inner'>
-                            <input type='password' class='entry' name='password' placeholder='Password'>
+                            <input type='password' class='entry' name='password' id='password' placeholder='Password'>
+                            <div class="messages"></div>
                         </div>
                         <div class='flex-inner images'> 
                             <label for="avatar">Avatar:</label>
-                            <input type="file" name="avatar">
+                            <input type="file" name="avatar" id="avatar">
                             <% if (typeof user.avatar != "undefined" && user.avatar != "") { %>
                                 <ul>
                                     <li>
                                         <input id="btnDelImg<%= user.id %>" type="button" value="X" onclick="javascript: deleteUserImage('<%= user.id %>', '<%= user.avatar %>');">
                                         <!-- data-id="<%= user.id %>" data-filename="<%= user.avatar %>" -->
-                                        <img src="/images/users/<%= user.avatar %>" alt="<%= user.email %>">
+                                        <img src="/images/users/<%= user.avatar %>" alt="<%= user.email %>" id="usrImage">
                                     </li>
                                 </ul>
                             <% } %>
+                            <div class="messages"></div>
                         </div>
                     </div>
                     <div>
-                        <button class='ingresar' type='submit'> Actualizar </button>
+                        <button class='ingresar' type='submit' id="btnSave"> Actualizar </button>
                         <button class='ingresar' type='button' onclick="javascript: window.location ='/admin';"> Volver </button>
                     </div>
                     

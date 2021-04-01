@@ -60,7 +60,7 @@ Algunos objetivos opcionales se nos ven lejanos por la disminución a la mitad d
 Se tratará de compensar la pérdida de 2 integrantes con un poco más de tiempo personal (en la medida de lo posible)
 
 
-----Sprint 5 y 6----
+----Sprint 5, 6 y 7----
 
 -Qué hicimos bien?
 

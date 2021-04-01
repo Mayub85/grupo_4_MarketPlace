@@ -33,7 +33,7 @@ module.exports = {
         let q = req.query.q ? req.query.q : "";
         let promesa1 = db.Product.findAll({
             include: [{
-                association: "brands"
+                association: "brands",
             }],
             where: { 
                 name: { [Op.like]: `%${q}%`  }

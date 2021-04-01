@@ -85,6 +85,12 @@ module.exports = function (sequelize, dataTypes){
                 as: "states",        //este es un alias de la relación 
                 foreignKey: "ProductState"   //la columna fk de la tabla products (la que apunta al id de la tabla states)
             })
+            ,
+        Product.belongsTo(models.Type,       
+            {
+                as: "types",        //este es un alias de la relación 
+                foreignKey: "ProductType"   //la columna fk de la tabla products (la que apunta al id de la tabla states)
+            })
     }
 
     return Product

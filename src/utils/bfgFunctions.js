@@ -20,6 +20,10 @@ const bfgFunctions = {
         }
         return newArr;
     },
+
+    imageToURL:(req, image, imageFolder="") =>{
+        return `${req.protocol}://${req.get('host')}/images/${imageFolder}/${image}`;
+    }
     
 }
 

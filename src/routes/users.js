@@ -47,7 +47,7 @@ router.post("/register",
                     }
                     return true;
                 }),
-                check('ciudadDeEntrega').isLength({min:5}).withMessage('Debes ingresar una ciudad de entrega'),
+                check('ciudadDeEntrega').isLength({min:3}).withMessage('Debes ingresar una ciudad de entrega'),
                 check('paisDeEntrega').isLength({min:4}).withMessage('Debes ingresar un país de entrega'),
                 check('calleDeEntrega').isLength({min:5}).withMessage('Debes ingresar una dirección de entrega'),
                 check('cpDeEntrega').isLength({min:4}).withMessage('Debes ingresar un código postal de entrega'),

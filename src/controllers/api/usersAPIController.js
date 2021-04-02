@@ -26,7 +26,7 @@ const usersAPIController = {
                         msg: error.toString(),
                     }
             };
-            res.send();
+            res.send(respuesta);
         })
     },
 

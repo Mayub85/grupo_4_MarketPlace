@@ -1,19 +1,19 @@
-<div class="product">
-    <div><img src=<%= "../images/products/" + product.Image %> alt=<%= product.Name %>></div>
+<div class="product" id=<%= "product_" + product.Id %>>
+    <div><img src=<%= "/images/products/" + product.Image %> alt=<%= product.Name %>></div>
     <div class="productDetail">
         <h3 class="name"><%= product.Name %></h3>
         <span>COD: <%= product.Code %></span>
-        <button>Eliminar</button>
+        <button onclick="javascript:removeCart(this);" id=<%= product.Id %>>Eliminar</button>
     </div>
     <div class="productQty">
         <div class="quantity">
-            <input type="number" min="1" max="9" step="1" value="1">
+            <input type="number" min="1" max="9" step="1" value=<%= product.Qty %> id=<%= "qyt_" + product.Id %>>
         </div>
     </div>
     <div class="productPrice">
-        <span>$<%= product.Price %></span>
+        <span>$<span id=<%= "product_price_" + product.Id %>><%= product.Price %></span></span>
     </div>
     <div class="productSubtotal">
-        <span>$<%= product.Price %></span>
+        <span>$<span id=<%= "product_total_" + product.Id %>><%= (product.Price * product.Qty).toFixed(2) %></span></span>
     </div>
 </div>

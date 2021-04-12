@@ -14,7 +14,30 @@ $(document).ready(()=>{
       });
     //FIX ancho del slider principal
     setTimeout(()=>{fslider.resize();}, 200);
+    $("#btnCart").on('click', ()=>{
+      addToCart();
+   });
 });
+
+function addToCart(){
+  let urlSplitted = window.location.href.split("/");
+  let id = urlSplitted[urlSplitted.length -1].split("?")[0];
+  $.ajax({
+      url: `/products/cart/add/${id}`,
+      type: 'POST',
+      success: function(result) {
+        if(JSON.parse(result).status == 204){
+          window.location = `/users`;
+        }else{
+          window.location = `/products/cart`;
+        }
+      },
+      error: function(result) {
+          console.log(result);
+          window.location = `/error`;
+      }
+  });
+}
 
 
 function setupNumberInputs (){

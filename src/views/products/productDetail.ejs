@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-    <%- include('./partials/head') %>
+    <%- include('../partials/head') %>
     <link rel="stylesheet" href="/plugins/flexCarousel/flexslider.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" type="text/css" media="screen" href="/styles/productDetail.css" />
@@ -15,7 +15,7 @@
     <script src="/scripts/productDetail.js"></script>
 
 <body>
-    <%- include('./partials/header') %>
+    <%- include('../partials/header') %>
 
     <main>
         <section class="prodSection">
@@ -97,7 +97,7 @@
                 <a class="deliverPrice" href="#">Consultar costo envío</a>
 
                 <div class="buttons">
-                    <button class="btnAgregar">Agregar Carrito</button>
+                    <button class="btnAgregar" id="btnCart">Agregar Carrito</button>
                     <button class="btnConfirmarCompra">Confirmar Compra</button>
                 </div>
 
@@ -130,7 +130,7 @@
 
     </main>
 
-    <%- include('./partials/footer') %>
+    <%- include('../partials/footer') %>
 
 </body>
 </html>

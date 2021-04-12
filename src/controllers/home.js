@@ -47,7 +47,7 @@ module.exports = {
          //   res.send(error);
             res.render("error", {msg: "Error inesperado. Intentalo más tarde. ",
                             img: "broken.jpg",
-         })
+         });
         });
 
     }

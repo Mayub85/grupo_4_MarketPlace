@@ -24,6 +24,8 @@ function search(){
     let txt = $("#inputSearch").val();
     if(txt.toLowerCase() == "herni!"){
       $("body").toasty('pop');
+    } else if(txt.toLowerCase() == "jero;"){
+      jeroMan();
     }else{
       window.location = "/products/search?q=" + txt;
     }
@@ -307,4 +309,17 @@ function checkTextField(field, regex=null, regexMsg="", min=0, fieldName=""){//m
     field.classList.remove("has-error");
   }
   return isError ? 1 : 0;
+}
+
+function jeroMan(){
+  let content = `
+  <div id="modal">
+    <div class="head">
+      <div class="head-top"></div>
+      <div class="head-bottom"></div>
+    </div>
+  </div>`;
+  
+  $("body").append(content);
+  setTimeout(()=>{$("#modal").remove();}, 10000);
 }

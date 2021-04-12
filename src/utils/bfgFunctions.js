@@ -3,7 +3,9 @@ const bfgFunctions = {
         for (let i = 0; i < arr.length; i++) { //ESTE FOR lo hice para convertir la columna Images (que es un texto), a un array de strings
             let prod = arr[i];
             if (prod.Images && prod.Images.length > 0) {
-                prod.Images = JSON.parse(prod.Images);
+                if(typeof prod.Images == "string"){
+                    prod.Images = JSON.parse(prod.Images);
+                }
             }
         }
     },

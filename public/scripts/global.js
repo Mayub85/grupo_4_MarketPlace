@@ -319,7 +319,23 @@ function jeroMan(){
       <div class="head-bottom"></div>
     </div>
   </div>`;
-  
+  var audio = new Audio('/audio/wakawaka.mp3');
+  audio.loop = true;
+  audio.play();
   $("body").append(content);
-  setTimeout(()=>{$("#modal").remove();}, 10000);
+  let head = document.querySelector(".head");
+  var id = setInterval(frame, 5);
+  var xPos = 0;
+  function frame() {
+    if (xPos >= window.outerWidth) {
+      audio.setAttribute('src','/audio/pacman-go.mp3');
+      audio.loop = false;
+      audio.play();
+      $("#modal").remove();
+      clearInterval(id);
+    } else {
+      head.style.left = `${xPos}px`;
+      xPos += 3; 
+    }
+  }
 }

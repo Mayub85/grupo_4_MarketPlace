@@ -588,7 +588,7 @@ div.head{
 
 div.head .head-top,
 div.head .head-bottom {
-  background-color: #db9;
+  /* background-color: #db9; */
   height: 20vmin;
   width: 30vmin;
   border-radius: 20vmin 20vmin 0 0;
@@ -604,11 +604,15 @@ div.head .head-bottom {
   height: 15vmin;
   border-radius: 0 0 20vmin 20vmin;
   animation-name: bobble-head-bottom;
+  width: 56%;
 }
 
 /* // add eyes to .head-top */
 div.head .head-top {
   /* // and position the right eye */
+    background-image: url("/images/head-top.png");
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 div.head .head-top::before, .head-top::after {
   content: "";
@@ -619,7 +623,7 @@ div.head .head-top::before, .head-top::after {
   /* // position the left eye by default */
   margin-left: 10vmin;
   margin-top: 10vmin;
-  background-color: #000;
+  /* background-color: #000; */
   border-radius: 3vmin;
   animation-duration: 0.25s;
   animation-iteration-count: infinite;
@@ -628,6 +632,12 @@ div.head .head-top::before, .head-top::after {
 }
 div.head .head-top::after {
   margin-left: 20vmin;
+}
+
+div.head .head-bottom {
+    background-image: url("/images/head-bottom.png");    
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 /* // these might work better if the durations were different, effectively making more random-ish movements.

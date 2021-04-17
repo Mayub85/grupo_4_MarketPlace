@@ -4,7 +4,7 @@ const pController = require("../controllers/products");
 
 router.get("/cart", pController.cart);
 
-router.post("/cart/add/:id", pController.cartAdd);
+router.post("/cart/add/:id/:qty?", pController.cartAdd);
 
 router.post("/cart/remove/:id", pController.cartRemove);
 

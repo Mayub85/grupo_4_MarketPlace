@@ -43,6 +43,7 @@ module.exports = {
             return res.end(JSON.stringify({"success" : "Usuario no logueado", "status" : 204}));
         }
         let id = req.params.id;
+        let qty = req.params.qty;
         db.Product.findByPk(id)
         .then((product)=>{
             if(typeof req.session.cart != "undefined" && req.session.cart.length > 0){ //cart
@@ -58,7 +59,7 @@ module.exports = {
                                 Code: product.Code, 
                                 Price: product.Price, 
                                 Images: product.Images, 
-                                Qty: 1
+                                Qty: qty && typeof qty != "undefined" ? parseInt(qty) : 1
                             }
                         ]
                     };
@@ -76,12 +77,12 @@ module.exports = {
                             Code: product.Code, 
                             Price: product.Price, 
                             Images: product.Images, 
-                            Qty: 1
+                            Qty: qty && typeof qty != "undefined" ? parseInt(qty) : 1
                         });
                         req.session.cart = cart;
                         return res.end(JSON.stringify({"success" : "cartAdd exitoso", "status" : 200}));
                     } else {
-                        oriProd.Qty++;
+                        oriProd.Qty += qty && typeof qty != "undefined" ? parseInt(qty) : 1;
                         req.session.cart = cart;
                         return res.end(JSON.stringify({"success" : "cartAdd exitoso", "status" : 200}));
                     }
@@ -97,7 +98,7 @@ module.exports = {
                             Code: product.Code, 
                             Price: product.Price, 
                             Images: product.Images, 
-                            Qty: 1
+                            Qty: qty && typeof qty != "undefined" ? parseInt(qty) : 1
                         }
                     ]
                 };

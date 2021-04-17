@@ -22,8 +22,10 @@ $(document).ready(()=>{
 function addToCart(){
   let urlSplitted = window.location.href.split("/");
   let id = urlSplitted[urlSplitted.length -1].split("?")[0];
+  let prodQty = document.getElementById("prodQty");
+  let qty = prodQty && typeof prodQty != "undefined" ? parseInt(prodQty.value) : 1; 
   $.ajax({
-      url: `/products/cart/add/${id}`,
+      url: `/products/cart/add/${id}/${qty}`,
       type: 'POST',
       success: function(result) {
         if(JSON.parse(result).status == 204){
